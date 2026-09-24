@@ -1,795 +1,1341 @@
 <!doctype html>
-<html lang="en">
+<!-- data-theme="light" matches the homepage: this surface commits to the
+     light ground on purpose and ignores the viewer's theme, because the
+     Hull slab only alternates against paper. -->
+<html lang="en" data-theme="light">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="color-scheme" content="light only" />
-<meta name="supported-color-schemes" content="light" />
-<title>Case Study — PureSteel Construction Inc. · JMG</title>
-<meta name="description" content="How PureSteel Construction Inc. went from manual copy-paste contract work to a fully automated onboarding-to-filing pipeline, saving 15–17 hours a month." />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="color-scheme" content="light" />
+
+<title>PureSteel Construction Inc. Case Study, JMG Systems</title>
+<meta name="description" content="How PureSteel Construction Inc. went from manual copy-paste contract work to a fully automated onboarding-to-filing pipeline, saving 15 to 17 hours a month." />
+<link rel="canonical" href="https://gonzalezjuanm.com/case/puresteel/" />
+
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://gonzalezjuanm.com/case/puresteel/" />
+<meta property="og:site_name" content="JMG Systems" />
+<meta property="og:title" content="PureSteel Construction Inc. Case Study, JMG Systems" />
+<meta property="og:description" content="Onboarding, contracts, change orders, signatures and filing, each handled by hand, now running on their own." />
+<meta property="og:image" content="https://gonzalezjuanm.com/assets/og-home.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:locale" content="en_US" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="PureSteel Construction Inc. Case Study, JMG Systems" />
+<meta name="twitter:image" content="https://gonzalezjuanm.com/assets/og-home.png" />
+
 <link rel="icon" href="../../assets/favicon.svg" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="apple-touch-icon" href="../../assets/favicon.svg" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@100;200;300;400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+
 <style>
-  :root {
-    color-scheme: light only;
-    --oat:            #F4EFE6;
-    --oat-deep:       #EDE5D5;
-    --ink:            #1F1A14;
-    --ink-soft:       #2A241C;
-    --stone:          #5C544A;
-    --rule:           #D9D2C5;
-    --persimmon:      #D96833;
-    --persimmon-deep: #C25729;
-    --f-display: "Fraunces", Georgia, serif;
-    --f-body:    "Inter", system-ui, sans-serif;
-    --f-mono:    "JetBrains Mono", ui-monospace, monospace;
-    --ease: cubic-bezier(0.2, 0.6, 0.2, 1);
-    --container-max: 1240px;
-    --container-pad: 56px;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-  html { scroll-behavior: smooth; scroll-padding-top: 76px; }
-  body {
-    font-family: var(--f-body);
-    background: var(--oat);
-    color: var(--ink);
-    line-height: 1.6;
-    overflow-x: hidden;
-    position: relative;
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
-  }
+/* ══════════════════════════════════════════════════════════════════
+   PureSteel case study, rebuilt on the current System B / Hull
+   identity so the click through from the homepage lands on the same
+   website. Tokens and shared components are lifted from index.html
+   rather than rebuilt, so the two pages cannot drift apart.
 
-  /* Paper grain */
-  body::before {
-    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0;
-    opacity: .45; mix-blend-mode: multiply;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.12  0 0 0 0 0.10  0 0 0 0 0.08  0 0 0 0.11 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
-  }
-  body > * { position: relative; z-index: 2; }
-  a { color: inherit; text-decoration: none; }
+   Structure: the homepage alternates full-bleed bands, and this page
+   does the same. The one page-specific move is the Journey, where
+   each of the five steps takes its own band and the ground changes
+   underneath the reader as the story moves. Picked from a rendered
+   three-way comparison 2026-09-24.
 
-  /* ── Nav ─────────────────────────────────────────────── */
-  .nav {
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    background: var(--oat);
-    border-bottom: 1px solid var(--rule);
-  }
-  .nav .inner {
-    max-width: var(--container-max);
-    margin: 0 auto;
-    padding: 22px var(--container-pad);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 24px;
-  }
-  .nav .nav-logo { display: block; line-height: 0; }
-  .nav .nav-logo img { height: 32px; width: auto; display: block; }
-  .nav .nav-back {
-    font-family: var(--f-mono);
-    font-size: 11px;
-    letter-spacing: .14em;
-    text-transform: uppercase;
-    color: var(--stone);
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    transition: color 200ms var(--ease);
-    margin-right: auto;
-    margin-left: 32px;
-  }
-  .nav .nav-back::before {
-    content: "←";
-    font-size: 13px;
-    color: var(--persimmon);
-    transition: transform 200ms var(--ease);
-  }
-  .nav .nav-back:hover { color: var(--ink); }
-  .nav .nav-back:hover::before { transform: translateX(-3px); }
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    padding: 14px 22px;
-    font-family: var(--f-body);
-    font-weight: 500;
-    font-size: 15px;
-    border: 1px solid transparent;
-    cursor: pointer;
-    transition: background 200ms var(--ease), color 200ms var(--ease), transform 120ms var(--ease);
-    text-decoration: none;
-    line-height: 1;
-  }
-  .btn .arr { font-family: var(--f-mono); font-size: 13px; }
-  .btn-primary { background: var(--persimmon); color: #fff; }
-  .btn-primary:hover { background: var(--persimmon-deep); }
-  .btn-primary:active { transform: translateY(1px); }
-  @media (max-width: 560px) {
-    .nav .inner { padding: 18px 20px; }
-    .btn-primary { display: none; }
-    .nav .nav-back { margin-left: 20px; }
-  }
+   No rule is used to divide one section from the next anywhere on
+   this page. Sections separate by ground value, scale and space. The
+   only rules present are the 2px region openers that belong to the
+   .record component itself, lifted with it.
+   ══════════════════════════════════════════════════════════════════ */
+:root{
+  --ink:#021F94;
+  --paper:#F5F2F3;
+  --surface:#EAE9EF;
+  --ink-soft:#2E45A5;
+  --muted:#5567B4;
+  --line:#D3D4E6;
+  --line-strong:#7C88C4;
+  --gold:#D3A50D;           /* the one accent, fill only, never text */
+  --on-hull:#A2ACD6;        /* secondary text on hull, 7.81:1 */
+  --on-hull-line:rgba(245,242,243,.2);
+  --hull:#04124F;           /* the primary anchor */
 
-  /* ── Page blobs ─────────────────────────────────────── */
-  .page-blobs {
-    position: absolute; inset: 0; pointer-events: none; z-index: 1; overflow: hidden;
-  }
-  .page-blobs svg { position: absolute; display: block; }
-  @keyframes washDrift {
-    0%,100% { transform: translate(0,0) scale(1) rotate(0deg); }
-    50%      { transform: translate(-12px,8px) scale(1.04) rotate(-1.2deg); }
-  }
-  .page-blobs svg { animation: washDrift 28s ease-in-out infinite; }
-  .pb-c { left:-260px; top:30%; width:620px; height:440px; opacity:.85; animation-delay:-12s; animation-duration:26s; }
-  .pb-d { right:-240px; top:44%; width:700px; height:460px; opacity:.95; animation-delay:-4s; animation-duration:30s; }
-  .pb-g { left:-220px; top:80%; width:600px; height:560px; opacity:.95; animation-delay:-3s; animation-duration:34s; }
-  .pb-h { right:-160px; top:92%; width:460px; height:360px; opacity:.85; animation-delay:-11s; }
+  --max:1200px;
+  --pad:clamp(20px,5vw,56px);
+  --band:clamp(72px,9vw,128px);
+  /* The Journey spends five bands where the homepage spends one
+     section, so the step bands run tighter than --band to keep the
+     run from doubling the length of the page. */
+  --band-step:clamp(54px,6.5vw,92px);
 
-  /* ── Case study hero ───────────────────────────────── */
-  .cs-hero {
-    background: var(--oat);
-    color: var(--ink);
-    padding: 46px 18px 0;
-    position: relative;
-    overflow: hidden;
-  }
+  --display:Archivo,"Avenir Next",Avenir,system-ui,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,sans-serif;
+  --ease:cubic-bezier(.2,.8,.2,1);
+}
 
-  /* Download band — full-bleed oat-deep strip anchored to the stat bar */
-  .cta-band {
-    background: var(--oat-deep);
-    border-top: 1px solid var(--rule);
-    position: relative; z-index: 2;
-    margin: 32px -18px 0;
-  }
-  .cta-band .cta-inner {
-    max-width: 600px; margin: 0 auto; padding: 20px 18px;
-    display: flex; align-items: center; justify-content: space-between; gap: 20px;
-  }
-  .cta-band .txt .t {
-    font-family: var(--f-display); font-variation-settings: "opsz" 72;
-    font-weight: 500; font-size: 18px; letter-spacing: -.01em;
-    color: var(--ink); line-height: 1.15;
-  }
-  .cta-band .txt .s {
-    font-family: var(--f-mono); font-size: 10px; letter-spacing: .13em;
-    text-transform: uppercase; color: var(--stone); margin-top: 6px;
-    white-space: nowrap;
-  }
-  .cta-band .dl {
-    flex-shrink: 0;
-    display: inline-flex; align-items: center;
-    background: var(--persimmon); color: var(--oat);
-    font-family: var(--f-body); font-weight: 600; font-size: 14px; letter-spacing: .005em;
-    padding: 13px 24px; text-decoration: none; cursor: pointer; white-space: nowrap;
-    transition: background .3s ease, transform .3s ease;
-  }
-  .cta-band .dl:hover { background: var(--persimmon-deep); transform: translateY(-1px); }
-  @media (max-width: 420px) {
-    .cta-band .cta-inner { flex-direction: column; align-items: stretch; gap: 16px; }
-    .cta-band .dl { justify-content: center; }
-  }
-  .cs-hero .inner { max-width: 600px; margin: 0 auto; position: relative; z-index: 2; }
-  .cs-hero .ink-wash {
-    position: absolute; z-index: 0; pointer-events: none;
-    animation: washDrift 18s ease-in-out infinite;
-    transform-origin: 60% 50%;
-  }
-  .cs-hero .ink-wash.iw-orange { right:-220px; top:-140px; width:960px; height:640px; opacity:.85; }
-  .cs-hero .ink-wash.iw-ink    { left:-220px; bottom:-260px; width:820px; height:540px; opacity:1; animation-delay:-6s; animation-duration:24s; }
-  @media (max-width:880px) {
-    .cs-hero .ink-wash.iw-orange { width:640px; height:440px; right:-180px; top:-110px; }
-    .cs-hero .ink-wash.iw-ink    { width:560px; height:380px; left:-180px; bottom:-180px; }
-  }
-  @media (max-width:560px) {
-    .cs-hero .ink-wash.iw-orange { width:460px; height:320px; right:-140px; top:-80px; }
-    .cs-hero .ink-wash.iw-ink    { width:420px; height:280px; left:-140px; bottom:-140px; }
-  }
-  .toplabels { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:26px; }
-  .mono-label {
-    font-family: var(--f-mono); font-size:11px; letter-spacing:.14em;
-    text-transform:uppercase; color:var(--stone);
-  }
-  .mono-label.stamp { color:var(--persimmon-deep); display:inline-flex; align-items:center; gap:8px; }
-  .mono-label.stamp::before {
-    content:""; width:7px; height:7px; border-radius:50%; background:var(--persimmon);
-    animation: dotPulse 3.6s ease-in-out infinite;
-  }
-  @keyframes dotPulse {
-    0%,100% { transform:scale(1); box-shadow:0 0 0 0 rgba(217,104,51,0); }
-    50%     { transform:scale(1.18); box-shadow:0 0 0 4px rgba(217,104,51,.12); }
-  }
-  .cs-hero h1 {
-    font-family: var(--f-display); font-variation-settings:"opsz" 144;
-    font-weight:400; font-size:34px; line-height:1.05; letter-spacing:-.02em; text-wrap:balance;
-  }
-  .cs-hero .lede {
-    margin-top:16px; font-size:15px; color:var(--ink-soft); font-weight:400; max-width:96%; line-height:1.6;
-  }
-  .cs-hero .client {
-    margin-top:20px; font-family:var(--f-mono); font-size:11px; letter-spacing:.12em;
-    text-transform:uppercase; color:var(--stone);
-  }
+*,*::before,*::after{box-sizing:border-box;}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:88px;}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--body);font-size:17px;line-height:1.65;
+  font-variant-numeric:tabular-nums;-webkit-font-smoothing:antialiased;
+}
+p{margin:0;}
+a{color:inherit;}
+img{max-width:100%;}
 
-  /* ── Stat bar ─────────────────────────────────────── */
-  .stat-bar {
-    background: var(--ink);
-    display: flex; justify-content:center; text-align:center;
-    gap: clamp(28px,9vw,64px);
-    padding: 22px 12px; position:relative; z-index:2; overflow:hidden;
-  }
-  .stat-bar::before {
-    content:""; position:absolute; inset:0; pointer-events:none;
-    background: radial-gradient(ellipse at 50% 50%, rgba(217,104,51,.10), transparent 65%);
-    opacity:0; transition:opacity 1.2s ease;
-  }
-  .stat-bar.stats-live::before { opacity:1; }
-  .stat-bar .stat { position:relative; z-index:1; }
-  .stat-bar .stat .num {
-    font-family: var(--f-display); font-variation-settings:"opsz" 100; font-weight:500; font-size:26px;
-    color: var(--persimmon); line-height:1; letter-spacing:-.01em;
-    display:inline-block; font-variant-numeric:tabular-nums;
-  }
-  .stat-bar .stat .lbl {
-    font-family: var(--f-mono); font-size:9px; letter-spacing:.14em; text-transform:uppercase;
-    color: rgba(244,239,230,.6); margin-top:8px;
-    opacity:0; transform:translateY(4px);
-    transition: opacity .6s ease .15s, transform .6s ease .15s;
-  }
-  .stat-bar.stats-live .stat .lbl { opacity:1; transform:none; }
+::selection{background:var(--gold);color:var(--hull);}
+:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:2px;}
+.on-dark :focus-visible,.nav :focus-visible{outline-color:var(--paper);}
 
-  /* ── Content wrap ─────────────────────────────────── */
-  .wrap { max-width:600px; margin:0 auto; padding:0 18px; position:relative; z-index:2; }
+.wrap{width:100%;max-width:var(--max);margin:0 auto;padding-inline:var(--pad);}
 
-  .intro { margin-top:30px; font-size:15px; color:var(--ink-soft); line-height:1.65; }
-  .intro b { color:var(--ink); font-weight:600; }
+.skip{
+  position:absolute;left:-9999px;top:0;z-index:100;
+  background:var(--paper);color:var(--ink);padding:12px 18px;
+  font-family:var(--display);font-weight:600;text-decoration:none;
+}
+.skip:focus{left:12px;top:12px;}
 
-  .section-label {
-    text-align:left; font-family:var(--f-mono); font-size:11px; letter-spacing:.14em;
-    text-transform:uppercase; color:var(--stone); font-weight:400;
-    margin:38px 0 16px; padding-top:16px; border-top:1px solid var(--rule);
-  }
+/* ── Shared type ────────────────────────────────────────────────── */
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;margin:0;
+  font-family:var(--display);font-weight:600;font-size:.75rem;
+  letter-spacing:.11em;text-transform:uppercase;
+  color:var(--ink-soft);text-decoration:none;
+}
+.on-dark .eyebrow{color:var(--paper);}
+a.eyebrow{transition:opacity .2s var(--ease);}
+a.eyebrow:hover{opacity:.78;}
 
-  /* ── Foundation card ──────────────────────────────── */
-  .foundation {
-    background: var(--oat-deep);
-    border: 1px solid var(--persimmon);
-    padding: 22px 20px;
-  }
-  .foundation .tag {
-    display:inline-flex; align-items:center; gap:8px;
-    font-family:var(--f-mono); font-size:11px; font-weight:400; letter-spacing:.14em; text-transform:uppercase;
-    color:var(--persimmon-deep); margin-bottom:12px;
-  }
-  .foundation .tag::before {
-    content:""; width:7px; height:7px; border-radius:50%; background:var(--persimmon);
-    animation: dotPulse 3.6s ease-in-out infinite; animation-delay:.4s;
-  }
-  .foundation h3 {
-    font-family:var(--f-display); font-variation-settings:"opsz" 72;
-    font-weight:500; font-size:24px; letter-spacing:-.01em; color:var(--ink);
-  }
-  .foundation p { font-size:14px; color:var(--ink-soft); margin-top:9px; }
-  .foundation .why {
-    margin-top:14px; font-size:13px; background:var(--oat);
-    border:1px solid var(--rule); padding:12px 14px; color:var(--ink-soft); line-height:1.6;
-  }
-  .foundation .why b { color:var(--persimmon-deep); font-weight:600; }
-  .flow-map { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:14px; }
-  .flow-map .src { background:var(--oat); border:1px solid var(--rule); padding:12px 13px; display:flex; flex-direction:column; gap:5px; }
-  .flow-map .src-k { font-family:var(--f-mono); font-size:9.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--persimmon-deep); }
-  .flow-map .src-v { font-family:var(--f-display); font-variation-settings:"opsz" 72; font-weight:500; font-size:16px; letter-spacing:-.01em; color:var(--ink); line-height:1.1; }
-  .flow-map .src-n { font-size:11.5px; line-height:1.45; color:var(--stone); }
-  @media (max-width:380px) { .flow-map { grid-template-columns:1fr; } }
+.h2{
+  margin:14px 0 0;font-family:var(--display);font-weight:600;
+  font-size:clamp(1.9rem,3.4vw,3rem);line-height:1.06;
+  letter-spacing:-.03em;max-width:20ch;text-wrap:balance;
+}
+.h3{
+  margin:0;font-family:var(--display);font-weight:600;
+  font-size:clamp(1.35rem,2.1vw,1.85rem);line-height:1.15;
+  letter-spacing:-.02em;text-wrap:balance;
+}
+.prose p{max-width:64ch;}
+.prose p + p{margin-top:16px;}
+.prose strong,.prose b{font-weight:600;}
 
-  /* ── Flow connector ───────────────────────────────── */
-  .flow-down {
-    width:1px; height:26px; background:var(--persimmon); margin:0 auto;
-    transform-origin:top center;
-  }
+/* Statement tier, the homepage's .closer role: a claim set larger
+   than prose and lighter than a heading. */
+.statement{
+  font-family:var(--display);font-weight:300;
+  font-size:clamp(1.3rem,2.3vw,1.95rem);line-height:1.32;
+  letter-spacing:-.025em;max-width:30ch;text-wrap:balance;
+}
+.statement b,.statement strong{font-weight:600;}
 
-  /* ── Stage cards ──────────────────────────────────── */
-  .stage {
-    background:var(--oat-deep); padding:20px; border-left:2px solid var(--persimmon);
-    position:relative;
-  }
-  .stage.signing { background:var(--ink); border-left-color:var(--persimmon); }
-  .stage .num {
-    font-family:var(--f-mono); font-size:11px; font-weight:400; letter-spacing:.14em;
-    color:var(--stone); text-transform:uppercase;
-  }
-  .stage.signing .num { color:rgba(244,239,230,.6); }
-  .stage h4 {
-    font-family:var(--f-display); font-variation-settings:"opsz" 72;
-    font-weight:500; font-size:21px; letter-spacing:-.01em; color:var(--ink); margin:4px 0 14px;
-  }
-  .stage.signing h4 { color:var(--oat); }
+/* Label tier */
+.lbl{
+  font-family:var(--display);font-weight:600;font-size:.75rem;
+  letter-spacing:.11em;text-transform:uppercase;color:var(--muted);
+}
+/* muted measures 4.74:1 on paper only and drops to 4.37:1 on surface,
+   so the label steps up to ink-soft anywhere but bare paper. */
+.band-surface .lbl{color:var(--ink-soft);}
+.on-dark .lbl{color:var(--on-hull);}
 
-  .ba { display:flex; flex-direction:column; gap:14px; margin-bottom:14px; }
-  .ba .blk .k {
-    font-family:var(--f-mono); font-size:10px; font-weight:400; letter-spacing:.14em;
-    text-transform:uppercase; margin-bottom:6px; display:inline-flex; align-items:center; gap:8px;
-  }
-  .ba .before .k { color:var(--stone); }
-  .ba .before .k::before { content:"\00D7"; font-size:14px; line-height:1; }
-  .ba .after .k { color:var(--persimmon-deep); }
-  .ba .after .k::before {
-    content:""; width:6px; height:6px; border-radius:50%; background:var(--persimmon);
-    animation: dotBreath 4.2s ease-in-out infinite;
-  }
-  @keyframes dotBreath {
-    0%,100% { transform:scale(1); opacity:.85; }
-    50%     { transform:scale(1.25); opacity:1; }
-  }
-  .stage.signing .ba .after .k { color:var(--persimmon); }
-  .ba .v { font-size:13.5px; line-height:1.6; }
-  .ba .before .v { color:var(--stone); }
-  .ba .after .v { color:var(--ink-soft); }
-  .stage.signing .ba .before .k { color:rgba(244,239,230,.55); }
-  .stage.signing .ba .before .v { color:rgba(244,239,230,.7); }
-  .stage.signing .ba .after .v  { color:rgba(244,239,230,.92); }
+/* Gold chip. Fill only, Hull text on top, and no border on any
+   ground, on paper included. */
+.chip{
+  display:inline-flex;align-items:center;justify-content:center;
+  height:26px;padding:0 12px;border-radius:999px;
+  background:var(--gold);color:var(--hull);
+  font-family:var(--display);font-weight:700;font-size:.75rem;
+  letter-spacing:.09em;text-transform:uppercase;white-space:nowrap;
+}
 
-  .saved {
-    display:flex; align-items:baseline; gap:10px;
-    background:var(--oat); border:1px solid var(--rule);
-    padding:11px 13px; font-size:13px; line-height:1.5; color:var(--ink-soft);
-  }
-  .stage.signing .saved {
-    background:rgba(244,239,230,.10); border-color:rgba(244,239,230,.22); color:rgba(244,239,230,.92);
-  }
-  .saved .mk {
-    font-family:var(--f-mono); font-size:10px; letter-spacing:.12em;
-    text-transform:uppercase; color:var(--persimmon-deep); flex-shrink:0; padding-top:1px;
-  }
-  .stage.signing .saved .mk { color:var(--persimmon); }
-  .saved b { color:var(--ink); font-weight:600; }
-  .stage.signing .saved b { color:var(--oat); }
+/* ── Buttons ────────────────────────────────────────────────────── */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  min-height:46px;padding:12px 26px;border-radius:999px;
+  font-family:var(--display);font-weight:600;font-size:.875rem;
+  letter-spacing:.01em;text-decoration:none;cursor:pointer;
+  border:1.5px solid transparent;white-space:nowrap;
+  transition:background-color .2s var(--ease),color .2s var(--ease),
+             border-color .2s var(--ease),transform .12s var(--ease);
+}
+.btn:active{transform:translateY(1px);}
+.btn .ar{display:inline-flex;transition:transform .2s var(--ease);}
+.btn:hover .ar{transform:translateX(4px);}
+.btn-light{background:var(--paper);color:var(--ink);border-color:var(--paper);}
+.btn-light:hover{background:#FFF;border-color:#FFF;}
+.btn-ghost-light{background:transparent;color:var(--paper);border-color:rgba(245,242,243,.42);}
+.btn-ghost-light:hover{border-color:var(--paper);background:rgba(245,242,243,.08);}
+.btn-ink{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+.btn-ink:hover{background:var(--ink-soft);border-color:var(--ink-soft);}
+.btn-ghost-ink{background:transparent;color:var(--ink);border-color:var(--line-strong);}
+.btn-ghost-ink:hover{border-color:var(--ink);background:rgba(2,31,148,.05);}
+.btn-amber{background:var(--gold);color:var(--hull);border-color:var(--gold);}
+.btn-amber:hover{background:var(--paper);border-color:var(--paper);}
 
-  /* ── Tally ────────────────────────────────────────── */
-  .tally { margin-top:34px; background:var(--ink); padding:30px 22px; color:var(--oat); }
-  .tally .tag {
-    font-family:var(--f-mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase;
-    color:var(--persimmon); display:inline-flex; align-items:center; gap:8px;
-  }
-  .tally .tag::before {
-    content:""; width:7px; height:7px; border-radius:50%; background:var(--persimmon);
-    animation: dotPulse 3.6s ease-in-out infinite;
-  }
-  .tally h3 {
-    font-family:var(--f-display); font-variation-settings:"opsz" 100;
-    font-weight:500; font-size:24px; margin:10px 0 20px; letter-spacing:-.01em;
-  }
-  .tally .grid { display:flex; flex-direction:column; gap:0; }
-  .tally .line {
-    display:flex; justify-content:space-between; align-items:baseline;
-    border-bottom:1px solid rgba(244,239,230,.14); padding:13px 0;
-  }
-  .tally .line:first-child { border-top:1px solid rgba(244,239,230,.14); }
-  .tally .line .what { font-size:13.5px; color:rgba(244,239,230,.8); font-weight:300; }
-  .tally .line .what b { font-weight:500; color:var(--oat); }
-  .tally .line .amt {
-    font-family:var(--f-mono); font-size:13px; font-weight:500; color:var(--persimmon);
-    white-space:nowrap; padding-left:14px; letter-spacing:.04em; font-variant-numeric:tabular-nums;
-  }
-  .tally .big { margin-top:22px; border:1px solid var(--persimmon); padding:20px; text-align:center; }
-  .tally .big .num {
-    font-family:var(--f-display); font-variation-settings:"opsz" 144;
-    font-weight:500; font-size:42px; line-height:1; color:var(--persimmon);
-    letter-spacing:-.02em; font-variant-numeric:tabular-nums; display:inline-block;
-  }
-  .tally .big .lbl {
-    font-family:var(--f-mono); font-size:10px; letter-spacing:.14em;
-    text-transform:uppercase; color:rgba(244,239,230,.65); margin-top:10px;
-  }
-  .disclaimer { font-size:12px; color:var(--stone); margin-top:16px; font-style:italic; line-height:1.5; }
+/* ── Nav ────────────────────────────────────────────────────────── */
+/* Unlike the homepage, the nav sits outside the hero so it stays with
+   the reader down a long page. It carries a solid Hull face at rest
+   instead of a transparent one, because there is no full-viewport
+   hero underneath it here. */
+.nav{
+  position:sticky;top:0;z-index:40;
+  background:var(--hull);
+  border-bottom:1px solid transparent;
+  transition:background .3s var(--ease),backdrop-filter .3s var(--ease),
+             border-color .3s var(--ease);
+}
+.nav.stuck{
+  background:rgba(4,18,79,.86);backdrop-filter:blur(14px) saturate(1.4);
+  border-bottom-color:var(--on-hull-line);
+}
+.nav-in{
+  max-width:var(--max);margin:0 auto;padding:18px var(--pad);
+  display:flex;align-items:center;gap:28px;
+}
+.brand{display:inline-flex;align-items:center;text-decoration:none;flex:none;
+  transition:opacity .2s var(--ease);}
+.brand:hover{opacity:.82;}
+.brand-mark{display:block;width:auto;height:clamp(21px,2.1vw,26px);}
 
-  /* ── Pullquote ────────────────────────────────────── */
-  .cs-pullquote {
-    margin-top: 34px;
-    background: var(--oat-deep);
-    border-left: 2px solid var(--persimmon);
-    padding: 24px 20px;
-  }
-  .cs-pullquote .eyebrow {
-    display: block;
-    font-family: var(--f-mono); font-size:11px; letter-spacing:.14em;
-    text-transform:uppercase; color:var(--stone); margin-bottom:14px;
-  }
-  .cs-pullquote q {
-    font-family: var(--f-display); font-variation-settings:"opsz" 100;
-    font-weight:400; font-style:italic;
-    font-size: clamp(20px,5vw,26px); line-height:1.3; color:var(--ink);
-    quotes:none; display:block; margin:0;
-  }
-  .cs-pullquote q::before { content:"\201C"; color:var(--persimmon); font-style:normal; font-size:1.2em; line-height:0; vertical-align:-0.05em; margin-right:.03em; }
-  .cs-pullquote q::after  { content:"\201D"; color:var(--persimmon); font-style:normal; font-size:1.2em; line-height:0; vertical-align:-0.05em; margin-left:.03em; }
-  .cs-pullquote .attr {
-    display:block; margin-top:14px;
-    font-family:var(--f-mono); font-size:11px; letter-spacing:.14em;
-    text-transform:uppercase; color:var(--stone);
-  }
+.nav-links{display:flex;gap:34px;margin-left:auto;}
+.nav-links a{
+  font-family:var(--display);font-weight:500;font-size:1rem;
+  color:rgba(245,242,243,.88);text-decoration:none;
+  padding:6px 0;border-bottom:1.5px solid transparent;
+  transition:color .2s var(--ease),border-color .2s var(--ease);
+}
+.nav-links a:hover{color:var(--paper);border-bottom-color:var(--paper);}
+.nav-cta{flex:none;}
 
-  /* ── Closer ───────────────────────────────────────── */
-  .closer {
-    margin-top:34px; margin-bottom:70px;
-    background:var(--oat-deep); border:1px solid var(--rule); padding:30px 22px;
-  }
-  .closer h3 {
-    font-family:var(--f-display); font-variation-settings:"opsz" 100;
-    font-weight:500; font-size:24px; color:var(--ink); letter-spacing:-.015em;
-  }
-  .closer p { font-size:14.5px; color:var(--ink-soft); margin-top:12px; line-height:1.65; }
-  .cta-btn {
-    display: inline-flex; align-items:center; gap:10px;
-    background:var(--persimmon); color:var(--oat);
-    font-family:var(--f-body); font-weight:500; font-size:13px; letter-spacing:.01em;
-    padding:11px 18px; margin-top:18px; cursor:pointer; text-decoration:none;
-    transition: background .35s ease, transform .35s ease;
-  }
-  .cta-btn:hover { background:var(--persimmon-deep); transform:scale(1.02); }
-  .cta-btn .arr {
-    width:14px; height:1px; background:currentColor; position:relative;
-    transition: transform .35s ease;
-  }
-  .cta-btn .arr::after {
-    content:""; position:absolute; right:0; top:-3px;
-    width:7px; height:7px;
-    border-top:1px solid currentColor; border-right:1px solid currentColor;
-    transform:rotate(45deg);
-  }
-  .cta-btn:hover .arr { transform:translateX(3px); }
+.burger{
+  display:none;width:44px;height:44px;flex:none;margin-left:auto;
+  background:transparent;border:1.5px solid rgba(245,242,243,.42);
+  border-radius:999px;cursor:pointer;padding:0;
+  align-items:center;justify-content:center;gap:4px;flex-direction:column;
+  transition:border-color .2s var(--ease);
+}
+.burger:hover{border-color:var(--paper);}
+.burger span{display:block;width:16px;height:1.5px;background:var(--paper);
+  transition:transform .22s var(--ease),opacity .22s var(--ease);}
+.burger[aria-expanded="true"] span:nth-child(1){transform:translateY(5.5px) rotate(45deg);}
+.burger[aria-expanded="true"] span:nth-child(2){opacity:0;}
+.burger[aria-expanded="true"] span:nth-child(3){transform:translateY(-5.5px) rotate(-45deg);}
+.drawer{
+  display:none;flex-direction:column;
+  padding:8px var(--pad) 22px;
+  background:rgba(4,18,79,.96);backdrop-filter:blur(14px);
+  border-top:1px solid var(--on-hull-line);
+}
+.drawer.open{display:flex;}
+.drawer a{
+  font-family:var(--display);font-weight:500;font-size:1.0625rem;
+  color:var(--paper);text-decoration:none;padding:13px 0;
+  border-bottom:1px solid var(--on-hull-line);
+}
+.drawer a:last-child{border-bottom:0;}
 
-  /* ── Footer ───────────────────────────────────────── */
-  .cs-footer {
-    text-align:center; padding:28px 18px 32px;
-    font-family:var(--f-mono); font-size:10px; letter-spacing:.14em;
-    text-transform:uppercase; color:var(--stone); position:relative; z-index:2;
-    border-top:1px solid var(--rule);
-  }
-  .cs-footer a { color:var(--persimmon-deep); border-bottom:1px solid rgba(217,104,51,.3); padding-bottom:1px; }
-  .cs-footer a:hover { color:var(--persimmon); border-bottom-color:var(--persimmon); }
+/* ── Bands ──────────────────────────────────────────────────────── */
+.band{padding-block:var(--band);background:var(--paper);color:var(--ink);}
+.band-surface{background:var(--surface);}
+.band-dark{position:relative;isolation:isolate;overflow:hidden;
+  background:var(--hull);color:var(--paper);}
+.band-dark > .wrap{position:relative;z-index:1;}
+/* Headings deliberately declare no color anywhere on this page. They
+   inherit from the band, which is what keeps a paper card on a dark
+   band from losing its heading. */
 
-  /* ── Reveal animation ─────────────────────────────── */
-  .reveal { opacity:0; transform:translateY(14px); }
-  .reveal.is-in { animation: rise .6s cubic-bezier(.2,.6,.2,1) forwards; }
-  @keyframes rise { to { opacity:1; transform:none; } }
+.band-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);
+  gap:clamp(20px,4vw,64px);align-items:end;}
+.band-head .prose p{color:var(--ink-soft);}
+.on-dark .band-head .prose p{color:var(--on-hull);}
 
-  /* ── Reduced motion ───────────────────────────────── */
-  @media (prefers-reduced-motion:reduce) {
-    .reveal, .reveal.is-in { animation:none; opacity:1; transform:none; }
-    .cs-hero .ink-wash, .page-blobs svg { animation:none !important; }
-    .mono-label.stamp::before, .foundation .tag::before, .tally .tag::before,
-    .ba .after .k::before { animation:none !important; }
-  }
+/* ── Hero band ──────────────────────────────────────────────────── */
+/* A band, not a 100svh hero. The full-viewport opening belongs to the
+   homepage and stays unique to it. The two radial glows are the
+   footer's own pair, reused so the slab is not a flat block. */
+.case-hero{
+  padding-block:clamp(44px,6vw,80px) var(--band);
+  background:
+    radial-gradient(680px 460px at 4% -18%, rgba(211,165,13,.10), transparent 62%),
+    radial-gradient(620px 460px at 99% 108%, rgba(95,116,220,.16), transparent 62%),
+    var(--hull);
+}
+.hero-top{display:flex;flex-wrap:wrap;align-items:center;gap:10px 22px;}
+.hero-top .sep{color:var(--on-hull);}
+.case-display{
+  margin:26px 0 0;font-family:var(--display);font-weight:300;
+  font-size:clamp(2.1rem,4.1vw,3.5rem);line-height:1.07;
+  letter-spacing:-.035em;color:var(--paper);max-width:19ch;text-wrap:balance;
+}
+.case-lede{margin-top:22px;max-width:40rem;font-size:1.0625rem;line-height:1.6;
+  color:var(--on-hull);text-wrap:pretty;}
+.case-client{
+  margin-top:22px;font-family:var(--display);font-weight:600;font-size:.75rem;
+  letter-spacing:.11em;text-transform:uppercase;color:var(--paper);
+}
+.hero-grid{
+  margin-top:clamp(34px,4.5vw,56px);
+  display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);
+  gap:clamp(26px,4vw,56px);align-items:start;
+}
+/* The download panel is the hero's one object. A bordered panel is the
+   system's proof-object form, and the gold face on the control is the
+   Fill Rule's canonical pairing: Hull text on a gold fill. */
+.dl{
+  border:1.5px solid var(--on-hull-line);border-radius:10px;
+  padding:clamp(20px,2.4vw,28px);
+  display:flex;flex-wrap:wrap;align-items:center;
+  justify-content:space-between;gap:18px 20px;
+}
+.dl .t{font-family:var(--display);font-weight:600;font-size:1.0625rem;
+  letter-spacing:-.01em;color:var(--paper);}
+.dl .s{margin-top:5px;font-family:var(--display);font-weight:600;
+  font-size:.75rem;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--on-hull);}
 
-  /* ── Dark-mode guard ──────────────────────────────── */
-  @media (prefers-color-scheme:dark) {
-    body         { background:var(--oat) !important; color:var(--ink) !important; }
-    .cs-hero     { background:var(--oat) !important; }
-    .cs-hero h1  { color:var(--ink) !important; }
-    .cs-hero .lede { color:var(--ink-soft) !important; }
-    .intro       { color:var(--ink-soft) !important; }
-    .intro b     { color:var(--ink) !important; }
-    .foundation  { background:var(--oat-deep) !important; }
-    .foundation h3 { color:var(--ink) !important; }
-    .foundation p  { color:var(--ink-soft) !important; }
-    .flow-map .src, .foundation .why { background:var(--oat) !important; }
-    .stage         { background:var(--oat-deep) !important; }
-    .stage h4      { color:var(--ink) !important; }
-    .stage.signing { background:var(--ink) !important; }
-    .stage.signing h4 { color:var(--oat) !important; }
-    .saved         { background:var(--oat) !important; }
-    .stage.signing .saved { background:rgba(244,239,230,.10) !important; color:rgba(244,239,230,.92) !important; }
-    .stage.signing .saved b { color:var(--oat) !important; }
-    .cs-pullquote  { background:var(--oat-deep) !important; }
-    .cs-pullquote q { color:var(--ink) !important; }
-    .closer        { background:var(--oat-deep) !important; }
-    .closer h3     { color:var(--ink) !important; }
-    .tally         { background:var(--ink) !important; }
-    .cta-band      { background:var(--oat-deep) !important; }
-    .nav           { background:var(--oat) !important; }
-  }
+/* ── record, lifted from the homepage About block ───────────────── */
+.record{
+  margin:clamp(30px,3.8vw,44px) 0 0;padding-top:24px;
+  border-top:2px solid var(--ink);
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px 28px;
+}
+.record div{display:flex;flex-direction:column;gap:4px;}
+.record dt{font-family:var(--display);font-weight:300;
+  font-size:clamp(1.6rem,2.6vw,2.3rem);line-height:1;letter-spacing:-.035em;}
+.record dd{margin:0;font-family:var(--display);font-weight:600;font-size:.75rem;
+  letter-spacing:.11em;text-transform:uppercase;color:var(--ink-soft);}
+.on-dark .record{border-top-color:rgba(245,242,243,.5);}
+.on-dark .record dd{color:var(--on-hull);}
+
+/* ── Foundation ─────────────────────────────────────────────────── */
+.intro{max-width:42ch;}
+.foundation{margin-top:clamp(48px,6vw,80px);}
+.found-tag{margin-top:16px;}
+.foundation .h3{margin-top:14px;max-width:26ch;}
+.foundation .prose{margin-top:20px;}
+.sources{
+  margin:clamp(30px,3.8vw,44px) 0 0;padding-top:24px;
+  border-top:2px solid var(--ink);
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:26px 44px;
+}
+.sources div{display:flex;flex-direction:column;gap:6px;}
+.sources dd{margin:0;}
+.src-v{font-family:var(--display);font-weight:500;font-size:1.125rem;
+  line-height:1.3;letter-spacing:-.01em;}
+.src-n{font-size:1rem;line-height:1.5;color:var(--ink-soft);}
+.why{margin-top:clamp(30px,3.6vw,42px);max-width:64ch;color:var(--ink-soft);}
+.why b{font-weight:600;color:var(--ink);}
+
+/* ── The Journey, one band per step ─────────────────────────────── */
+.stepband{padding-block:var(--band-step);}
+.journey-head{margin-bottom:clamp(40px,5vw,64px);}
+.sb{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);
+  gap:clamp(24px,4vw,64px);align-items:start;}
+/* Decorative numeral. It carries the scale that separates one step
+   from the next, which is the job a rule would otherwise be doing. */
+.sb-n{display:block;font-family:var(--display);font-weight:100;
+  font-size:clamp(3.6rem,8vw,7rem);line-height:.82;letter-spacing:-.05em;
+  color:var(--line-strong);}
+.band-surface .sb-n{color:#B9BCD6;}
+.on-dark .sb-n{color:rgba(162,172,214,.5);}
+.sb-l .eyebrow{margin-top:18px;}
+.sb-l .h2{margin-top:10px;max-width:16ch;
+  font-size:clamp(1.6rem,2.7vw,2.35rem);}
+.sb-before{margin-top:10px;color:var(--muted);font-size:1rem;line-height:1.55;max-width:54ch;}
+.band-surface .sb-before{color:var(--ink-soft);}
+.on-dark .sb-before{color:var(--on-hull);}
+.sb-nowwrap{margin-top:clamp(24px,3vw,34px);}
+.sb-now{margin-top:10px;font-family:var(--display);font-weight:400;
+  font-size:clamp(1.125rem,1.7vw,1.4rem);line-height:1.42;letter-spacing:-.015em;
+  max-width:46ch;}
+.sb-saved{margin-top:clamp(22px,2.6vw,30px);
+  display:flex;flex-wrap:wrap;align-items:center;gap:12px 14px;
+  font-size:1rem;color:var(--ink-soft);}
+.on-dark .sb-saved{color:var(--on-hull);}
+.sb-saved b{color:var(--ink);font-weight:600;}
+.on-dark .sb-saved b{color:var(--paper);}
+
+/* ── Adding it up ───────────────────────────────────────────────── */
+.tally{margin-top:clamp(40px,5vw,64px);
+  display:flex;flex-direction:column;gap:clamp(18px,2.2vw,26px);
+  max-width:760px;}
+/* No rules between the rows. The amount sits a full type step above
+   the label and does the separating on its own. */
+.tally-row{display:flex;flex-wrap:wrap;align-items:baseline;
+  justify-content:space-between;gap:6px 24px;}
+.tally-row .what{font-size:1.0625rem;color:var(--ink-soft);}
+.tally-row .what b{font-weight:600;color:var(--ink);}
+.tally-row .amt{font-family:var(--display);font-weight:500;
+  font-size:1.25rem;letter-spacing:-.02em;color:var(--ink);}
+.tally-big{margin-top:clamp(30px,3.6vw,44px);}
+.tally-big .num{font-family:var(--display);font-weight:200;
+  font-size:clamp(2.6rem,6.4vw,5rem);line-height:.95;letter-spacing:-.045em;}
+.tally-big .lbl{display:block;margin-top:14px;}
+.disclaimer{margin-top:clamp(28px,3.4vw,40px);max-width:62ch;
+  font-size:1rem;line-height:1.55;color:var(--ink-soft);}
+
+/* ── Client quote ───────────────────────────────────────────────── */
+.quote{margin:0;}
+.quote q{
+  display:block;margin-top:22px;
+  font-family:var(--display);font-weight:300;
+  font-size:clamp(1.5rem,3vw,2.5rem);line-height:1.22;
+  letter-spacing:-.03em;max-width:22ch;text-wrap:balance;
+}
+.quote .attr{
+  margin-top:clamp(24px,3vw,34px);
+  font-family:var(--display);font-weight:600;font-size:.75rem;
+  letter-spacing:.11em;text-transform:uppercase;color:var(--on-hull);
+}
+
+/* ── Close ──────────────────────────────────────────────────────── */
+.closer .statement{margin-top:14px;}
+.closer .prose{margin-top:clamp(22px,2.6vw,30px);}
+.closer .btn{margin-top:clamp(28px,3.4vw,40px);}
+
+/* ── Footer, lifted whole from the homepage ─────────────────────── */
+.footer{
+  position:relative;isolation:isolate;overflow:hidden;
+  background:
+    radial-gradient(640px 440px at 6% -12%, rgba(211,165,13,.10), transparent 62%),
+    radial-gradient(600px 440px at 97% 112%, rgba(95,116,220,.16), transparent 62%),
+    var(--hull);
+  color:var(--paper);
+  padding-block:var(--band) 34px;
+}
+.footer > .wrap{position:relative;z-index:1;}
+.foot-lockup{display:block;width:min(100%,420px);height:auto;}
+.baseline{
+  margin-top:clamp(44px,6vw,72px);padding-top:22px;
+  border-top:1px solid var(--on-hull-line);
+  display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;
+  font-family:var(--display);font-weight:600;font-size:.75rem;
+  letter-spacing:.09em;text-transform:uppercase;color:var(--on-hull);
+}
+.baseline a{text-decoration:none;border-bottom:1px solid transparent;
+  transition:border-color .2s var(--ease);}
+.baseline a:hover{border-bottom-color:var(--on-hull);}
+
+/* ── Reveal ─────────────────────────────────────────────────────── */
+.reveal{opacity:0;transform:translateY(18px);
+  transition:opacity .7s var(--ease),transform .7s var(--ease);}
+.reveal.seen{opacity:1;transform:none;}
+
+/* ── Responsive ─────────────────────────────────────────────────── */
+@media (max-width:1000px){
+  .band-head,.sb,.hero-grid{grid-template-columns:minmax(0,1fr);align-items:start;}
+  .hero-grid{gap:clamp(26px,4vw,40px);}
+}
+@media (max-width:860px){
+  .nav-links,.nav-cta{display:none;}
+  .burger{display:flex;}
+}
+@media (max-width:680px){
+  .record,.sources{grid-template-columns:minmax(0,1fr);}
+  .closer .btn,.dl .btn{flex:1 1 100%;}
+  .sb-n{font-size:clamp(3rem,13vw,4rem);}
+}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto;}
+  .reveal{opacity:1;transform:none;transition:none;}
+  *,*::before,*::after{transition-duration:.01ms !important;}
+}
+
+/* ── Rework 2026-09-24 ──────────────────────────────────────────────
+   Juan's note: too many competing bold/label treatments, no reading
+   order. Emphasis is now rationed. One entry point per section, one
+   path through it, and outcomes read as figures rather than sentences
+   with bold buried inside them. */
+
+.slab-field{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:0;}
+.case-hero{position:relative;isolation:isolate;overflow:hidden;}
+.case-hero > .wrap{position:relative;z-index:1;}
+
+/* Hero: two columns so the page finally has a right edge. The client
+   card is the anchor the old floating download box never was. */
+.case-hero .hero-grid{
+  display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,.85fr);
+  gap:clamp(28px,5vw,64px);align-items:start;
+}
+.hero-main{min-width:0;}
+.case-hero .case-display{margin:18px 0 0;max-width:18ch;}
+.case-hero .case-lede{margin-top:22px;max-width:46ch;}
+
+/* The logo sits on paper because PureSteel's burgundy measures 1.84:1
+   on Hull. A plaque keeps their brand colors correct and reads as a
+   credential rather than decoration. */
+.client-card{
+  background:var(--paper);border-radius:18px;
+  padding:clamp(20px,2.4vw,26px);
+  box-shadow:0 18px 40px -22px rgba(0,0,0,.55);
+  display:flex;flex-direction:column;align-items:flex-start;gap:14px;
+}
+.client-logo{display:block;width:min(100%,208px);height:auto;}
+.client-who{
+  margin:0;font-family:var(--display);font-weight:600;font-size:.9375rem;
+  color:var(--ink);
+}
+.client-card .dl-btn{width:100%;margin-top:2px;}
+.client-note{
+  margin:0;font-family:var(--display);font-weight:600;font-size:.6875rem;
+  letter-spacing:.11em;text-transform:uppercase;color:var(--muted);
+}
+
+/* The 2px rule under the stats was a horizontal divider, which the
+   system bans. Space and scale separate them instead. */
+.case-hero .record{border-top:0;padding-top:0;margin-top:clamp(40px,5vw,60px);}
+
+/* Outcome figure. This replaces the sentence-with-bold-inside that was
+   doing the most damage to the reading order. */
+.gain{
+  margin-top:clamp(22px,2.6vw,30px);
+  display:flex;align-items:baseline;flex-wrap:wrap;gap:8px 12px;
+}
+.gain-was{
+  font-family:var(--display);font-weight:400;font-size:1.0625rem;
+  color:var(--muted);text-decoration:line-through;text-decoration-thickness:1px;
+}
+.gain-ar{color:var(--muted);font-size:1.0625rem;}
+.gain-now{
+  font-family:var(--display);font-weight:600;
+  font-size:clamp(1.25rem,1.9vw,1.6rem);letter-spacing:-.02em;color:var(--ink);
+}
+.gain-u{
+  flex-basis:100%;font-family:var(--display);font-weight:600;font-size:.6875rem;
+  letter-spacing:.11em;text-transform:uppercase;color:var(--muted);
+}
+.on-dark .gain-was,.on-dark .gain-ar,.on-dark .gain-u{color:var(--on-hull);}
+.on-dark .gain-now{color:var(--paper);}
+
+/* "Why it matters" was inline bold competing with the prose it
+   introduced. It becomes a quiet label on its own line. */
+.why-l{
+  display:block;margin-bottom:6px;
+  font-family:var(--display);font-weight:600;font-size:.6875rem;
+  letter-spacing:.11em;text-transform:uppercase;color:var(--muted);
+}
+
+/* The narrow left column with an empty right half was the other half of
+   the "thrown all over" problem. Give the reading columns real width. */
+.statement.intro{max-width:34ch;}
+.foundation .prose p{max-width:60ch;}
+
+@media (max-width:900px){
+  .case-hero .hero-grid{grid-template-columns:minmax(0,1fr);}
+  .client-card{max-width:420px;}
+  .case-hero .case-display{max-width:100%;}
+}
+
+/* Rework, round two. */
+
+/* The 2px rule was a horizontal divider under a half-width column.
+   Banned site-wide; space carries the break instead. */
+.sources{border-top:0;padding-top:0;margin-top:clamp(34px,4.2vw,50px);}
+
+/* A canvas now drifts behind the hero, so the hero text needs the same
+   Hull-tinted shadow the homepage hero uses. Without it the headline
+   loses contrast wherever a bright slab passes under it. */
+.case-hero .case-display,
+.case-hero .case-lede,
+.case-hero .eyebrow,
+.case-hero .record dt,
+.case-hero .record dd{text-shadow:0 1px 3px rgba(4,18,79,.72);}
+
+/* Body copy was running small enough to feel like fine print next to
+   the headings above it. */
+.src-n{font-size:1.0625rem;}
+.why{font-size:1.0625rem;}
+.sb-before{font-size:1.0625rem;}
+.foundation .prose p{font-size:1.0625rem;line-height:1.6;}
+
+/* ── Round three ────────────────────────────────────────────────────
+   The Foundation was a stack of four unrelated blocks reading as a wall
+   of text. It becomes an explicit Problem and Solution pair, which is
+   the shape a reader already expects from a case study, and the two
+   cards give the section a right edge it never had. */
+
+/* Card centers against the left column rather than hanging above it. */
+.case-hero .hero-grid{align-items:center;}
+.client-card{align-items:center;text-align:center;}
+.client-logo{width:min(100%,232px);margin-bottom:2px;}
+
+.ps{
+  margin-top:clamp(34px,4.5vw,52px);
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:clamp(18px,2.4vw,28px);align-items:stretch;
+}
+.ps-card{
+  border-radius:20px;padding:clamp(24px,2.8vw,34px);
+  display:flex;flex-direction:column;gap:14px;
+}
+/* The problem sits recessed and the solution sits raised, so the pair
+   reads in order without a number or an arrow telling you to. */
+.ps-problem{background:var(--surface);}
+.ps-problem .h3{color:var(--ink-soft);}
+.ps-solution{
+  background:var(--hull);color:var(--paper);
+  box-shadow:0 22px 44px -26px rgba(4,18,79,.6);
+}
+.ps-solution .h3{color:var(--paper);}
+.ps-solution .lbl{color:var(--on-hull);}
+.ps-card p{font-size:1.0625rem;line-height:1.6;max-width:46ch;}
+.ps-problem p{color:var(--ink-soft);}
+.ps-solution p{color:var(--on-hull);}
+.ps-cost{
+  margin-top:auto;padding-top:6px;
+  font-family:var(--display);font-weight:600;
+  font-size:1.0625rem;color:var(--ink) !important;
+}
+.ps-list{
+  margin:2px 0 0;padding:0;list-style:none;margin-top:auto;
+  display:flex;flex-direction:column;gap:10px;
+}
+.ps-list li{
+  font-size:1rem;line-height:1.5;color:var(--on-hull);
+  padding-left:16px;position:relative;
+}
+.ps-list li::before{
+  content:"";position:absolute;left:0;top:.62em;
+  width:6px;height:6px;border-radius:999px;background:var(--gold);
+}
+.ps-list b{color:var(--paper);font-weight:600;}
+
+.why{max-width:68ch;margin-top:clamp(28px,3.4vw,40px);}
+
+@media (max-width:860px){
+  .ps{grid-template-columns:minmax(0,1fr);}
+}
+
+/* Results moved ahead of the five steps, so it now opens a run rather
+   than closing one and needs a line of orientation under the heading. */
+.res-lede{
+  margin-top:18px;max-width:52ch;
+  font-size:1.0625rem;line-height:1.6;color:var(--ink-soft);
+}
+
+/* ── Quote band ─────────────────────────────────────────────────────
+   Their mark, flattened to a single-color silhouette and dropped in at
+   low opacity as a watermark. It is decoration, so it carries an empty
+   alt and aria-hidden, and it sits far enough right that it never runs
+   under the quote itself. The opening glyph is paper, not gold: gold is
+   fill only and a quotation mark is text. */
+.quote-band{position:relative;isolation:isolate;overflow:hidden;}
+.quote-band > .wrap{position:relative;z-index:1;}
+.quote-mark-bg{
+  position:absolute;z-index:0;pointer-events:none;user-select:none;
+  right:2%;top:50%;transform:translateY(-50%);
+  width:min(40%,440px);height:auto;opacity:.08;
+}
+.quote-glyph{
+  display:block;font-family:var(--display);font-weight:700;
+  font-size:clamp(3.4rem,7vw,5.5rem);line-height:.72;
+  color:var(--paper);opacity:.26;margin-bottom:6px;
+}
+/* <q> renders its own quotation marks, which doubled up with the
+   decorative glyph. The glyph is the one that stays. */
+.quote-band .quote q{quotes:none;}
+.quote-band .quote q::before,.quote-band .quote q::after{content:"";}
+.quote-band .quote{max-width:none;}
+.quote-band .quote q{margin-top:14px;max-width:30ch;}
+.quote-band .attr{margin-top:clamp(26px,3.2vw,38px);}
+
+@media (max-width:860px){
+  .quote-mark-bg{right:-18%;width:min(70%,420px);opacity:.05;}
+  .quote-band .quote,.quote-band .quote q{max-width:100%;}
+}
+
+/* ── Round five ─────────────────────────────────────────────────────
+   Two bands were taller than a laptop viewport, so neither could be
+   taken in as one idea. Both run on a tighter band rhythm, and the
+   results stop being rows of text with a number on the end. */
+
+.band-tight{padding-block:clamp(52px,5.4vw,74px);}
+
+/* Scoreboard. Three components and the total, all on one row, with the
+   number doing the talking. The total sits on Hull so it reads as the
+   sum rather than a fourth component. */
+.scoreboard{
+  margin-top:clamp(26px,3.2vw,38px);
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) minmax(0,1.3fr);
+  gap:clamp(12px,1.6vw,20px);align-items:stretch;
+}
+.score{
+  background:var(--paper);border-radius:16px;
+  padding:clamp(18px,2vw,24px);
+  display:flex;flex-wrap:wrap;align-items:baseline;gap:0 7px;
+}
+.score-n{
+  font-family:var(--display);font-weight:200;
+  font-size:clamp(2rem,3.6vw,3.1rem);line-height:1;
+  letter-spacing:-.045em;color:var(--ink);
+}
+.score-u{
+  font-family:var(--display);font-weight:600;font-size:1rem;
+  color:var(--muted);
+}
+.score-l{
+  flex-basis:100%;margin-top:10px;
+  font-family:var(--display);font-weight:600;font-size:.6875rem;
+  letter-spacing:.11em;text-transform:uppercase;color:var(--muted);
+}
+.score-total{
+  background:var(--hull);
+  box-shadow:0 20px 42px -26px rgba(4,18,79,.62);
+}
+.score-total .score-n{color:var(--paper);}
+.score-total .score-u,.score-total .score-l{color:var(--on-hull);}
+
+.disclaimer{margin-top:clamp(22px,2.6vw,30px);font-size:.9375rem;max-width:70ch;}
+
+/* Problem and solution cards: tighter box, same type. */
+.ps{margin-top:clamp(26px,3.2vw,36px);}
+.ps-card{padding:clamp(20px,2.2vw,26px);gap:11px;}
+.why{margin-top:clamp(22px,2.6vw,30px);}
+
+@media (max-width:1000px){
+  .scoreboard{grid-template-columns:repeat(2,minmax(0,1fr));}
+  .score-total{grid-column:1 / -1;}
+}
+@media (max-width:560px){
+  .scoreboard{grid-template-columns:minmax(0,1fr);}
+}
+
+/* ── Quote watermark ────────────────────────────────────────────────
+   Juan's reference sits the mark so roughly a quarter of it falls
+   behind the quote rather than clearing it entirely. Opacity drops as
+   it moves under the text so the quote keeps its contrast. */
+.quote-mark-bg{
+  right:auto;left:50%;top:50%;transform:translateY(-50%);
+  width:min(54%,560px);opacity:.06;
+}
+@media (max-width:860px){
+  .quote-mark-bg{left:30%;width:min(80%,420px);opacity:.05;}
+}
+
+/* == Round six, the closing call to action ==========================
+   The close was a left aligned statement with one small button and it
+   read as a footnote after the quote. The invitation now sits centered
+   on an inset Hull panel, so it is the last thing the page says rather
+   than the smallest. The drifting slab field runs behind it, the same
+   canvas the hero and the homepage use. */
+.cta-panel{
+  position:relative;isolation:isolate;overflow:hidden;
+  background:var(--hull);color:var(--paper);
+  border-radius:clamp(20px,2.4vw,34px);
+  padding:clamp(52px,7vw,104px) clamp(24px,5vw,72px);
+  text-align:center;
+}
+.cta-in{position:relative;z-index:1;max-width:44rem;margin-inline:auto;}
+.cta-head{
+  font-family:var(--display);font-weight:300;
+  font-size:clamp(1.9rem,4.2vw,3.1rem);line-height:1.08;
+  letter-spacing:-.03em;text-wrap:balance;margin-top:14px;
+}
+.cta-sub{
+  margin-top:clamp(16px,2vw,22px);margin-inline:auto;
+  color:var(--on-hull);max-width:52ch;
+  font-size:clamp(1rem,1.15vw,1.0625rem);line-height:1.62;text-wrap:pretty;
+}
+.cta-actions{
+  margin-top:clamp(28px,3.4vw,40px);
+  display:flex;flex-wrap:wrap;gap:12px;justify-content:center;
+}
+/* The reassurance line under the buttons, both facts lifted verbatim
+   from the homepage process steps so the page makes no new promise. */
+.cta-note{
+  margin-top:clamp(18px,2.2vw,26px);
+  display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:center;
+  font-family:var(--display);font-weight:600;font-size:.6875rem;
+  letter-spacing:.11em;text-transform:uppercase;color:var(--on-hull);
+}
+.cta-note span{display:inline-flex;align-items:center;gap:7px;}
+.cta-note svg{flex:none;opacity:.7;}
+@media (max-width:560px){
+  .cta-actions .btn{width:100%;justify-content:center;}
+}
 </style>
 </head>
 <body>
 
-<!-- ── Nav ──────────────────────────────────────────────────── -->
-<header class="nav">
-  <div class="inner">
-    <a href="/" class="nav-logo" aria-label="JMG home">
-      <img src="../../assets/logo-primary.svg" alt="JMG" />
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav" id="nav">
+  <div class="nav-in">
+    <a href="/" class="brand" aria-label="JMG Systems, home">
+      <img class="brand-mark" src="../../assets/wordmark-inverted.svg" alt="JMG systems" width="661" height="105" />
     </a>
-    <a href="/" class="nav-back">Home</a>
-    <a href="/#contact" class="btn btn-primary">
-      Start a conversation <span class="arr">&rarr;</span>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="/">Home</a>
+    </nav>
+    <a href="/#contact" class="btn btn-light nav-cta">
+      Start a conversation
+      <span class="ar" aria-hidden="true"><svg width="13" height="9" viewBox="0 0 22 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M0 6h19M14.5 1.5 19 6l-4.5 4.5"/></svg></span>
     </a>
+    <button class="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="drawer">
+      <span></span><span></span><span></span>
+    </button>
   </div>
+  <nav class="drawer" id="drawer" aria-label="Mobile">
+    <a href="/">Home</a>
+    <a href="/#contact">Start a conversation</a>
+  </nav>
 </header>
 
-<!-- ── Page-level ink-wash blobs ────────────────────────────── -->
-<div class="page-blobs" aria-hidden="true">
-  <svg class="pb-c" viewBox="0 0 800 600" preserveAspectRatio="none">
-    <defs><filter id="pbC" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="24"/></filter></defs>
-    <path filter="url(#pbC)" fill="#D96833" opacity="0.13" d="M120,280 C200,160 360,200 500,180 C640,160 720,300 680,420 C640,520 460,520 320,500 C200,480 80,460 80,360 C90,320 100,300 120,280 Z"/>
-  </svg>
-  <svg class="pb-d" viewBox="0 0 800 600" preserveAspectRatio="none">
-    <defs><filter id="pbD" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="26"/></filter></defs>
-    <path filter="url(#pbD)" fill="#1F1A14" opacity="0.08" d="M200,160 C340,100 480,200 600,220 C720,240 760,360 660,440 C540,520 360,500 220,460 C100,420 60,320 120,240 C150,200 180,180 200,160 Z"/>
-  </svg>
-  <svg class="pb-g" viewBox="0 0 800 700" preserveAspectRatio="none">
-    <defs><filter id="pbG" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="24"/></filter></defs>
-    <path filter="url(#pbG)" fill="#1F1A14" opacity="0.09" d="M180,240 C140,140 320,80 480,140 C620,180 620,80 700,220 C780,340 640,360 640,500 C640,620 500,660 360,620 C220,580 100,520 100,400 C110,340 220,340 180,240 Z"/>
-  </svg>
-  <svg class="pb-h" viewBox="0 0 700 500" preserveAspectRatio="none">
-    <defs><filter id="pbH" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="22"/></filter></defs>
-    <path filter="url(#pbH)" fill="#D96833" opacity="0.16" d="M180,200 C260,120 420,140 540,220 C640,290 600,400 480,420 C340,440 200,420 140,360 C90,320 100,260 180,200 Z"/>
-  </svg>
-</div>
+<main id="main">
 
-<!-- ── Case study hero ───────────────────────────────────────── -->
-<section class="cs-hero">
-  <svg class="ink-wash iw-orange" viewBox="0 0 800 400" preserveAspectRatio="none">
-    <defs><filter id="iw" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="20"/></filter></defs>
-    <path filter="url(#iw)" fill="#D96833" opacity="0.24" d="M120,200 C200,90 480,80 620,160 C740,230 720,330 580,340 C400,355 220,360 140,320 C80,290 60,260 120,200 Z"/>
-  </svg>
-  <svg class="ink-wash iw-ink" viewBox="0 0 1000 700" preserveAspectRatio="none">
-    <defs><filter id="iwInk" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="28"/></filter></defs>
-    <path filter="url(#iwInk)" fill="#1F1A14" opacity="0.10" d="M120,360 C260,180 420,140 580,260 C720,360 760,180 900,300 C980,400 820,520 660,540 C440,560 240,620 140,540 C80,500 50,440 120,360 Z"/>
-  </svg>
-  <div class="inner">
-    <div class="toplabels">
-      <span class="mono-label stamp">Case &middot; PureSteel Construction Inc.</span>
-      <span class="mono-label">Dallas, TX</span>
-    </div>
-    <h1>From a new subcontractor to a signed contract, without the busywork</h1>
-    <p class="lede">PureSteel Construction Inc. was losing hours every week to copy-paste contract work. Here&rsquo;s how that entire chain became hands-off, and what it gave back.</p>
-    <div class="client">PureSteel Construction Inc. &middot; Jonathan Arvizu, Owner</div>
-  </div>
-
-  <!-- Download band — full-bleed, seats on the stat bar -->
-  <div class="cta-band">
-    <div class="cta-inner">
-      <div class="txt">
-        <div class="t">The complete case study</div>
-        <div class="s">PDF &middot; 8 slides</div>
+<!-- ── Hero band ────────────────────────────────────────────────── -->
+<section class="band band-dark on-dark case-hero">
+  <canvas class="slab-field" data-field="work" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="hero-main">
+        <p class="eyebrow">Case study &middot; Dallas, TX</p>
+        <h1 class="case-display">From a new hire to a signed contract, without the busywork</h1>
+        <p class="case-lede">A structural steel contractor was losing hours every week to contract paperwork that had to be retyped by hand. This is how that entire chain became automatic, and what it gave back.</p>
       </div>
-      <a class="dl" href="PureSteel_Slides.pdf" download="PureSteel Case Study.pdf">Download</a>
-    </div>
-  </div>
 
+      <aside class="client-card">
+        <img class="client-logo" src="../../assets/puresteel-logo.png"
+             alt="PureSteel Construction Inc." width="720" height="250" />
+      </aside>
+    </div>
+
+    <dl class="record">
+      <div><dt>~45 min</dt><dd>Back on every contract</dd></div>
+      <div><dt>Under 2 min</dt><dd>To produce a contract</dd></div>
+      <div><dt>2 lists</dt><dd>Behind every document</dd></div>
+    </dl>
+  </div>
 </section>
 
-<!-- ── Stat bar ──────────────────────────────────────────────── -->
-<div class="stat-bar" id="statBar">
-  <div class="stat"><div class="num" data-stat="hours">~15&ndash;17 hrs</div><div class="lbl">Saved / Month</div></div>
-  <div class="stat"><div class="num" data-stat="minutes">&lt;2 min</div><div class="lbl">Per Contract</div></div>
-  <div class="stat"><div class="num" data-stat="source">1</div><div class="lbl">Source of Truth</div></div>
-</div>
-
-<div class="wrap">
-
-  <p class="intro reveal" style="animation-delay:.05s">
-    Every contractor knows the drill: a new subcontractor comes on, paperwork gets retyped, agreements get emailed back and forth, signed copies get hunted down and filed by hand. <b>It works, until it&rsquo;s eating an afternoon a week.</b> This is the system that replaced all of it.
-  </p>
-
-  <!-- THE FOUNDATION -->
-  <div class="section-label">The Foundation</div>
-  <div class="foundation reveal" style="animation-delay:.1s">
-    <span class="tag">Enter it once</span>
-    <h3>The forms stay simple. The backend fills in the rest.</h3>
-    <p>Two records do the quiet work. Custom forms read from the <b>contact directory</b>, so client and subcontractor dropdowns populate themselves and the owner only ever picks from a list. Behind the scenes, the workflows look up everything else from a <b>master project list</b>: enter a single purchase order (PO) number, and the project and client name fill in automatically.</p>
-    <div class="flow-map">
-      <div class="src">
-        <span class="src-k">Forms read</span>
-        <span class="src-v">Contact directory</span>
-        <span class="src-n">Client &amp; subcontractor lists, dropdowns fill themselves</span>
-      </div>
-      <div class="src">
-        <span class="src-k">Workflows read</span>
-        <span class="src-v">Master project list</span>
-        <span class="src-n">PO number &rarr; project &rarr; client, looked up on the backend</span>
+<!-- ── The Foundation ───────────────────────────────────────────── -->
+<section class="band band-tight">
+  <div class="wrap">
+    <div class="band-head">
+      <div>
+        <p class="eyebrow">What changed</p>
+        <h2 class="h2">The same facts, typed once</h2>
       </div>
     </div>
-    <div class="why">
-      <b>Why it matters:</b> The owner enters the bare minimum and the system reconstructs the full picture on its own. Update a client in one spot and everything downstream&mdash;every form, every contract, every filing folder&mdash;stays in sync instantly.
+
+    <div class="ps reveal">
+      <article class="ps-card ps-problem">
+        <p class="lbl">The problem</p>
+        <h3 class="h3">Every document started from a blank page</h3>
+        <p>The same facts, who the client is, which job, and what was agreed, were typed in again for every document that went out. Each one was then emailed for review, chased for a signature, and filed by hand once it came back.</p>
+        <p class="ps-cost">An afternoon a week, every week</p>
+      </article>
+
+      <article class="ps-card ps-solution">
+        <p class="lbl">The solution</p>
+        <h3 class="h3">Two lists became the only place those facts live</h3>
+        <p>Every form reads from those two lists, so staff pick from a menu instead of typing, and the document builds itself from what is already on file.</p>
+        <ul class="ps-list">
+          <li><b>A contact directory</b> holds every client and subcontractor, so each menu fills itself.</li>
+          <li><b>A master job list</b> holds every job, so one job number brings the client and the project along with it.</li>
+        </ul>
+      </article>
     </div>
+
+    <p class="why reveal">
+      <span class="why-l">Why it matters</span>
+      Update a client in one place and everything downstream stays in step. Nobody has to remember where else that name appears.
+    </p>
   </div>
+</section>
 
-  <div class="flow-down reveal" style="animation-delay:.14s"></div>
+<!-- ── The results ──────────────────────────────────────────────── -->
+<section class="band band-surface band-tight">
+  <div class="wrap">
+    <p class="eyebrow">The results</p>
+    <h2 class="h2">Time back on every document</h2>
+    <p class="res-lede">The same work still happens. Here is the time it no longer takes.</p>
 
-  <!-- THE JOURNEY -->
-  <div class="section-label">The Journey</div>
-
-  <div class="stage reveal" style="animation-delay:.18s">
-    <div class="num">Step 01 &middot; Onboarding</div>
-    <h4>A new subcontractor signs up</h4>
-    <div class="ba">
-      <div class="blk before"><div class="k">Before</div><div class="v">Someone manually emails a welcome note and the tax form, then waits and remembers to chase it.</div></div>
-      <div class="blk after"><div class="k">Now</div><div class="v">The moment they register, a branded welcome email with their W-9 goes out automatically. Their details are on file instantly.</div></div>
-    </div>
-    <div class="saved"><span class="mk">Saved</span><span>Removes a manual send and the mental load of follow-up, <b>every single hire.</b></span></div>
-  </div>
-
-  <div class="flow-down reveal" style="animation-delay:.2s"></div>
-
-  <div class="stage reveal" style="animation-delay:.24s">
-    <div class="num">Step 02 &middot; Agreements</div>
-    <h4>A subcontract agreement is needed</h4>
-    <div class="ba">
-      <div class="blk before"><div class="k">Before</div><div class="v">Open a blank document, retype the project, client, price and scope by hand, format it, email it for review, then send it for signature separately.</div></div>
-      <div class="blk after"><div class="k">Now</div><div class="v">A polished, branded subcontract agreement builds itself from the submitted details, scope of work cleaned up and formatted automatically, and routes straight to signing.</div></div>
-    </div>
-    <div class="saved"><span class="mk">Saved</span><span>What took <b>45&ndash;60 minutes</b> per agreement now takes <b>under 2 minutes.</b></span></div>
-  </div>
-
-  <div class="flow-down reveal" style="animation-delay:.28s"></div>
-
-  <div class="stage reveal" style="animation-delay:.30s">
-    <div class="num">Step 03 &middot; Change Orders</div>
-    <h4>A project scope changes mid-job</h4>
-    <div class="ba">
-      <div class="blk before"><div class="k">Before</div><div class="v">Coordinate by phone and email, draft the paperwork by hand, get the client to approve, then loop in each subcontractor, all tracked in scattered email threads.</div></div>
-      <div class="blk after"><div class="k">Now</div><div class="v">One form handles every case: client approval, subcontract agreement, or both. Pick the PO number and the project and client fill in on their own; approvals happen with a single click in an email, and the right contracts fire off automatically.</div></div>
-    </div>
-    <div class="saved"><span class="mk">Saved</span><span>A typical change order reclaims roughly <b>40&ndash;70 minutes</b> of back-and-forth coordination.</span></div>
-  </div>
-
-  <div class="flow-down reveal" style="animation-delay:.34s"></div>
-
-  <!-- SIGNING — dark card -->
-  <div class="stage signing reveal" style="animation-delay:.38s">
-    <div class="num">Step 04 &middot; Signatures</div>
-    <h4>Everything routes to one signing flow</h4>
-    <div class="ba">
-      <div class="blk before"><div class="k">Before</div><div class="v">Documents sent for signature one-off, with no consistent order or tracking.</div></div>
-      <div class="blk after"><div class="k">Now</div><div class="v">Whether it started as a subcontract agreement or a change order, it lands in the same signing process: the owner signs first, then the subcontractor. Consistent every time.</div></div>
-    </div>
-    <div class="saved"><span class="mk">Converge</span><span>Two separate paths, <b>one reliable finish line.</b></span></div>
-  </div>
-
-  <div class="flow-down reveal" style="animation-delay:.42s"></div>
-
-  <div class="stage-frame reveal" style="animation-delay:.46s">
-    <div class="stage">
-      <div class="num">Step 05 &middot; Filing</div>
-      <h4>The signed contract files itself</h4>
-      <div class="ba">
-        <div class="blk before"><div class="k">Before</div><div class="v">Download the signed PDF, find the right client folder, create one if it&rsquo;s missing, rename the file correctly, and upload it.</div></div>
-        <div class="blk after"><div class="k">Now</div><div class="v">The instant a contract is signed, it&rsquo;s named correctly and filed in the right client and project folder, created automatically if it didn&rsquo;t exist yet.</div></div>
+    <div class="scoreboard reveal">
+      <div class="score">
+        <span class="score-n">~45</span>
+        <span class="score-u">min</span>
+        <span class="score-l">back on every contract</span>
       </div>
-      <div class="saved"><span class="mk">Saved</span><span>Saves about <b>5&ndash;10 minutes</b> of filing and naming on <b>every signed document.</b></span></div>
+      <div class="score">
+        <span class="score-n">15-40</span>
+        <span class="score-u">min</span>
+        <span class="score-l">back on every change order</span>
+      </div>
+      <div class="score">
+        <span class="score-n">~17</span>
+        <span class="score-u">min</span>
+        <span class="score-l">back on every job filed</span>
+      </div>
+      <div class="score score-total">
+        <span class="score-n">96%</span>
+        <span class="score-u">less</span>
+        <span class="score-l">time to produce a contract</span>
+      </div>
+    </div>
+
+    <p class="disclaimer">
+      Measured times per task, logged by the systems themselves as they run. How much that adds up to depends on how busy the business is.
+    </p>
+  </div>
+</section>
+
+<!-- ── The Journey, step 01 ─────────────────────────────────────── -->
+<section class="band band-surface stepband">
+  <div class="wrap">
+    <div class="journey-head">
+      <h2 class="h2">Step by step</h2>
+    </div>
+    <div class="sb reveal">
+      <div class="sb-l">
+        <span class="sb-n" aria-hidden="true">01</span>
+        <h3 class="h2">A new subcontractor signs up</h3>
+      </div>
+      <div class="sb-r">
+        <div>
+          <span class="lbl">Before</span>
+          <p class="sb-before">Someone writes a welcome note by hand, attaches the tax form, sends it, and then has to remember to chase it up.</p>
+        </div>
+        <div class="sb-nowwrap">
+          <span class="lbl">Now</span>
+          <p class="sb-now">The moment they sign up, a branded welcome email goes out with their tax form attached, and their details are on file immediately.</p>
+        </div>
+        <div class="gain">
+          <span class="gain-was">A manual send and a follow-up</span>
+          <span class="gain-ar" aria-hidden="true">&rarr;</span>
+          <span class="gain-now">Nothing to remember</span>
+          <span class="gain-u">on every hire</span>
+        </div>
+      </div>
     </div>
   </div>
+</section>
 
-  <!-- TALLY -->
-  <div class="tally reveal" style="animation-delay:.5s">
-    <div class="tag">Adding it up</div>
-    <h3>What the month looks like now</h3>
-    <div class="grid">
-      <div class="line"><span class="what"><b>~8&ndash;10</b> subcontract agreements</span><span class="amt" data-tally="6-8">~6&ndash;8 hrs</span></div>
-      <div class="line"><span class="what"><b>~5</b> change orders</span><span class="amt" data-tally="4-6">~4&ndash;6 hrs</span></div>
-      <div class="line"><span class="what">Filing &amp; onboarding, every doc</span><span class="amt" data-tally="2-3">~2&ndash;3 hrs</span></div>
-    </div>
-    <div class="big">
-      <div class="num" data-tally-big="15-17">~15&ndash;17 hours</div>
-      <div class="lbl">Handed back every month</div>
+<!-- ── The Journey, step 02 ─────────────────────────────────────── -->
+<section class="band stepband">
+  <div class="wrap">
+    <div class="sb reveal">
+      <div class="sb-l">
+        <span class="sb-n" aria-hidden="true">02</span>
+        <h3 class="h2">A contract needs to go out</h3>
+      </div>
+      <div class="sb-r">
+        <div>
+          <span class="lbl">Before</span>
+          <p class="sb-before">Open a blank document, retype the project, client, price, and scope, format it, email it for review, then send it for signature separately.</p>
+        </div>
+        <div class="sb-nowwrap">
+          <span class="lbl">Now</span>
+          <p class="sb-now">A branded contract builds itself from the details already on file, with the description of the work laid out automatically, and goes straight out for signature.</p>
+        </div>
+        <div class="gain">
+          <span class="gain-was">45 to 60 min</span>
+          <span class="gain-ar" aria-hidden="true">&rarr;</span>
+          <span class="gain-now">Under 2 min</span>
+          <span class="gain-u">per contract</span>
+        </div>
+      </div>
     </div>
   </div>
-  <p class="disclaimer reveal" style="animation-delay:.54s">
-    Figures are conservative estimates based on measured per-task times and typical monthly volume. Actual savings scale with how busy the business is.
-  </p>
+</section>
 
-  <!-- PULLQUOTE -->
-  <figure class="cs-pullquote reveal" style="animation-delay:.56s">
-    <span class="eyebrow">From the client</span>
-    <q>Our processes are outperforming companies with dedicated marketing and operations teams.</q>
-    <figcaption class="attr">Jonathan Arvizu &middot; Owner, PureSteel Construction Inc.</figcaption>
-  </figure>
-
-  <!-- CLOSER -->
-  <div class="closer reveal" style="animation-delay:.58s">
-    <h3>That&rsquo;s most of a working week, back.</h3>
-    <p>The work still happens. It just doesn&rsquo;t happen by hand anymore. The same system can be built around how your business already runs.</p>
-    <a href="/#contact" class="cta-btn">Start a conversation <span class="arr"></span></a>
+<!-- ── The Journey, step 03 ─────────────────────────────────────── -->
+<section class="band band-surface stepband">
+  <div class="wrap">
+    <div class="sb reveal">
+      <div class="sb-l">
+        <span class="sb-n" aria-hidden="true">03</span>
+        <h3 class="h2">The job changes partway through</h3>
+      </div>
+      <div class="sb-r">
+        <div>
+          <span class="lbl">Before</span>
+          <p class="sb-before">Coordinate by phone and email, draft the paperwork by hand, get the client to approve, then loop in each subcontractor, with the whole thing tracked across scattered email threads.</p>
+        </div>
+        <div class="sb-nowwrap">
+          <span class="lbl">Now</span>
+          <p class="sb-now">One form covers every case: the client approves, the crew doing the work signs, or both. Pick the job number and the project and client fill in on their own. The client approves with a single click in an email, and the right paperwork goes out automatically.</p>
+        </div>
+        <div class="gain">
+          <span class="gain-was">40 to 70 min</span>
+          <span class="gain-ar" aria-hidden="true">&rarr;</span>
+          <span class="gain-now">A few clicks</span>
+          <span class="gain-u">per change</span>
+        </div>
+      </div>
+    </div>
   </div>
+</section>
 
-</div><!-- /.wrap -->
+<!-- ── The Journey, step 04 ─────────────────────────────────────── -->
+<section class="band stepband">
+  <div class="wrap">
+    <div class="sb reveal">
+      <div class="sb-l">
+        <span class="sb-n" aria-hidden="true">04</span>
+        <h3 class="h2">The signed contract files itself</h3>
+      </div>
+      <div class="sb-r">
+        <div>
+          <span class="lbl">Before</span>
+          <p class="sb-before">Download the signed PDF, find the right client folder, create one if it is missing, rename the file, and upload it.</p>
+        </div>
+        <div class="sb-nowwrap">
+          <span class="lbl">Now</span>
+          <p class="sb-now">The moment a contract is signed it is named correctly and filed in the right client and project folder, which is created automatically if it does not exist yet.</p>
+        </div>
+        <div class="gain">
+          <span class="gain-was">5 to 10 min</span>
+          <span class="gain-ar" aria-hidden="true">&rarr;</span>
+          <span class="gain-now">Filed instantly</span>
+          <span class="gain-u">per signed document</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-<!-- ── Footer ────────────────────────────────────────────────── -->
-<footer class="cs-footer">
-  <span>&copy; 2026 &middot; <a href="/">gonzalezjuanm.com</a></span>
-  <span style="margin-left:24px;">Operations Automation &middot; Case Study</span>
+<!-- ── Client quote ─────────────────────────────────────────────── -->
+<section class="band band-dark on-dark quote-band">
+  <img class="quote-mark-bg" src="../../assets/puresteel-icon-silhouette.png"
+       alt="" aria-hidden="true" width="900" height="747" />
+  <div class="wrap">
+    <figure class="quote reveal">
+      <span class="quote-glyph" aria-hidden="true">&ldquo;</span>
+      <p class="eyebrow">From the client</p>
+      <q>Our processes are outperforming companies with dedicated marketing and operations teams.</q>
+      <figcaption class="attr">Jonathan Arvizu &middot; Owner, PureSteel Construction Inc.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ── Close ────────────────────────────────────────────────────── -->
+<section class="band">
+  <div class="wrap">
+    <div class="cta-panel on-dark reveal">
+      <canvas class="slab-field" data-field="cta" aria-hidden="true"></canvas>
+      <div class="cta-in">
+        <p class="eyebrow">Next step</p>
+        <h2 class="cta-head">Most of an hour back, every time a contract goes out.</h2>
+        <p class="cta-sub">The work still happens. It just does not happen by hand anymore. The same approach can be built around the way your business already runs.</p>
+        <div class="cta-actions">
+          <a href="/#contact" class="btn btn-light">
+            Start a conversation
+            <span class="ar" aria-hidden="true"><svg width="13" height="9" viewBox="0 0 22 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M0 6h19M14.5 1.5 19 6l-4.5 4.5"/></svg></span>
+          </a>
+        </div>
+        <p class="cta-note">
+          <span>
+            <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="8" cy="8" r="6.4"/><path d="M8 4.4V8l2.4 1.5"/></svg>
+            About 45 minutes
+          </span>
+          <span>
+            <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2.6 8.4 6.2 12l7.2-8"/></svg>
+            At no cost
+          </span>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <img class="foot-lockup" src="../../assets/lockup-inverted.svg"
+         alt="JMG systems, AI operations consulting, established 2025, Austin, Texas"
+         width="661" height="165" />
+    <div class="baseline">
+      <span>&copy; 2026 &middot; <a href="/">gonzalezjuanm.com</a></span>
+      <span>Operations Automation &middot; Case Study</span>
+    </div>
+  </div>
 </footer>
 
 <script>
+/* ══════════════════════════════════════════════════════════════════
+   Slab fields, the drifting canvas, ported from the Hyer study and
+   re-massed for hero-19's arrangement.
+
+   Two fields share one rAF loop. The hero carries the full cluster,
+   right of center because every word sits in a left column; the work
+   band carries a quieter one, because a paper card sits on top of it
+   and the slabs only need to say the ground is alive.
+
+   Ratio is the trick: each slab is near 2.6:1 so its rounded ends
+   read. Widen them and they collapse into flat wedges.
+   ══════════════════════════════════════════════════════════════════ */
 (function(){
-  var reduce = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var ROT=-0.52;
+  var CONF={
+    hero:{
+      pl:[
+        {cx:0.74,cy:0.19,w:0.40,h:0.155,c0:'#5F74DC',c1:'#12237E',al:0.88,ph:0.7},
+        {cx:0.58,cy:0.45,w:0.44,h:0.170,c0:'#7C8FE8',c1:'#1B2E9E',al:0.90,ph:1.4},
+        {cx:0.97,cy:0.35,w:0.36,h:0.140,c0:'#A8B6F0',c1:'#2A3FB0',al:0.86,ph:5.1},
+        {cx:0.90,cy:0.67,w:0.42,h:0.162,c0:'#2F49C8',c1:'#0A1C68',al:0.94,ph:0.0},
+        {cx:0.70,cy:0.87,w:0.37,h:0.142,c0:'#D3A50D',c1:'#9B6703',al:0.92,ph:2.6},
+        {cx:0.46,cy:0.76,w:0.33,h:0.128,c0:'#4A63D8',c1:'#08154F',al:0.90,ph:3.9}
+      ],
+      warm:[0.72,0.86,0.50,0.20],
+      mask:function(mc,W,H,stacked,pool){
+        var tg=mc.createLinearGradient(0,0,0,H*0.30);
+        tg.addColorStop(0.00,'rgba(0,0,0,0.58)');
+        tg.addColorStop(0.45,'rgba(0,0,0,0.26)');
+        tg.addColorStop(1.00,'rgba(0,0,0,0)');
+        mc.fillStyle=tg; mc.fillRect(0,0,W,H*0.30);
+        /* Measured, not guessed: at a lighter ramp the facts label came
+           in at 3.98:1 and the scroll tag at 3.40:1 over the amber slab. */
+        var bg=mc.createLinearGradient(0,H,0,H*0.62);
+        bg.addColorStop(0.00,'rgba(0,0,0,0.84)');
+        bg.addColorStop(0.38,'rgba(0,0,0,0.52)');
+        bg.addColorStop(0.72,'rgba(0,0,0,0.20)');
+        bg.addColorStop(1.00,'rgba(0,0,0,0)');
+        mc.fillStyle=bg; mc.fillRect(0,H*0.62,W,H*0.38);
+        if(stacked){ pool(W*0.46,H*0.50,W*0.94,0.76,0.95,0.89); }
+        else{
+          pool(W*0.33,H*0.48,W*0.67,0.84,0.97,0.91);
+          pool(W*0.86,H*0.80,W*0.26,0.60,0.74,0.62);
+        }
+      }
+    },
+    work:{
+      pl:[
+        {cx:0.16,cy:0.22,w:0.30,h:0.116,c0:'#5F74DC',c1:'#12237E',al:0.62,ph:1.1},
+        {cx:0.88,cy:0.30,w:0.26,h:0.100,c0:'#7C8FE8',c1:'#1B2E9E',al:0.55,ph:3.2},
+        {cx:0.30,cy:0.82,w:0.28,h:0.108,c0:'#D3A50D',c1:'#9B6703',al:0.46,ph:4.4},
+        {cx:0.80,cy:0.86,w:0.32,h:0.124,c0:'#2F49C8',c1:'#0A1C68',al:0.60,ph:0.4}
+      ],
+      warm:[0.30,0.80,0.42,0.10],
+      mask:function(mc,W,H,stacked,pool){
+        /* a paper card sits over the middle of this band, so the field
+           only has to live around its edges */
+        if(stacked){
+          /* stacked, the heading block runs full width above the card and
+             sits off the center pool, measured at 3.20:1 without this */
+          var tg=mc.createLinearGradient(0,0,0,H*0.52);
+          tg.addColorStop(0.00,'rgba(0,0,0,0.92)');
+          tg.addColorStop(0.55,'rgba(0,0,0,0.62)');
+          tg.addColorStop(1.00,'rgba(0,0,0,0)');
+          mc.fillStyle=tg; mc.fillRect(0,0,W,H*0.52);
+          pool(W*0.50,H*0.52,W*0.95,0.86,0.88,0.76);
+        }else{
+          pool(W*0.50,H*0.52,W*0.62,0.78,0.86,0.72);
+        }
+      }
+    },
+    cta:{
+      /* Same 2.6:1 slab ratio the other fields use, since both w and h
+         are scaled by W. The panel is short and wide, so the slabs ride
+         its corners and leave the middle to the type. */
+      pl:[
+        {cx:0.11,cy:0.26,w:0.34,h:0.131,c0:'#5F74DC',c1:'#12237E',al:0.60,ph:1.1},
+        {cx:0.89,cy:0.22,w:0.30,h:0.115,c0:'#7C8FE8',c1:'#1B2E9E',al:0.54,ph:3.2},
+        {cx:0.20,cy:0.84,w:0.32,h:0.123,c0:'#D3A50D',c1:'#9B6703',al:0.44,ph:4.4},
+        {cx:0.84,cy:0.80,w:0.36,h:0.138,c0:'#2F49C8',c1:'#0A1C68',al:0.58,ph:0.4},
+        {cx:0.50,cy:0.04,w:0.40,h:0.154,c0:'#A8B6F0',c1:'#2A3FB0',al:0.34,ph:5.1}
+      ],
+      warm:[0.22,0.84,0.46,0.11],
+      mask:function(mc,W,H,stacked,pool){
+        /* the whole invitation is centered, so one pool covers it and
+           the field only breathes around the corners */
+        if(stacked){ pool(W*0.50,H*0.50,W*0.98,0.92,0.94,0.84); }
+        else{ pool(W*0.50,H*0.52,W*0.66,0.94,0.92,0.80); }
+      }
+    }
+  };
 
-  /* Reveal on scroll */
-  var revealEls = document.querySelectorAll('.reveal');
-  if(reduce){
-    revealEls.forEach(function(el){ el.classList.add('is-in'); });
-  } else {
-    var io = new IntersectionObserver(function(entries){
-      entries.forEach(function(e){
-        if(e.isIntersecting){ e.target.classList.add('is-in'); io.unobserve(e.target); }
+  var fields=[];
+  document.querySelectorAll('.slab-field').forEach(function(cv){
+    var conf=CONF[cv.getAttribute('data-field')];
+    if(!conf) return;
+    var c=cv.getContext('2d'); if(!c) return;
+    var off=document.createElement('canvas'), oc=off.getContext('2d');
+    var msk=document.createElement('canvas'), mc=msk.getContext('2d');
+    if(!oc||!mc) return;
+    fields.push({cv:cv,c:c,off:off,oc:oc,msk:msk,mc:mc,conf:conf,vis:true});
+  });
+  if(!fields.length) return;
+
+  function rr(oc,x,y,w,hh,r){
+    r=Math.min(r,w*0.5,hh*0.5);
+    oc.beginPath();
+    oc.moveTo(x+r,y); oc.lineTo(x+w-r,y); oc.quadraticCurveTo(x+w,y,x+w,y+r);
+    oc.lineTo(x+w,y+hh-r); oc.quadraticCurveTo(x+w,y+hh,x+w-r,y+hh);
+    oc.lineTo(x+r,y+hh); oc.quadraticCurveTo(x,y+hh,x,y+hh-r);
+    oc.lineTo(x,y+r); oc.quadraticCurveTo(x,y,x+r,y); oc.closePath();
+  }
+
+  function drawField(f,ms){
+    var cv=f.cv,c=f.c,oc=f.oc,mc=f.mc,conf=f.conf;
+    var dpr=Math.min(window.devicePixelRatio||1,1.6);
+    var W=Math.max(1,Math.round(cv.clientWidth*dpr));
+    var H=Math.max(1,Math.round(cv.clientHeight*dpr));
+    if(cv.width!==W||cv.height!==H){
+      cv.width=W;cv.height=H;f.off.width=W;f.off.height=H;f.msk.width=W;f.msk.height=H;
+    }
+
+    var g=c.createLinearGradient(0,0,W*0.34,H);
+    g.addColorStop(0,'#06195F'); g.addColorStop(0.52,'#04124F'); g.addColorStop(1,'#020B33');
+    c.fillStyle=g; c.fillRect(0,0,W,H);
+
+    oc.clearRect(0,0,W,H);
+    oc.globalCompositeOperation='source-over';
+
+    var wm=conf.warm;
+    var warm=oc.createRadialGradient(W*wm[0],H*wm[1],0,W*wm[0],H*wm[1],W*wm[2]);
+    warm.addColorStop(0,'rgba(220,158,68,'+wm[3]+')');
+    warm.addColorStop(1,'rgba(220,158,68,0)');
+    oc.fillStyle=warm; oc.fillRect(0,0,W,H);
+
+    for(var i=0;i<conf.pl.length;i++){
+      var p=conf.pl[i];
+      var dx=Math.sin(ms*0.00021+p.ph)*W*0.015;
+      var dy=Math.cos(ms*0.00018+p.ph)*W*0.011;
+      oc.save();
+      oc.translate(W*p.cx+dx, H*p.cy+dy);
+      oc.rotate(ROT+Math.sin(ms*0.00010+p.ph)*0.015);
+      var w=W*p.w, hh=W*p.h;
+      var lg=oc.createLinearGradient(-w*0.5,-hh*0.5,w*0.5,hh*0.5);
+      lg.addColorStop(0,p.c0); lg.addColorStop(1,p.c1);
+      oc.globalAlpha=p.al; oc.fillStyle=lg;
+      rr(oc,-w*0.5,-hh*0.5,w,hh,hh*0.44); oc.fill();
+      oc.globalAlpha=p.al*0.46; oc.lineWidth=1.3*dpr;
+      oc.strokeStyle='rgba(228,238,255,0.34)'; oc.stroke();
+      oc.restore();
+    }
+    oc.globalAlpha=1;
+
+    /* Quiet is a soft mask, never a clip; the slabs carry on behind
+       the type at low strength so no cut edge is ever visible. */
+    mc.clearRect(0,0,W,H);
+    mc.globalCompositeOperation='source-over';
+    function pool(px,py,r,sy,a0,a1){
+      mc.save(); mc.translate(px,py); mc.scale(1,sy);
+      var q=mc.createRadialGradient(0,0,0,0,0,r);
+      q.addColorStop(0.00,'rgba(0,0,0,'+a0+')');
+      q.addColorStop(0.46,'rgba(0,0,0,'+a1+')');
+      q.addColorStop(0.78,'rgba(0,0,0,'+(a1*0.34)+')');
+      q.addColorStop(1.00,'rgba(0,0,0,0)');
+      mc.fillStyle=q; mc.beginPath(); mc.arc(0,0,r,0,6.2832); mc.fill();
+      mc.restore();
+    }
+    conf.mask(mc,W,H,(W/H)<1.05,pool);
+
+    oc.globalCompositeOperation='destination-out';
+    oc.drawImage(f.msk,0,0);
+    oc.globalCompositeOperation='source-over';
+    c.drawImage(f.off,0,0);
+  }
+
+  var still=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* don't burn frames on a field nobody is looking at */
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        for(var i=0;i<fields.length;i++){
+          if(fields[i].cv===e.target) fields[i].vis=e.isIntersecting;
+        }
       });
-    }, {threshold:.15, rootMargin:'0px 0px -40px 0px'});
-    revealEls.forEach(function(el){ io.observe(el); });
+    },{rootMargin:'120px'});
+    fields.forEach(function(f){io.observe(f.cv);});
   }
 
-  /* Stat-bar counter */
-  function easeOutCubic(t){ return 1 - Math.pow(1-t, 3); }
-  function animateNumber(el, target, duration, format){
-    if(reduce){ el.textContent = format(target); return; }
-    var start = performance.now();
-    function frame(now){
-      var t = Math.min(1, (now - start) / duration);
-      var v = target * easeOutCubic(t);
-      el.textContent = format(v);
-      if(t < 1) requestAnimationFrame(frame);
-    }
+  function frame(ms){
+    for(var i=0;i<fields.length;i++){ if(fields[i].vis) drawField(fields[i],ms); }
+    if(!still) requestAnimationFrame(frame);
+  }
+  if(still){
+    fields.forEach(function(f){drawField(f,6200);});
+    addEventListener('resize',function(){fields.forEach(function(f){drawField(f,6200);});});
+  }else{
     requestAnimationFrame(frame);
-  }
-
-  var statBar = document.getElementById('statBar');
-  var statsFired = false;
-  function fireStats(){
-    if(statsFired) return; statsFired = true;
-    statBar.classList.add('stats-live');
-    var hrsEl = statBar.querySelector('[data-stat="hours"]');
-    animateNumber(hrsEl, 17, 1500, function(v){ return '~' + Math.round(v) + ' hrs'; });
-    setTimeout(function(){ hrsEl.textContent = '~15\u201317 hrs'; }, 1550);
-    var minEl = statBar.querySelector('[data-stat="minutes"]');
-    animateNumber(minEl, 2, 1100, function(v){ return '<' + Math.max(1, Math.ceil(v)) + ' min'; });
-    setTimeout(function(){ minEl.textContent = '<2 min'; }, 1150);
-    var srcEl = statBar.querySelector('[data-stat="source"]');
-    srcEl.style.opacity = '0';
-    srcEl.textContent = '1';
-    setTimeout(function(){
-      srcEl.style.transition = 'opacity .8s ease';
-      srcEl.style.opacity = '1';
-    }, 600);
-  }
-  var statIO = new IntersectionObserver(function(entries){
-    entries.forEach(function(e){ if(e.isIntersecting) fireStats(); });
-  }, {threshold:.5});
-  statIO.observe(statBar);
-
-  /* Tally counters */
-  var tallyLines = document.querySelectorAll('[data-tally]');
-  var tallyBig   = document.querySelector('[data-tally-big]');
-  var tallyFired = false;
-  function fireTally(){
-    if(tallyFired) return; tallyFired = true;
-    tallyLines.forEach(function(el, i){
-      var parts = el.dataset.tally.split('-').map(Number);
-      var hi = parts[1];
-      var original = el.textContent;
-      animateNumber(el, hi, 1100 + i*120, function(v){ return '~' + Math.round(v) + ' hrs'; });
-      setTimeout(function(){ el.textContent = original; }, 1300 + i*120);
-    });
-    if(tallyBig){
-      var bigParts = tallyBig.dataset.tallyBig.split('-').map(Number);
-      var bigHi = bigParts[1];
-      var bigOriginal = tallyBig.textContent;
-      animateNumber(tallyBig, bigHi, 1700, function(v){ return '~' + Math.round(v) + ' hours'; });
-      setTimeout(function(){ tallyBig.textContent = bigOriginal; }, 1900);
-    }
-  }
-  var tallyEl = document.querySelector('.tally');
-  if(tallyEl){
-    var tIO = new IntersectionObserver(function(entries){
-      entries.forEach(function(e){ if(e.isIntersecting) fireTally(); });
-    }, {threshold:.35});
-    tIO.observe(tallyEl);
   }
 })();
 </script>
 
+<script>
+/* Nav solidifies once the page starts moving */
+(function(){
+  var nav=document.getElementById('nav'); if(!nav) return;
+  function onScroll(){ nav.classList.toggle('stuck', window.scrollY>40); }
+  addEventListener('scroll',onScroll,{passive:true});
+  onScroll();
+})();
+
+/* Mobile drawer, same behavior as the homepage nav */
+(function(){
+  var btn=document.querySelector('.burger');
+  var drawer=document.getElementById('drawer');
+  if(!btn||!drawer) return;
+  btn.addEventListener('click',function(){
+    var open=drawer.classList.toggle('open');
+    btn.setAttribute('aria-expanded',String(open));
+  });
+  drawer.addEventListener('click',function(e){
+    if(e.target.tagName==='A'){
+      drawer.classList.remove('open');
+      btn.setAttribute('aria-expanded','false');
+    }
+  });
+})();
+
+/* Reveal, the same IntersectionObserver pattern the homepage uses */
+(function(){
+  var els=document.querySelectorAll('.reveal');
+  if(!els.length) return;
+  if(!('IntersectionObserver' in window)){
+    els.forEach(function(e){e.classList.add('seen');}); return;
+  }
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('seen'); io.unobserve(e.target); }
+    });
+  },{threshold:.15,rootMargin:'0px 0px -40px 0px'});
+  els.forEach(function(e){io.observe(e);});
+})();
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "From a new hire to a signed contract, without the busywork",
+  "description": "How PureSteel Construction Inc. went from manual copy-paste contract work to a fully automated onboarding-to-filing pipeline.",
+  "url": "https://gonzalezjuanm.com/case/puresteel/",
+  "author": {
+    "@type": "Person",
+    "name": "Juan M. González",
+    "url": "https://gonzalezjuanm.com/"
+  },
+  "publisher": {
+    "@type": "ProfessionalService",
+    "name": "JMG Systems",
+    "legalName": "JMG Systems LLC",
+    "url": "https://gonzalezjuanm.com/"
+  },
+  "about": {
+    "@type": "Organization",
+    "name": "PureSteel Construction Inc.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Dallas",
+      "addressRegion": "TX",
+      "addressCountry": "US"
+    }
+  },
+  "inLanguage": "en-US"
+}
+</script>
 </body>
 </html>

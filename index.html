@@ -1,1351 +1,1341 @@
 <!doctype html>
-<html lang="en">
+<!-- data-theme="light" is brand.css's own escape hatch: its dark block is guarded
+     :root:not([data-theme="light"]). This surface commits to the light ground on
+     purpose — it is read once, in daylight, by an owner sizing up a consultant,
+     and the Hull slab only alternates against paper. -->
+<html lang="en" data-theme="light">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Juan M. González — AI Operations Consultant · Austin, TX</title>
-<meta name="description" content="AI operations consultant in Austin. I take what you do by hand and make it run on its own. Well-built automation for operations-heavy businesses." />
+<meta name="color-scheme" content="light" />
+
+<title>JMG Systems, AI Operations Consulting in Austin, TX</title>
+<meta name="description" content="Operations work that runs by hand, made to run on its own. Automation and AI systems for operations-heavy businesses, built and maintained from Austin, Texas." />
+<link rel="canonical" href="https://gonzalezjuanm.com/" />
+
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://gonzalezjuanm.com/" />
+<meta property="og:site_name" content="JMG Systems" />
+<meta property="og:title" content="JMG Systems, AI Operations Consulting in Austin, TX" />
+<meta property="og:description" content="Operations work that runs by hand, made to run on its own. Automation and AI systems for operations-heavy businesses." />
+<meta property="og:image" content="https://gonzalezjuanm.com/assets/og-home.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="JMG Systems, AI Operations Consulting, Austin, Texas" />
+<meta property="og:locale" content="en_US" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="JMG Systems, AI Operations Consulting in Austin, TX" />
+<meta name="twitter:description" content="Operations work that runs by hand, made to run on its own." />
+<meta name="twitter:image" content="https://gonzalezjuanm.com/assets/og-home.png" />
+
 <link rel="icon" href="assets/favicon.svg" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet" />
+<link rel="apple-touch-icon" href="assets/favicon.svg" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@100;200;300;400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+
 <style>
-  :root {
-    --persimmon:      #D96833;
-    --persimmon-deep: #C25729;
-    --oat:            #F4EFE6;
-    --oat-deep:       #EDE5D5;
-    --rule:           #D9D2C5;
-    --ink:            #1F1A14;
-    --ink-soft:       #2A241C;
-    --stone:          #5C544A;
+/* ══════════════════════════════════════════════════════════════════
+   JMG Systems — the whole homepage carried in watermelon-ui hero-19's
+   language, with the drifting slab canvas standing in for its photo.
 
-    --font-display: "Fraunces", Georgia, serif;
-    --font-body:    "Inter", system-ui, sans-serif;
-    --font-mono:    "JetBrains Mono", ui-monospace, monospace;
+   Single-theme on purpose: System B · Hull is a fixed brand palette,
+   so every color is painted explicitly and the page ignores the
+   viewer's theme.
 
-    --container-max: 1240px;
-    --container-pad: 56px;
+   Deliberate DESIGN.md departures, on Juan's call 2026-08-27, both
+   conflicts having been put in front of him first:
+     · eyebrows above headings ("Don't put a kicker or eyebrow")
+     · pill buttons (the system is 3px, "nearly square")
+   Everything else honors the system — including the Fill Rule: gold
+   is a solid fill only (buttons, tags, the selection highlight), with
+   Hull or Imperial text on top; it is never running text or a link.
+   ══════════════════════════════════════════════════════════════════ */
+:root{
+  --ink:#021F94;
+  --paper:#F5F2F3;
+  --surface:#EAE9EF;
+  --ink-soft:#2E45A5;
+  --muted:#5567B4;
+  --line:#D3D4E6;
+  --line-strong:#7C88C4;
+  --gold:#D3A50D;           /* the one accent — fill only, never text */
+  --on-hull:#A2ACD6;        /* secondary text on hull — 7.81:1 */
+  --on-hull-line:rgba(245,242,243,.2);
+  --hull:#04124F;           /* the primary anchor — the hero sits on it */
 
-    --ease: cubic-bezier(0.2, 0.6, 0.2, 1);
-  }
+  --max:1200px;
+  --pad:clamp(20px,5vw,56px);
+  --band:clamp(72px,9vw,128px);
 
-  * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; scroll-padding-top: 88px; }
-  html, body { margin: 0; padding: 0; overflow-x: clip; }
-  body {
-    background: var(--oat);
-    color: var(--ink);
-    font-family: var(--font-body);
-    font-size: 16px;
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
-    position: relative;
-    isolation: isolate;
-  }
+  --display:Archivo,"Avenir Next",Avenir,system-ui,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,sans-serif;
+  --ease:cubic-bezier(.2,.8,.2,1);
+}
 
-  /* Paper grain — two SVG noise layers, multiply blend. */
-  body::before,
-  body::after {
-    content: "";
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 1;
-    mix-blend-mode: multiply;
-  }
-  body::before {
-    opacity: 0.45;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.12  0 0 0 0 0.10  0 0 0 0 0.08  0 0 0 0.11 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
-  }
-  body::after {
-    opacity: 0.07;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='1200'><filter id='b'><feTurbulence type='fractalNoise' baseFrequency='0.012' numOctaves='2' seed='4'/><feColorMatrix values='0 0 0 0 0.45  0 0 0 0 0.36  0 0 0 0 0.24  0 0 0 0.9 0'/></filter><rect width='100%25' height='100%25' filter='url(%23b)'/></svg>");
-  }
-  body > * { position: relative; z-index: 2; }
-  a { color: inherit; text-decoration: none; }
+*,*::before,*::after{box-sizing:border-box;}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--body);font-size:17px;line-height:1.65;
+  font-variant-numeric:tabular-nums;-webkit-font-smoothing:antialiased;
+}
+p{margin:0;}
+a{color:inherit;}
+img{max-width:100%;}
 
-  /* ── Layout primitives ───────────────────────────────────── */
-  .container {
-    max-width: var(--container-max);
-    margin: 0 auto;
-    padding: 0 var(--container-pad);
-  }
-  .rule { border: 0; border-top: 1px solid var(--rule); margin: 0; }
+/* Browser surfaces themed from the palette, not left at defaults */
+::selection{background:var(--gold);color:var(--hull);}
+:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:2px;}
+.on-dark :focus-visible,.nav :focus-visible{outline-color:var(--paper);}
 
-  .rail { display: block; }
-  .rail > .mono:first-child,
-  .rail > .mono-sm:first-child {
-    display: block;
-    margin-bottom: 24px;
-    color: var(--stone);
-  }
+/* width:100% is load-bearing — .wrap is a flex item inside .hero, and
+   auto cross-axis margins cancel align-items:stretch, so without it the
+   wrap collapses to its content width. */
+.wrap{width:100%;max-width:var(--max);margin:0 auto;padding-inline:var(--pad);}
 
-  /* ── Type ────────────────────────────────────────────────── */
-  .mono {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--stone);
-    font-weight: 400;
-  }
-  .mono--ink { color: var(--ink); }
-  .display {
-    font-family: var(--font-display);
-    font-weight: 500;
-    font-size: clamp(56px, 8vw, 104px);
-    line-height: 1.02;
-    letter-spacing: -0.025em;
-    margin: 0;
-    font-optical-sizing: auto;
-    font-variation-settings: "opsz" 144;
-    text-wrap: balance;
-  }
-  .h2 {
-    font-family: var(--font-display);
-    font-weight: 500;
-    font-size: clamp(34px, 4vw, 44px);
-    line-height: 1.12;
-    letter-spacing: -0.015em;
-    margin: 0;
-    font-optical-sizing: auto;
-    font-variation-settings: "opsz" 144;
-    text-wrap: balance;
-  }
-  .h3 {
-    font-family: var(--font-display);
-    font-weight: 500;
-    font-size: 28px;
-    line-height: 1.18;
-    letter-spacing: -0.01em;
-    margin: 0;
-  }
-  .lede {
-    font-family: var(--font-body);
-    font-size: 18px;
-    line-height: 1.55;
-    color: var(--ink);
-    max-width: 38ch;
-    margin: 0;
-  }
-  p.body {
-    font-family: var(--font-body);
-    font-size: 16px;
-    line-height: 1.7;
-    color: var(--ink-soft);
-    margin: 0 0 1em;
-    max-width: 56ch;
-  }
-  p.body:last-child { margin-bottom: 0; }
+.skip{
+  position:absolute;left:-9999px;top:0;z-index:100;
+  background:var(--paper);color:var(--ink);padding:12px 18px;
+  font-family:var(--display);font-weight:600;text-decoration:none;
+}
+.skip:focus{left:12px;top:12px;}
 
-  /* Persimmon dot — terminal period on each section h2. */
-  .dot {
-    display: inline-block;
-    width: 0.125em;
-    height: 0.125em;
-    background: var(--persimmon);
-    border-radius: 50%;
-    margin-left: 0.04em;
-    vertical-align: baseline;
-  }
+/* ── Shared type ────────────────────────────────────────────────── */
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;margin:0;
+  font-family:var(--display);font-weight:600;font-size:.75rem;
+  letter-spacing:.11em;text-transform:uppercase;
+  color:var(--ink-soft);text-decoration:none;
+}
+.on-dark .eyebrow{color:var(--paper);}
+a.eyebrow{transition:opacity .2s var(--ease);}
+a.eyebrow:hover{opacity:.78;}
+a.eyebrow .ar{display:inline-flex;transition:transform .2s var(--ease);}
+a.eyebrow:hover .ar{transform:translateX(3px);}
 
-  /* Stamp chip — 8px persimmon disc + uppercase mono label. */
-  .stamp {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--persimmon-deep);
-    font-weight: 400;
-  }
-  .stamp::before {
-    content: "";
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--persimmon);
-    flex: 0 0 auto;
-  }
-  .stamps {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 28px;
-    align-items: center;
-  }
+.h2{
+  margin:14px 0 0;font-family:var(--display);font-weight:600;
+  font-size:clamp(1.9rem,3.4vw,3rem);line-height:1.06;
+  letter-spacing:-.03em;max-width:20ch;text-wrap:balance;
+}
+.h3{
+  margin:0;font-family:var(--display);font-weight:600;
+  font-size:clamp(1.35rem,2.1vw,1.85rem);line-height:1.15;
+  letter-spacing:-.02em;text-wrap:balance;
+}
+.prose p{max-width:64ch;}
+.prose p + p{margin-top:16px;}
+.prose strong{font-weight:600;}
 
-  /* Motion · 01 Breath — staggered entrance for brand stamps. */
-  @keyframes breath {
-    0%   { opacity: 0; transform: translateY(8px); }
-    100% { opacity: 1; transform: translateY(0); }
-  }
-  /* Stamps are hidden until the user scrolls; JS adds .stamps--animate. */
-  .stamps .stamp { opacity: 0; }
-  .stamps--animate .stamp {
-    animation: breath 1200ms var(--ease) both;
-  }
-  .stamps--animate .stamp:nth-child(1) { animation-delay: 0ms; }
-  .stamps--animate .stamp:nth-child(2) { animation-delay: 500ms; }
-  .stamps--animate .stamp:nth-child(3) { animation-delay: 1000ms; }
-  @media (prefers-reduced-motion: reduce) {
-    .stamps .stamp { opacity: 1; }
-    .stamps--animate .stamp { animation: none; transform: none; }
-  }
+/* ── Buttons — pill, per the hero-19 exception ──────────────────── */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  min-height:46px;padding:12px 26px;border-radius:999px;
+  font-family:var(--display);font-weight:600;font-size:.875rem;
+  letter-spacing:.01em;text-decoration:none;cursor:pointer;
+  border:1.5px solid transparent;white-space:nowrap;
+  transition:background-color .2s var(--ease),color .2s var(--ease),
+             border-color .2s var(--ease),transform .12s var(--ease);
+}
+.btn:active{transform:translateY(1px);}
+.btn .ar{display:inline-flex;transition:transform .2s var(--ease);}
+.btn:hover .ar{transform:translateX(4px);}
+.btn-light{background:var(--paper);color:var(--ink);border-color:var(--paper);}
+.btn-light:hover{background:#FFF;border-color:#FFF;}
+.btn-ghost-light{background:transparent;color:var(--paper);border-color:rgba(245,242,243,.42);}
+.btn-ghost-light:hover{border-color:var(--paper);background:rgba(245,242,243,.08);}
+.btn-ink{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+.btn-ink:hover{background:var(--ink-soft);border-color:var(--ink-soft);}
+.btn-ghost-ink{background:transparent;color:var(--ink);border-color:var(--line-strong);}
+.btn-ghost-ink:hover{border-color:var(--ink);background:rgba(2,31,148,.05);}
+.btn-amber{background:var(--gold);color:var(--hull);border-color:var(--gold);}
+.btn-amber:hover{background:var(--paper);border-color:var(--paper);}
 
-  /* ── Buttons ─────────────────────────────────────────────── */
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    padding: 14px 22px;
-    font-family: var(--font-body);
-    font-weight: 500;
-    font-size: 15px;
-    border: 1px solid transparent;
-    cursor: pointer;
-    transition: background 200ms var(--ease), color 200ms var(--ease), transform 120ms var(--ease);
-    text-decoration: none;
-    line-height: 1;
-  }
-  .btn .arr { font-family: var(--font-mono); font-size: 13px; }
-  .btn-primary { background: var(--persimmon); color: #fff; }
-  .btn-primary:hover { background: var(--persimmon-deep); }
-  .btn-primary:active { transform: translateY(1px); }
-  .btn-ghost { background: transparent; color: var(--ink); border-color: var(--ink); }
-  .btn-ghost:hover { background: var(--ink); color: var(--oat); }
+/* ── Slab field canvases ────────────────────────────────────────── */
+.slab-field{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:0;}
 
-  /* ── Mark ────────────────────────────────────────────────── */
-  .mark {
-    display: inline-flex;
-    align-items: center;
-    line-height: 0;
-  }
-  .mark img { display: block; height: 32px; width: auto; }
-  .mark--lg img { height: 52px; }
+/* ── Nav ────────────────────────────────────────────────────────── */
+.nav{
+  position:sticky;top:0;z-index:40;
+  border-bottom:1px solid transparent;
+  transition:background .3s var(--ease),backdrop-filter .3s var(--ease),
+             border-color .3s var(--ease);
+}
+.nav.stuck{
+  background:rgba(4,18,79,.86);backdrop-filter:blur(14px) saturate(1.4);
+  border-bottom-color:var(--on-hull-line);
+}
+.nav-in{
+  max-width:var(--max);margin:0 auto;padding:18px var(--pad);
+  display:flex;align-items:center;gap:28px;
+}
+.brand{display:inline-flex;align-items:center;text-decoration:none;flex:none;
+  transition:opacity .2s var(--ease);}
+.brand:hover{opacity:.82;}
+/* The real Direction C wordmark (602x114, paper fill), not a rebuild. */
+.brand-mark{display:block;width:auto;height:clamp(21px,2.1vw,26px);}
 
-  /* ── Nav ─────────────────────────────────────────────────── */
-  .nav {
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    background: var(--oat);
-    border-bottom: 1px solid var(--rule);
-  }
-  .nav .inner {
-    max-width: var(--container-max);
-    margin: 0 auto;
-    padding: 22px var(--container-pad);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 24px;
-  }
-  .nav .nav-links {
-    display: flex;
-    align-items: center;
-    gap: 32px;
-    margin-left: auto;
-    margin-right: 8px;
-  }
-  .nav .nav-links a {
-    font-family: var(--font-mono);
-    font-size: 12px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--ink);
-    padding: 6px 0;
-    border-bottom: 1px solid transparent;
-    transition: color 200ms var(--ease), border-color 200ms var(--ease);
-  }
-  .nav .nav-links a:hover,
-  .nav .nav-links a[aria-current="true"] {
-    color: var(--persimmon);
-    border-bottom-color: var(--persimmon);
-  }
-  @media (max-width: 720px) {
-    .nav .nav-links { display: none; }
-  }
+.nav-links{display:flex;gap:34px;margin-left:auto;}
+.nav-links a{
+  font-family:var(--display);font-weight:500;font-size:1rem;
+  color:rgba(245,242,243,.88);text-decoration:none;
+  padding:6px 0;border-bottom:1.5px solid transparent;
+  transition:color .2s var(--ease),border-color .2s var(--ease);
+}
+.nav-links a:hover{color:var(--paper);border-bottom-color:var(--paper);}
+.nav-cta{flex:none;}
 
-  /* ── Nav hamburger + dropdown ────────────────────────────── */
-  .nav-hamburger {
-    display: none;
-    flex-direction: column;
-    justify-content: center;
-    gap: 5px;
-    width: 36px;
-    height: 36px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 6px;
-    flex-shrink: 0;
-  }
-  .nav-hamburger span {
-    display: block;
-    width: 20px;
-    height: 1.5px;
-    background: var(--ink);
-    transition: transform 220ms var(--ease), opacity 150ms var(--ease);
-  }
-  .nav-hamburger[aria-expanded="true"] span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
-  .nav-hamburger[aria-expanded="true"] span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-  .nav-hamburger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+/* Burger + drawer — carried over from the shipping nav, not dropped */
+.burger{
+  display:none;width:44px;height:44px;flex:none;margin-left:auto;
+  background:transparent;border:1.5px solid rgba(245,242,243,.42);
+  border-radius:999px;cursor:pointer;padding:0;
+  align-items:center;justify-content:center;gap:4px;flex-direction:column;
+  transition:border-color .2s var(--ease);
+}
+.burger:hover{border-color:var(--paper);}
+.burger span{display:block;width:16px;height:1.5px;background:var(--paper);
+  transition:transform .22s var(--ease),opacity .22s var(--ease);}
+.burger[aria-expanded="true"] span:nth-child(1){transform:translateY(5.5px) rotate(45deg);}
+.burger[aria-expanded="true"] span:nth-child(2){opacity:0;}
+.burger[aria-expanded="true"] span:nth-child(3){transform:translateY(-5.5px) rotate(-45deg);}
+.drawer{
+  display:none;flex-direction:column;
+  padding:8px var(--pad) 22px;
+  background:rgba(4,18,79,.96);backdrop-filter:blur(14px);
+  border-top:1px solid var(--on-hull-line);
+}
+.drawer.open{display:flex;}
+.drawer a{
+  font-family:var(--display);font-weight:500;font-size:1.0625rem;
+  color:var(--paper);text-decoration:none;padding:13px 0;
+  border-bottom:1px solid var(--on-hull-line);
+}
+.drawer a:last-child{border-bottom:0;}
 
-  .nav-dropdown {
-    display: none;
-    flex-direction: column;
-    border-top: 1px solid var(--rule);
-    padding: 8px var(--container-pad) 16px;
-  }
-  .nav-dropdown.open {
-    display: flex;
-    animation: dropIn 200ms var(--ease) both;
-  }
-  @keyframes dropIn {
-    from { opacity: 0; transform: translateY(-6px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-  .nav-dropdown a {
-    font-family: var(--font-mono);
-    font-size: 12px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--ink);
-    padding: 14px 0;
-    border-bottom: 1px solid var(--rule);
-    transition: color 200ms var(--ease);
-  }
-  .nav-dropdown a:last-child { border-bottom: 0; }
-  .nav-dropdown a:hover { color: var(--persimmon); }
-  @media (prefers-reduced-motion: reduce) {
-    .nav-dropdown.open { animation: none; }
-    .nav-hamburger span { transition: none; }
-  }
+/* ── Hero ───────────────────────────────────────────────────────── */
+.hero{
+  position:relative;isolation:isolate;overflow:hidden;
+  min-height:100svh;display:flex;flex-direction:column;
+  background:var(--hull);color:var(--paper);
+}
+/* Flex items take z-index without position, so this must NOT set
+   position — that would strip the canvas out of its absolute placement
+   and the nav out of sticky. */
+.hero > *:not(.slab-field){z-index:1;}
 
-  .cta-short { display: none; }
-  @media (max-width: 720px) {
-    .nav-hamburger { display: flex; }
-    .cta-full      { display: none; }
-    .cta-short     { display: inline; }
-  }
+.hero-body{flex:1;display:flex;align-items:center;
+  padding-block:clamp(48px,8vh,96px) clamp(72px,12vh,132px);}
+/* Wider than hero-19's 39rem: its headline runs ~20 characters a line,
+   this one runs 27, and at 39rem it broke into four ragged lines. */
+.hero-col{max-width:min(54rem,100%);min-width:0;}
 
-  /* ── Hero ────────────────────────────────────────────────── */
-  .hero {
-    min-height: calc(100vh - 76px);
-    display: flex;
-    align-items: center;
-    padding: 96px 0 120px;
-    position: relative;
-    isolation: isolate;
-  }
-  .hero > .container { position: relative; z-index: 2; }
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--display);font-weight:500;font-size:1.0625rem;
+  letter-spacing:.01em;color:var(--paper);text-decoration:none;
+  transition:opacity .2s var(--ease);
+  /* The hero canvas drifts brighter mid-animation at some points than
+     the contrast math assumes at rest. A Hull-tinted shadow keeps this
+     legible regardless of what's moving underneath it. */
+  text-shadow:0 1px 3px rgba(4,18,79,.7);
+}
+.hero-eyebrow:hover{opacity:.8;}
+.hero-eyebrow .ar{display:inline-flex;transition:transform .2s var(--ease);}
+.hero-eyebrow:hover .ar{transform:translateX(3px);}
 
-  /* Hero ink-wash motifs — persimmon + ink, peeking off-edge. */
-  .hero-wash {
-    position: absolute;
-    pointer-events: none;
-    z-index: 0;
-    user-select: none;
-  }
-  .hero-wash--persimmon {
-    top: -160px;
-    right: -220px;
-    width: 940px;
-    height: 720px;
-  }
-  .hero-wash--ink {
-    bottom: -260px;
-    left: -180px;
-    width: 620px;
-    height: 480px;
-  }
+.display{
+  margin:22px 0 0;font-family:var(--display);font-weight:300;
+  font-size:clamp(2.25rem,4.35vw,3.75rem);line-height:1.06;
+  letter-spacing:-.035em;color:var(--paper);
+  text-shadow:0 1px 3px rgba(4,18,79,.7);
+}
+/* Each line is one authored break, so the weight split lands where the
+   argument turns. They re-wrap only once the column is too narrow. */
+.display .l1,.display .l2{display:block;white-space:nowrap;}
+@media (max-width:720px){.display .l1,.display .l2{white-space:normal;}}
+.display .lt{font-weight:100;}
+.display .hv{font-weight:700;}
 
-  /* Section ink-wash — same motif, spread throughout the page. */
-  .section { position: relative; }
-  .section-wash {
-    position: absolute;
-    pointer-events: none;
-    user-select: none;
-    z-index: 0;
-  }
-  .section-wash--ink-tl {
-    top: -120px;
-    left: -200px;
-    width: 620px;
-    height: 480px;
-  }
-  .section-wash--persimmon-mr {
-    top: 18%;
-    right: -260px;
-    width: 700px;
-    height: 540px;
-  }
-  .section-wash--ink-bl {
-    bottom: -160px;
-    left: -220px;
-    width: 680px;
-    height: 520px;
-  }
-  .section-wash--persimmon-tr {
-    top: -160px;
-    right: -200px;
-    width: 620px;
-    height: 480px;
-  }
-  .section > .container { position: relative; z-index: 1; }
-  .hero .stack { display: flex; flex-direction: column; gap: 36px; max-width: 1000px; }
-  .hero .label-row { display: flex; align-items: center; gap: 14px; }
-  .hero .label-row .tick { width: 24px; height: 1px; background: var(--stone); }
-  .hero .ctas { display: flex; gap: 18px; align-items: center; flex-wrap: wrap; }
+.lede{margin-top:24px;max-width:38rem;
+  font-size:clamp(1.15rem,1.7vw,1.3rem);line-height:1.58;
+  color:#B9C2E4;text-wrap:pretty;text-shadow:0 1px 3px rgba(4,18,79,.7);}
+.hero-actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:34px;}
 
-  /* ── Sections ────────────────────────────────────────────── */
-  .section { padding: 120px 0; }
-  .section-head { margin-bottom: 64px; }
-  .section-head .mono { margin-bottom: 24px; display: block; }
+.scroll-tag{
+  position:absolute;right:var(--pad);bottom:clamp(28px,5vh,44px);z-index:2;
+  display:none;align-items:center;gap:11px;
+  font-family:var(--display);font-weight:500;font-size:.75rem;
+  letter-spacing:.04em;text-transform:uppercase;
+  color:var(--paper);text-decoration:none;opacity:.9;
+  text-shadow:0 1px 3px rgba(4,18,79,.7);
+  transition:opacity .2s var(--ease);
+}
+.scroll-tag:hover{opacity:1;}
+.scroll-tag .ar{display:inline-flex;animation:nudge 2.6s var(--ease) infinite;}
+@keyframes nudge{0%,100%{transform:translateY(0);}50%{transform:translateY(4px);}}
 
-  /* ── About ───────────────────────────────────────────────── */
-  .about {
-    --about-portrait-aspect: 3 / 4;
-    --about-portrait-w: 340px;
-    --about-gap: 80px;
-  }
-  .about .cols {
-    display: grid;
-    grid-template-columns: var(--about-portrait-w) 1fr;
-    gap: var(--about-gap);
-    align-items: start;
-  }
-  .about .portrait {
-    display: block;
-    width: 100%;
-    aspect-ratio: var(--about-portrait-aspect);
-    background: var(--oat-deep);
-    overflow: hidden;
-  }
-  .about .portrait img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center 30%;
-    display: block;
-  }
-  .about .portrait-caption {
-    margin-top: 14px;
-    font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--stone);
-  }
-  .about .text-card {
-    background: var(--oat-deep);
-    border-left: 2px solid var(--persimmon);
-    padding: 28px 32px;
-    display: flex;
-    flex-direction: column;
-  }
-  .about .text-card .card-eyebrow {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    letter-spacing: .14em;
-    text-transform: uppercase;
-    color: var(--stone);
-    margin-bottom: 18px;
-  }
-  .about .text-card .card-primary {
-    font-family: var(--font-body);
-    font-size: 16px;
-    line-height: 1.7;
-    color: var(--ink);
-    font-weight: 500;
-    margin: 0;
-    max-width: 52ch;
-  }
-  .about .text-card .card-rule {
-    border: 0;
-    border-top: 1px solid var(--rule);
-    margin: 22px 0;
-  }
-  .about .text-card .card-secondary {
-    font-family: var(--font-body);
-    font-size: 14.5px;
-    line-height: 1.72;
-    color: var(--stone);
-    margin: 0 0 14px;
-    max-width: 52ch;
-  }
-  .about .text-card .card-secondary:last-child { margin-bottom: 0; }
+/* ── Hero entry — the page's one authored entrance ──────────────── */
+@keyframes riseIn{from{opacity:0;transform:translateY(14px);filter:blur(7px);}
+  to{opacity:1;transform:none;filter:blur(0);}}
+@keyframes slideIn{from{opacity:0;transform:translateX(-22px);filter:blur(8px);}
+  to{opacity:1;transform:none;filter:blur(0);}}
+.anim{opacity:0;animation:slideIn .78s var(--ease) forwards;}
+.anim-y{opacity:0;animation:riseIn .62s var(--ease) forwards;}
+.d1{animation-delay:.06s;}.d2{animation-delay:.16s;}.d3{animation-delay:.26s;}
+.d4{animation-delay:.36s;}.d5{animation-delay:.46s;}.d6{animation-delay:.58s;}
 
-  /* ── Work ────────────────────────────────────────────────── */
-  /* Studies grid — one card now, expandable later */
-  .studies {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 24px;
-    margin-bottom: 48px;
-  }
+/* ── Bands ──────────────────────────────────────────────────────── */
+.band{padding-block:var(--band);background:var(--paper);color:var(--ink);}
+.band-surface{background:var(--surface);}
+.band-dark{position:relative;isolation:isolate;overflow:hidden;
+  background:var(--hull);color:var(--paper);}
+.band-dark > .wrap{position:relative;z-index:1;}
+/* Headings deliberately declare no color — they inherit from the band,
+   so a paper card sitting on a dark band keeps its own ink. Setting
+   .on-dark .h3 here painted the case-study heading white on white. */
 
-  /* Study card */
-  .studyCard {
-    display: flex;
-    flex-direction: column;
-    background: var(--oat-deep);
-    padding: 22px 24px;
-    text-decoration: none;
-    color: inherit;
-    transition: transform .35s ease, box-shadow .35s ease;
-  }
-  .studyCard:hover { transform: scale(1.02); box-shadow: 0 12px 30px rgba(31,26,20,.10); }
+.band-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);
+  gap:clamp(20px,4vw,64px);align-items:end;}
+.band-head .prose p{color:var(--ink-soft);}
+.on-dark .band-head .prose p{color:var(--on-hull);text-shadow:0 1px 3px rgba(4,18,79,.7);}
 
-  /* Label row */
-  .studyCard .label {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 18px;
-  }
-  .liveTag { display: inline-flex; align-items: center; gap: 6px; }
-  .liveDot {
-    width: 6px; height: 6px; border-radius: 50%; background: var(--persimmon);
-    box-shadow: 0 0 0 0 rgba(217,104,51,.55);
-    animation: livePulse 2.4s ease-out infinite;
-  }
-  @keyframes livePulse {
-    0%   { box-shadow: 0 0 0 0 rgba(217,104,51,.45); }
-    70%  { box-shadow: 0 0 0 6px rgba(217,104,51,0); }
-    100% { box-shadow: 0 0 0 0 rgba(217,104,51,0); }
-  }
-  @media (prefers-reduced-motion: reduce) { .liveDot { animation: none; } }
+/* ── Process ────────────────────────────────────────────────────── */
+/* The timeline claim, pulled out of the hero and given its own weight
+   here — this is the "first call to live system" callout. */
+/* Same column split as .band-head, so the figure lands directly under
+   the paragraph that makes the claim rather than floating mid-row. */
+.timeline{
+  margin-top:clamp(36px,5vw,56px);padding-top:30px;
+  border-top:2px solid var(--ink);
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);
+  gap:8px clamp(20px,4vw,64px);align-items:baseline;
+}
+.timeline dt{
+  font-family:var(--display);font-weight:600;font-size:.75rem;
+  letter-spacing:.11em;text-transform:uppercase;color:var(--muted);
+}
+.timeline dd{
+  margin:0;font-family:var(--display);font-weight:300;
+  font-size:clamp(1.6rem,2.6vw,2.3rem);line-height:1;
+  letter-spacing:-.035em;color:var(--ink);
+}
 
-  /* Card body */
-  .cardBody {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 18px;
-    padding: 0 0 22px;
-    flex: 1;
-    align-items: center;
-  }
-  .cardCopy { display: flex; flex-direction: column; gap: 10px; }
-  .cardHead {
-    font-family: var(--font-display);
-    font-weight: 500;
-    font-size: 24px;
-    line-height: 1.14;
-    letter-spacing: -.01em;
-    color: var(--ink);
-    text-wrap: balance;
-  }
-  .cardNarrative {
-    font-family: var(--font-body);
-    font-size: 13.5px;
-    line-height: 1.6;
-    color: var(--stone);
-    max-width: 44ch;
-  }
+/* No border-top here on purpose: it used to sit ~150px under the
+   timeline's own 2px rule, doubling the "new group" signal in one
+   section. The 01-04 numerals already carry enough scale to separate
+   the steps without a second hairline. */
+/* Steps flow — replaced the flat 4-up grid 2026-08-27 after Juan
+   picked this over two ruled alternatives in a rendered comparison.
+   Three confirmed departures from DESIGN.md, all his call, all shown
+   to him rendered before landing here:
+     · a third lifted element (Two Lifts Rule already spends its two
+       on the hero panel and the case card) — the step cards lift too
+     · a static rotation on each card (the system is otherwise
+       rotation-free)
+     · the gold step-badge carries no Hull border on paper, where the
+       Fill Rule calls for one — dropped on request
+   The connecting path is the one authored motion moment for this
+   section, drawn continuously while in view via the same
+   IntersectionObserver pattern as .reveal, and gated the same way the
+   hero canvas gates its own frame loop (nothing animates off-screen). */
+.flow{
+  position:relative;margin:clamp(70px,9vw,94px) 0 0;
+  max-width:920px;height:900px;
+}
+.flow-list{position:relative;z-index:1;list-style:none;margin:0;padding:0;}
+.flow svg{position:absolute;inset:0;width:100%;height:100%;z-index:0;overflow:visible;}
+.flow-path{
+  stroke:var(--gold);stroke-width:2.5;fill:none;stroke-linecap:round;
+  stroke-dasharray:10 9;opacity:0;transition:opacity .5s var(--ease);
+}
+.flow.seen .flow-path{opacity:.9;animation:dashmove 2.6s linear infinite;}
+@keyframes dashmove{ to{ stroke-dashoffset:-114; } }
 
-  /* SVG mark — centered in its 1fr column, away from both copy and right edge */
-  .studyMark { width: 160px; height: 160px; display: flex; align-items: center; justify-content: center; margin: 0 auto; }
-  .studyMark svg { width: 100%; height: 100%; display: block; overflow: visible; }
-  .markA .ln  { fill: none; stroke: var(--ink); stroke-width: 1; }
-  .markA .out { fill: none; stroke: var(--persimmon); stroke-width: 1.4; }
-  .markA .trav { fill: var(--persimmon); }
-  .markA .pt {
-    fill: var(--persimmon);
-    transform-box: fill-box; transform-origin: center;
-    animation: ptPulse 2.6s ease-out infinite;
-  }
-  @keyframes ptPulse {
-    0%,56% { transform: scale(1); }
-    66%    { transform: scale(1.22); }
-    100%   { transform: scale(1); }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .markA .trav { display: none; }
-    .markA .pt   { animation: none; }
-  }
+.flow-card{position:absolute;width:min(268px,72vw);z-index:1;
+  transition:transform .3s var(--ease);}
+.flow-card:hover{transform:scale(1.045) rotate(0deg) !important;z-index:5;}
+.fc-1{top:0;      left:10%;  transform:rotate(-2.5deg);}
+.fc-2{top:150px;  right:8%;  transform:rotate(2.5deg);}
+.fc-3{top:330px;  left:12%;  transform:rotate(-2.5deg);}
+.fc-4{top:500px;  right:6%;  transform:rotate(2deg);}
+.fc-5{top:680px;  left:11%;  transform:rotate(-2deg);}
 
-  /* Outcome row */
-  .cardOutcome {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    border-top: 1px solid var(--rule);
-    padding-top: 14px;
-  }
-  .outcomeLabel { font-size: 8px; letter-spacing: .14em; text-transform: uppercase; color: var(--stone); }
-  .cardOutcome .outcomeStat .outcomeStat-num {
-    font-family: var(--font-display);
-    font-weight: 500;
-    font-size: 30px;
-    line-height: 1;
-    letter-spacing: -.01em;
-    color: var(--persimmon);
-    margin-top: 4px;
-  }
-  .outcomeUnit { font-size: 11px; color: var(--stone); margin-top: 3px; }
-  .readCase {
-    font-family: var(--font-body);
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--ink);
-    white-space: nowrap;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-  }
-  .readCase .arrow { color: var(--persimmon); transition: transform .35s ease; }
-  .studyCard:hover .readCase .arrow { transform: translateX(3px); }
+.step-badge{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-width:46px;height:34px;padding:0 18px;border-radius:999px;margin:0 auto 14px;
+  background:var(--gold);color:var(--hull);
+  font-family:var(--display);font-weight:700;font-size:1rem;
+}
+/* Shadow only, no border — a hairline edge plus a soft wide shadow is
+   a known generated-UI tell, so this commits to elevation alone. */
+.step-card{
+  background:var(--paper);border-radius:18px;
+  padding:22px 22px 20px;text-align:center;
+  box-shadow:0 14px 28px -16px rgba(4,18,79,.28);
+}
+.step-name{font-family:var(--display);font-weight:600;font-size:1.25rem;
+  line-height:1.2;letter-spacing:-.02em;margin:0 0 8px;}
+.step-desc{color:var(--ink-soft);font-size:1rem;line-height:1.5;margin:0;}
+.step-dur{display:block;margin-top:13px;font-family:var(--display);font-weight:600;
+  font-size:.75rem;letter-spacing:.11em;text-transform:uppercase;color:var(--muted);}
 
-  @media (max-width: 560px) {
-    .cardHead { font-size: 21px; }
-    .cardBody { grid-template-columns: 1fr; }
-    .studyMark { display: none; }
-  }
+.closer-row{
+  margin-top:clamp(44px,6vw,72px);display:flex;flex-wrap:wrap;
+  align-items:center;justify-content:space-between;gap:26px;
+}
+.closer{
+  font-family:var(--display);font-weight:300;
+  font-size:clamp(1.3rem,2.3vw,1.95rem);line-height:1.32;
+  letter-spacing:-.025em;max-width:30ch;text-wrap:balance;
+}
 
+/* ── Tools ──────────────────────────────────────────────────────── */
+/* Marks are optically sized, not box-sized: a square mark and a wide
+   one at the same height read as different weights, so each gets its
+   own cap while sharing one row height. */
+.tools{
+  margin:clamp(40px,5vw,60px) 0 0;
+  padding:clamp(34px,4vw,46px) 0;list-style:none;
+  border-top:2px solid var(--ink);
+  border-bottom:1px solid var(--line);
+  /* Eight marks: 5 + 3 with the trailing row centered, then 4+4, then 2x4.
+     Five keeps cells wide enough that "Google Sheets" stays on one line;
+     at nine across it wrapped, and shrinking the label would have added a
+     sixth type size the scale does not have. */
+  display:grid;grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:clamp(28px,3.5vw,44px) clamp(12px,1.4vw,20px);
+}
+.tool{display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center;}
+.tool-mark{display:flex;align-items:center;justify-content:center;height:46px;}
+/* The inlined marks carry a viewBox but no width/height, so height has
+   to be definite here — with height:auto they collapse to 0 in a flex
+   box and the whole row renders empty. */
+.tool-mark svg{height:100%;width:auto;max-width:104px;flex:none;display:block;}
+.tool-name{
+  font-family:var(--display);font-weight:600;font-size:.75rem;
+  letter-spacing:.11em;text-transform:uppercase;color:var(--ink-soft);
+}
+/* n8n styles its name lowercase; the label tier would render it "N8N". */
+.tool-name.lower{text-transform:lowercase;letter-spacing:.09em;}
+/* Card treatment (Preline-style logo grid), mapped onto the system:
+   bg-surface -> --surface, rounded-lg -> the 10px radius already in use.
+   This is the "icon tiles" DESIGN.md's Don'ts rule out, kept as a third
+   recorded departure alongside the eyebrow and the pill buttons. */
+.tools--cards{
+  /* The 2px rule stays: it opens a data region the way it does in the
+     process band, the case card and the About record. Only the closing
+     hairline goes — the cards give the region its own bottom edge. */
+  padding:clamp(34px,4vw,46px) 0 0;border-bottom:0;
+  gap:clamp(10px,1.2vw,18px);
+}
+.tools--cards .tool{
+  background:var(--surface);border-radius:10px;
+  padding:clamp(18px,2.2vw,28px) clamp(10px,1.4vw,16px);
+  gap:16px;justify-content:center;
+  transition:background-color .2s var(--ease);
+}
+.tools--cards .tool:hover{background:#E1E0E9;}
+/* 8 marks / 5 columns = 5 + 3. Pushing the sixth card one column right
+   centers the trailing row (columns 2-4). Only needed at five across —
+   four and two both divide eight evenly. */
+@media (min-width:1001px){ .tools--cards .tool:nth-child(6){grid-column:2;} }
+.tools-note{
+  margin-top:clamp(40px,5vw,64px);
+  font-family:var(--display);font-weight:300;
+  font-size:clamp(1.3rem,2.3vw,1.95rem);line-height:1.32;
+  letter-spacing:-.025em;max-width:26ch;text-wrap:balance;
+}
+@media (max-width:1000px){ .tools{grid-template-columns:repeat(4,minmax(0,1fr));} }
+@media (max-width:680px){
+  .tools{grid-template-columns:repeat(2,minmax(0,1fr));}
+  .tool-mark{height:36px;}
+  .tool-name{font-size:.75rem;letter-spacing:.08em;}
+}
 
-  /* Pullquote — soft oat-deep panel, three typographic regions. */
-  .pullquote {
-    margin: 88px 0 64px;
-    padding: 0;
-    border: 0;
-    background: var(--oat-deep);
-  }
-  .pullquote > div {
-    display: grid;
-    grid-template-columns: 1fr;
-    padding: 36px 40px 32px;
-    gap: 24px;
-  }
-  .pullquote .pq-eyebrow {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--stone);
-    padding: 0;
-    border: 0;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .pullquote .pq-eyebrow::before {
-    content: "";
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--persimmon);
-    flex: 0 0 auto;
-  }
-  .pullquote q {
-    font-family: var(--font-display);
-    font-style: italic;
-    font-weight: 400;
-    font-size: clamp(32px, 4vw, 48px);
-    line-height: 1.25;
-    color: var(--ink);
-    quotes: none;
-    display: block;
-    max-width: 28ch;
-    margin: 0;
-    padding: 0;
-  }
-  .pullquote q::before {
-    content: "\201C";
-    color: var(--persimmon);
-    font-style: normal;
-    font-weight: 500;
-    font-size: 1.25em;
-    line-height: 0;
-    vertical-align: -0.05em;
-    margin-right: 0.04em;
-  }
-  .pullquote q::after {
-    content: "\201D";
-    color: var(--persimmon);
-    font-style: normal;
-    font-weight: 500;
-    font-size: 1.25em;
-    line-height: 0;
-    vertical-align: -0.05em;
-    margin-left: 0.04em;
-  }
-  .pullquote .attr {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--stone);
-    border: 0;
-    padding: 0;
-    margin: 0;
-  }
+/* ── Work — the case study, a paper card lifted onto the slab ───── */
+.case{
+  display:block;margin-top:clamp(34px,4.5vw,52px);
+  background:var(--paper);color:var(--ink);
+  border-radius:10px;padding:clamp(28px,4vw,52px);
+  text-decoration:none;
+  box-shadow:0 18px 44px -26px rgba(0,0,0,.72);
+  transition:transform .28s var(--ease),box-shadow .28s var(--ease);
+}
+.case:hover{transform:translateY(-3px);
+  box-shadow:0 26px 56px -26px rgba(0,0,0,.8);}
+.case-client{
+  font-family:var(--display);font-weight:600;font-size:.75rem;
+  letter-spacing:.11em;text-transform:uppercase;color:var(--ink-soft);
+}
+.case .h3{margin-top:14px;max-width:24ch;}
+.case-desc{margin-top:16px;color:var(--ink-soft);max-width:62ch;}
+.spec{
+  margin:clamp(24px,3vw,34px) 0 0;padding-top:22px;
+  border-top:2px solid var(--ink);
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px 32px;
+}
+.spec div{display:flex;flex-direction:column;gap:5px;}
+.spec dt{font-family:var(--display);font-weight:600;font-size:.75rem;
+  letter-spacing:.11em;text-transform:uppercase;color:var(--muted);}
+.spec dd{margin:0;font-family:var(--display);font-weight:500;
+  font-size:1.0625rem;line-height:1.3;}
+.spec dd.em{color:var(--ink);font-weight:700;}
+.case-cta{
+  display:inline-flex;align-items:center;gap:10px;margin-top:clamp(24px,3vw,32px);
+  font-family:var(--display);font-weight:600;font-size:1.0625rem;color:var(--ink-soft);
+}
+.case-cta .ar{display:inline-flex;transition:transform .2s var(--ease);}
+.case:hover .case-cta .ar{transform:translateX(4px);}
 
-  /* ── Services ────────────────────────────────────────────── */
-  .services .intro { margin-bottom: 48px; }
+/* ── About ──────────────────────────────────────────────────────── */
+.about-in{
+  margin-top:clamp(34px,4.5vw,52px);
+  display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);
+  gap:clamp(28px,4.5vw,64px);align-items:start;
+}
+.portrait{margin:0;}
+.portrait img{display:block;width:100%;height:auto;border-radius:10px;}
+.portrait figcaption{
+  margin-top:14px;padding-top:12px;border-top:2px solid var(--ink);
+  font-size:1rem;line-height:1.45;color:var(--ink-soft);
+}
+.portrait figcaption b{display:block;font-family:var(--display);font-weight:600;
+  font-size:1.0625rem;color:var(--ink);letter-spacing:-.01em;}
+.record{
+  margin:clamp(28px,3.5vw,40px) 0 0;padding-top:24px;
+  border-top:2px solid var(--ink);
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px 28px;
+}
+.record div{display:flex;flex-direction:column;gap:4px;}
+.record dt{font-family:var(--display);font-weight:300;
+  font-size:clamp(1.6rem,2.6vw,2.3rem);line-height:1;letter-spacing:-.035em;}
+.record dd{margin:0;font-family:var(--display);font-weight:600;font-size:.75rem;
+  letter-spacing:.11em;text-transform:uppercase;color:var(--ink-soft);}
 
-  /* Workflow diagram: CALL → SCOPE → BUILD → SHIP */
-  .workflow {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
-    align-items: stretch;
-    gap: 14px;
-    margin: 8px 0 56px;
-  }
-  .workflow .step {
-    background: var(--oat-deep);
-    padding: 24px 22px 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    min-height: 168px;
-  }
-  .workflow .step-label {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--ink);
-  }
-  .workflow .step-body {
-    font-family: var(--font-body);
-    font-size: 14px;
-    line-height: 1.5;
-    color: var(--ink-soft);
-    margin: 0;
-  }
-  .workflow .step-duration {
-    margin-top: auto;
-    padding-top: 14px;
-    border-top: 1px solid var(--rule);
-    font-family: var(--font-mono);
-    font-size: 10px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--stone);
-  }
-  .workflow .arrow {
-    align-self: center;
-    font-family: var(--font-mono);
-    font-size: 18px;
-    color: var(--persimmon);
-    font-weight: 500;
-  }
+/* ── Contact ────────────────────────────────────────────────────── */
+.contact-in{
+  margin-top:clamp(34px,4.5vw,52px);
+  display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);
+  gap:clamp(28px,4.5vw,64px);align-items:start;
+}
+.form{display:flex;flex-direction:column;gap:18px;}
+.form-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;}
+.field{display:flex;flex-direction:column;gap:7px;}
+.field label{font-family:var(--display);font-weight:600;font-size:.75rem;
+  letter-spacing:.11em;text-transform:uppercase;color:var(--ink-soft);}
+.req{color:var(--ink-soft);}
+.field input,.field textarea{
+  font-family:var(--body);font-size:1rem;color:var(--ink);
+  background:var(--paper);border:1.5px solid var(--line-strong);
+  border-radius:6px;padding:13px 15px;width:100%;
+  transition:border-color .18s var(--ease),box-shadow .18s var(--ease);
+}
+.field textarea{min-height:132px;resize:vertical;}
+.field input::placeholder,.field textarea::placeholder{color:var(--muted);opacity:1;}
+.field input:focus,.field textarea:focus{
+  outline:none;border-color:var(--ink);
+  box-shadow:0 0 0 3px rgba(2,31,148,.14);
+}
+.submit-row{display:flex;flex-wrap:wrap;align-items:center;gap:16px 22px;}
+.form-note{font-size:1rem;color:var(--ink-soft);}
+.form-note a{color:var(--ink-soft);text-underline-offset:3px;}
+.form-status{font-size:1rem;color:var(--ink-soft);min-height:1.4em;}
 
-  /* Workflow breath animation — hidden until .workflow--animate is added by JS. */
-  .workflow > * { opacity: 0; }
-  .workflow--animate > * {
-    animation: breath 1200ms var(--ease) both;
-  }
-  .workflow--animate > *:nth-child(1) { animation-delay:    0ms; }
-  .workflow--animate > *:nth-child(2) { animation-delay:  260ms; }
-  .workflow--animate > *:nth-child(3) { animation-delay:  520ms; }
-  .workflow--animate > *:nth-child(4) { animation-delay:  780ms; }
-  .workflow--animate > *:nth-child(5) { animation-delay: 1040ms; }
-  .workflow--animate > *:nth-child(6) { animation-delay: 1300ms; }
-  .workflow--animate > *:nth-child(7) { animation-delay: 1560ms; }
-  @media (prefers-reduced-motion: reduce) {
-    .workflow > * { opacity: 1; }
-    .workflow--animate > * { animation: none; transform: none; }
-  }
+/* ── Footer ─────────────────────────────────────────────────────── */
+/* Hull, not flat --ink: the Anchor-Reads Rule puts the footer in the same
+   family as the hero and the process slab, not the brighter reading-text
+   blue. The two low-opacity glows borrow the hero's own warm/cool pair
+   (gold #D3A50D, bead blue #5F74DC) at quarter-strength, so the footer
+   reads as part of the same page instead of a flat block bolted underneath. */
+.footer{
+  position:relative;isolation:isolate;overflow:hidden;
+  background:
+    radial-gradient(640px 440px at 6% -12%, rgba(211,165,13,.10), transparent 62%),
+    radial-gradient(600px 440px at 97% 112%, rgba(95,116,220,.16), transparent 62%),
+    var(--hull);
+  color:var(--paper);
+  padding-block:var(--band) 34px;
+}
+.footer > .wrap{position:relative;z-index:1;}
+.footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:40px;}
+.foot-lockup{display:block;width:min(100%,358px);height:auto;}
+.footer-blurb{
+  /* Statement tier, reused verbatim from .closer — same weight/size role
+     (a claim set larger than prose, lighter than a heading), so this
+     stops being a second near-identical fluid step. */
+  margin-top:24px;max-width:28ch;font-family:var(--display);font-weight:300;
+  font-size:clamp(1.1rem,1.7vw,1.5rem);line-height:1.38;letter-spacing:-.02em;
+}
+.footer-grid h3{
+  margin:0 0 15px;font-family:var(--display);font-weight:600;font-size:.75rem;
+  letter-spacing:.11em;text-transform:uppercase;color:var(--on-hull);
+}
+.footer-grid ul{list-style:none;margin:0;padding:0;
+  display:flex;flex-direction:column;gap:9px;}
+.footer-grid li{color:var(--paper);}
+.footer-grid a{text-decoration:none;border-bottom:1px solid transparent;
+  transition:color .2s var(--ease),border-color .2s var(--ease);}
+.footer-grid a:hover{color:var(--paper);border-bottom-color:var(--paper);}
+.baseline{
+  margin-top:clamp(44px,6vw,72px);padding-top:22px;
+  border-top:1px solid var(--on-hull-line);
+  display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;
+  font-family:var(--display);font-weight:600;font-size:.75rem;
+  letter-spacing:.09em;text-transform:uppercase;color:var(--on-hull);
+}
 
-  .services .services-closer {
-    font-family: var(--font-display);
-    font-weight: 400;
-    font-size: clamp(28px, 3.2vw, 40px);
-    line-height: 1.18;
-    letter-spacing: -0.02em;
-    color: var(--ink);
-    max-width: 32ch;
-    margin: 96px 0 56px;
-  }
+/* ── Reveal for the one below-the-fold moment ───────────────────── */
+.reveal{opacity:0;transform:translateY(18px);
+  transition:opacity .7s var(--ease),transform .7s var(--ease);}
+.reveal.seen{opacity:1;transform:none;}
 
-  /* ── Contact ─────────────────────────────────────────────── */
-  .contact .intro { margin-bottom: 56px; max-width: 56ch; }
-  .form {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px 56px;
-    max-width: 720px;
-  }
-  .form .field { display: flex; flex-direction: column; }
-  .form .field.full { grid-column: 1 / -1; }
-  .form label {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--stone);
-    margin-bottom: 12px;
-  }
-  .form input, .form textarea {
-    font-family: var(--font-body);
-    font-size: 16px;
-    color: var(--ink);
-    padding: 12px 0;
-    background: transparent;
-    border: 0;
-    border-bottom: 1px solid var(--ink);
-    outline: none;
-    border-radius: 0;
-    resize: none;
-  }
-  .form textarea {
-    min-height: 110px;
-    padding: 14px 16px;
-    background: var(--oat-deep);
-    border: 1px solid var(--rule);
-    resize: vertical;
-  }
-  .form input:focus { border-bottom-color: var(--persimmon); }
-  .form textarea:focus { border-color: var(--ink); outline: none; }
-  .form .submit-row {
-    grid-column: 1 / -1;
-    display: flex;
-    align-items: center;
-    gap: 24px;
-    margin-top: 16px;
-  }
-  .form .note { font-family: var(--font-body); font-size: 12px; color: var(--stone); }
+/* ── Responsive ─────────────────────────────────────────────────── */
+@media (min-width:900px){.scroll-tag{display:inline-flex;}}
+@media (max-width:1000px){
+  .band-head,.timeline{grid-template-columns:minmax(0,1fr);align-items:start;}
+  /* The curved path only reads at width — below 1000px the flow
+     collapses to a single stacked column with a straight rule standing
+     in for the path, the same "rule turns with the stack" idea the rest
+     of the system uses when a horizontal row goes vertical. */
+  .flow{height:auto;max-width:520px;border-left:1px solid var(--line);padding-left:28px;}
+  .flow svg{display:none;}
+  .flow-card{position:relative;top:auto;left:auto;right:auto;
+    width:100%;transform:none !important;margin-bottom:36px;}
+  .flow-card:last-child{margin-bottom:0;}
+  .step-card{text-align:left;}
+  .step-badge{margin:0 0 14px;}
+  .about-in,.contact-in{grid-template-columns:minmax(0,1fr);}
+  .portrait{max-width:420px;}
+  .footer-grid{grid-template-columns:1fr 1fr;}
+  .footer-grid > :first-child{grid-column:1 / -1;}
+}
+@media (max-width:860px){
+  .nav-links,.nav-cta{display:none;}
+  .burger{display:flex;}
+}
+@media (max-width:680px){
+  .spec,.record{grid-template-columns:minmax(0,1fr);}
+  .form-row{grid-template-columns:minmax(0,1fr);}
+  .hero-actions .btn,.closer-row .btn{flex:1 1 100%;}
+  .footer-grid{grid-template-columns:1fr;}
+}
 
-  /* ── Footer ──────────────────────────────────────────────── */
-  .footer {
-    background: var(--ink);
-    color: var(--oat);
-    padding: 48px 0 28px;
-    margin-top: 64px;
-  }
-  .footer-grid {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    align-items: start;
-    gap: 56px;
-    margin-bottom: 40px;
-  }
-  .footer-cols {
-    display: flex;
-    gap: 56px;
-  }
-  .footer-cols .footer-col { min-width: 0; }
-  .footer .mark { color: var(--oat); }
-  .footer-col h4 {
-    font-family: var(--font-body);
-    font-weight: 500;
-    font-size: 13px;
-    margin: 0 0 14px;
-    letter-spacing: 0.04em;
-    color: var(--oat);
-  }
-  .footer-col p {
-    margin: 0 0 4px;
-    font-family: var(--font-body);
-    font-size: 13px;
-    line-height: 1.55;
-    color: rgba(244, 239, 230, 0.72);
-  }
-  .footer-col a {
-    color: rgba(244, 239, 230, 0.85);
-    border-bottom: 1px solid rgba(244, 239, 230, 0.18);
-    padding-bottom: 1px;
-    transition: color 200ms var(--ease), border-color 200ms var(--ease);
-  }
-  .footer-col a:hover { color: var(--oat); border-bottom-color: var(--oat); }
-
-  /* Wordmark unit — mark | vertical rule | italic tagline + mono. */
-  .footer-wordmark {
-    display: flex;
-    align-items: center;
-    gap: 22px;
-    padding-top: 0;
-  }
-  .footer-wordmark .mark img { height: 44px; }
-  .footer-wordmark-rule {
-    width: 1px;
-    align-self: stretch;
-    background: rgba(244, 239, 230, 0.22);
-  }
-  .footer-wordmark-text { display: flex; flex-direction: column; gap: 4px; }
-  .footer-tagline {
-    margin: 0;
-    font-family: var(--font-display);
-    font-style: italic;
-    font-weight: 400;
-    font-size: 15px;
-    line-height: 1.35;
-    color: rgba(244, 239, 230, 0.82);
-    max-width: 28ch;
-  }
-  .footer-mono {
-    margin: 0;
-    font-family: var(--font-mono);
-    font-size: 10px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: rgba(244, 239, 230, 0.55);
-  }
-
-  .footer .baseline {
-    padding-top: 16px;
-    border-top: 1px solid rgba(244, 239, 230, 0.18);
-    display: flex;
-    justify-content: space-between;
-    font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.14em;
-    color: rgba(244, 239, 230, 0.55);
-  }
-
-  /* ── Responsive ──────────────────────────────────────────── */
-  @media (max-width: 960px) {
-    :root { --container-pad: 28px; }
-    .about .cols,
-    .form { grid-template-columns: 1fr; gap: 32px; display: grid; }
-    .about .portrait { max-width: 320px; }
-    .pullquote { grid-template-columns: 1fr; }
-    .section { padding: 80px 0; }
-    .hero { padding: 64px 0 80px; min-height: auto; }
-    .footer { padding: 48px 0 28px; margin-top: 56px; }
-    .pullquote { padding-left: 28px; padding-right: 28px; }
-    .workflow { grid-template-columns: 1fr; gap: 8px; }
-    .workflow .arrow { transform: rotate(90deg); padding: 4px 0; }
-    .workflow .step { min-height: 0; }
-    .footer-grid { grid-template-columns: 1fr; gap: 32px; margin-bottom: 32px; }
-    .footer-wordmark { padding-top: 12px; border-top: 1px solid rgba(244, 239, 230, 0.18); }
-    .footer .baseline { flex-direction: column; gap: 12px; align-items: flex-start; }
-  }
-
-  @media (max-width: 600px) {
-    .footer-cols { flex-direction: column; gap: 32px; }
-  }
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto;}
+  .anim,.anim-y{opacity:1;animation:none;}
+  .reveal{opacity:1;transform:none;transition:none;}
+  .scroll-tag .ar{animation:none;}
+  /* Finished-state, not hidden-state: a still, solid gold line stands
+     in for the completed marquee rather than vanishing, and the cards
+     hold their rest position instead of animating in. */
+  .flow.seen .flow-path{animation:none;opacity:.9;stroke-dasharray:none;}
+  .flow-card,.fc-1,.fc-2,.fc-3,.fc-4,.fc-5{transform:none !important;}
+  *,*::before,*::after{transition-duration:.01ms !important;}
+}
 </style>
 </head>
 <body>
 
-  <!-- ───────────────────── NAV ───────────────────── -->
-  <header class="nav">
-    <div class="inner">
-      <a href="#" class="mark" aria-label="JMG home">
-        <img src="assets/logo-primary.svg" alt="JMG" />
+<a class="skip" href="#main">Skip to content</a>
+
+<main id="main">
+
+<!-- ── Hero ─────────────────────────────────────────────────────── -->
+<section class="hero on-dark">
+  <canvas class="slab-field" data-field="hero" aria-hidden="true"></canvas>
+
+  <header class="nav" id="nav">
+    <div class="nav-in">
+      <a href="#" class="brand anim-y d1" aria-label="JMG Systems — home">
+        <img class="brand-mark" src="assets/wordmark-inverted.svg" alt="JMG systems" width="661" height="105" />
       </a>
-      <nav class="nav-links" aria-label="Primary">
-        <a href="#services">Services</a>
+      <nav class="nav-links anim-y d2" aria-label="Primary">
+        <a href="#process">Process</a>
         <a href="#work">Work</a>
         <a href="#about">About</a>
-        <a href="#contact">Contact</a>
-        <a href="assets/juan-gonzalez-resume.pdf" download>Resume</a>
+        <a href="assets/juan-gonzalez-resume.pdf">Resume</a>
       </nav>
-      <a href="#contact" class="btn btn-primary">
-        <span class="cta-full">Start a conversation</span><span class="cta-short">Reach me</span> <span class="arr">&rarr;</span>
+      <a href="#contact" class="btn btn-light nav-cta anim-y d2">
+        Start a conversation
+        <span class="ar" aria-hidden="true"><svg width="13" height="9" viewBox="0 0 22 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M0 6h19M14.5 1.5 19 6l-4.5 4.5"/></svg></span>
       </a>
-      <button class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-dropdown">
+      <button class="burger anim-y d2" type="button" aria-label="Menu" aria-expanded="false" aria-controls="drawer">
         <span></span><span></span><span></span>
       </button>
     </div>
-    <nav class="nav-dropdown" id="nav-dropdown" aria-label="Mobile navigation">
-      <a href="#services">Services</a>
+    <nav class="drawer" id="drawer" aria-label="Mobile">
+      <a href="#process">Process</a>
       <a href="#work">Work</a>
       <a href="#about">About</a>
       <a href="#contact">Contact</a>
-      <a href="assets/juan-gonzalez-resume.pdf" download>Resume</a>
+      <a href="assets/juan-gonzalez-resume.pdf">Resume</a>
     </nav>
   </header>
 
-  <!-- ───────────────────── HERO ───────────────────── -->
-  <section class="hero">
-    <!-- Persimmon ink-wash blob, top-right -->
-    <svg class="hero-wash hero-wash--persimmon" viewBox="0 0 820 620" aria-hidden="true" preserveAspectRatio="none">
-      <defs>
-        <filter id="hero-wash-p" x="-20%" y="-20%" width="140%" height="140%">
-          <feGaussianBlur stdDeviation="28" />
-        </filter>
-      </defs>
-      <path d="M180,110 C100,90 50,200 96,290 C140,370 110,440 220,478 C346,520 498,468 600,398 C700,328 760,228 690,138 C620,42 488,32 358,68 C282,86 232,124 180,110 Z"
-            fill="#D96833" opacity="0.28" filter="url(#hero-wash-p)" />
-    </svg>
-    <!-- Ink blob, bottom-left, bleeds into About -->
-    <svg class="hero-wash hero-wash--ink" viewBox="0 0 560 420" aria-hidden="true" preserveAspectRatio="none">
-      <defs>
-        <filter id="hero-wash-i" x="-20%" y="-20%" width="140%" height="140%">
-          <feGaussianBlur stdDeviation="22" />
-        </filter>
-      </defs>
-      <path d="M80,200 C40,130 120,42 210,56 C300,72 390,38 450,108 C510,170 466,264 376,294 C298,320 200,320 146,286 C94,252 84,232 80,200 Z"
-            fill="#1F1A14" opacity="0.08" filter="url(#hero-wash-i)" />
-    </svg>
+  <div class="hero-body">
+    <div class="wrap">
+      <div class="hero-col">
+        <a class="hero-eyebrow anim d2" href="#work">
+          Systems running in production today
+          <span class="ar" aria-hidden="true"><svg width="13" height="9" viewBox="0 0 22 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M0 6h19M14.5 1.5 19 6l-4.5 4.5"/></svg></span>
+        </a>
 
-    <div class="container">
-      <div class="stack">
-        <div class="label-row">
-          <span class="tick" aria-hidden="true"></span>
-          <span class="mono mono--ink">AI Operations &middot; Austin, TX</span>
-        </div>
-
-        <h1 class="display">
-          I take what you do by hand and make it run on its own<span class="dot" aria-hidden="true"></span>
+        <h1 class="display anim d3">
+          <span class="l1">The work you do <span class="lt">by hand,</span></span>
+          <span class="l2">made to <span class="hv">run on its own.</span></span>
         </h1>
 
-        <p class="lede">
-          No hype. No jargon. Just well-built automation for operations-heavy
-          businesses that are outgrowing how they work.
+        <p class="lede anim d4">
+          Well-built automation for operations-heavy businesses that have
+          outgrown the way they work. The deliverable is working software,
+          running inside your business, not a set of recommendations.
         </p>
 
-        <div class="stamps" aria-hidden="true">
-          <span class="stamp">Implementation</span>
-          <span class="stamp">Operations</span>
-          <span class="stamp">Quiet systems</span>
-        </div>
-
-        <div class="ctas">
-          <a href="#contact" class="btn btn-ghost">
-            Start a conversation <span class="arr">&rarr;</span>
+        <div class="hero-actions">
+          <a href="#contact" class="btn btn-light anim-y d5">Start a conversation</a>
+          <a href="#process" class="btn btn-ghost-light anim-y d6">
+            See how it works
+            <span class="ar" aria-hidden="true"><svg width="13" height="9" viewBox="0 0 22 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M0 6h19M14.5 1.5 19 6l-4.5 4.5"/></svg></span>
           </a>
         </div>
       </div>
     </div>
-  </section>
+  </div>
 
-  <!-- ───────────────────── SERVICES ───────────────────── -->
-  <section class="section services" id="services">
-    <!-- Ink blob, bottom-left -->
-    <svg class="section-wash section-wash--ink-bl" viewBox="0 0 680 520" aria-hidden="true" preserveAspectRatio="none">
-      <defs>
-        <filter id="services-wash-i" x="-20%" y="-20%" width="140%" height="140%">
-          <feGaussianBlur stdDeviation="24" />
-        </filter>
-      </defs>
-      <path d="M140,80 C220,40 360,68 432,128 C500,184 612,168 624,260 C634,344 540,400 444,418 C338,438 220,452 142,400 C72,354 40,260 64,180 C80,128 108,98 140,80 Z"
-            fill="#1F1A14" opacity="0.08" filter="url(#services-wash-i)" />
-    </svg>
-    <div class="container">
-      <div class="rail section-head">
-        <span class="mono">01 &nbsp;/&nbsp; Services</span>
-        <h2 class="h2">
-          Simple by design<span class="dot" aria-hidden="true"></span>
-        </h2>
+</section>
+
+<!-- ── Process ──────────────────────────────────────────────────── -->
+<section class="band" id="process">
+  <div class="wrap">
+    <div class="band-head">
+      <div>
+        <p class="eyebrow">How it works</p>
+        <h2 class="h2">Scoped in phases, built on proven parts</h2>
       </div>
+      <div class="prose">
+        <p>
+          It starts with a conversation about how your business actually runs,
+          where the work slows down, and which of it is genuinely worth
+          automating. The build is then scoped in phases, each with its own
+          estimate and a cap on hours, so the cost is approved before any work
+          starts. Most first systems go live within four to six weeks. Larger
+          operations run longer, and you hear that at the scope, not after.
+        </p>
+      </div>
+    </div>
 
-      <div class="rail">
-        <div>
-          <p class="body intro">
-            It starts with a call. I learn how the business runs, where
-            work slows down, and what is actually worth automating. From
-            there we scope the build together. Most clients have a working
-            system within four to six weeks of our first conversation.
+    <div class="flow" id="flow">
+      <svg viewBox="0 0 920 880" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M 220 80 C 460 80, 520 175, 690 190
+                 C 850 202, 480 270, 260 355
+                 C 140 398, 480 445, 700 525
+                 C 800 558, 560 630, 300 705
+                 C 200 735, 420 782, 620 800"
+              class="flow-path" />
+      </svg>
+      <ol class="flow-list" aria-label="Engagement process">
+      <li class="flow-card fc-1">
+        <div class="step-card">
+          <span class="step-badge" aria-hidden="true">01</span>
+          <p class="step-name">Call</p>
+          <p class="step-desc">A short conversation about the work, at no cost.</p>
+          <span class="step-dur">~45 min</span>
+        </div>
+      </li>
+      <li class="flow-card fc-2">
+        <div class="step-card">
+          <span class="step-badge" aria-hidden="true">02</span>
+          <p class="step-name">Scope</p>
+          <p class="step-desc">A close look at how the work is done today, and an agreement on what is worth automating.</p>
+          <span class="step-dur">~1 week</span>
+        </div>
+      </li>
+      <li class="flow-card fc-3">
+        <div class="step-card">
+          <span class="step-badge" aria-hidden="true">03</span>
+          <p class="step-name">Build</p>
+          <p class="step-desc">Proven components where they fit, purpose-built ones where they do not.</p>
+          <span class="step-dur">1 to 3 weeks</span>
+        </div>
+      </li>
+      <li class="flow-card fc-4">
+        <div class="step-card">
+          <span class="step-badge" aria-hidden="true">04</span>
+          <p class="step-name">Test</p>
+          <p class="step-desc">A run on real data, with the people who will use it, against the cases that actually break things.</p>
+          <span class="step-dur">~1 week</span>
+        </div>
+      </li>
+      <li class="flow-card fc-5">
+        <div class="step-card">
+          <span class="step-badge" aria-hidden="true">05</span>
+          <p class="step-name">Ship</p>
+          <p class="step-desc">The system goes live, and stays maintained and running.</p>
+          <span class="step-dur">Ongoing</span>
+        </div>
+      </li>
+      </ol>
+    </div>
+
+    <div class="closer-row">
+      <p class="closer">
+        If it happens more than once and follows a pattern, it can probably be
+        automated. That is the starting point.
+      </p>
+      <a href="#contact" class="btn btn-ink">
+        Start a conversation
+        <span class="ar" aria-hidden="true"><svg width="13" height="9" viewBox="0 0 22 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M0 6h19M14.5 1.5 19 6l-4.5 4.5"/></svg></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── Work ─────────────────────────────────────────────────────── -->
+<section class="band band-dark on-dark" id="work">
+  <canvas class="slab-field" data-field="work" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div class="band-head">
+      <div>
+        <p class="eyebrow">Case study</p>
+        <h2 class="h2">What this looks like in practice</h2>
+      </div>
+      <div class="prose">
+        <p>
+          Everything below is running in production today. These are working
+          systems the business depends on daily, not prototypes and not a
+          recommendation deck.
+        </p>
+      </div>
+    </div>
+
+    <a class="case reveal" href="/case/puresteel/">
+      <span class="case-client">PureSteel Construction Inc.</span>
+      <h3 class="h3">Contract work that ran by hand, now runs on its own.</h3>
+      <p class="case-desc">
+        Onboarding, contracts, change orders, and filing were each handled by
+        hand. A single contact list and a single project list now feed all of
+        them, so documents build themselves, route for signature, and file to
+        the right folder without anyone chasing them.
+      </p>
+      <dl class="spec">
+        <div><dt>Sector</dt><dd>Commercial construction</dd></div>
+        <div><dt>Scope</dt><dd>Onboarding &rarr; contract &rarr; filing</dd></div>
+        <div><dt>Time recovered</dt><dd class="em">~15 to 17 hrs / month</dd></div>
+      </dl>
+      <span class="case-cta">
+        Read the case study
+        <span class="ar" aria-hidden="true"><svg width="13" height="9" viewBox="0 0 22 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M0 6h19M14.5 1.5 19 6l-4.5 4.5"/></svg></span>
+      </span>
+    </a>
+  </div>
+</section>
+
+<!-- ── Tools ────────────────────────────────────────────────────── -->
+<section class="band" id="tools">
+  <div class="wrap">
+    <div class="band-head">
+      <div>
+        <p class="eyebrow">The stack</p>
+        <h2 class="h2">Built on tools you already own</h2>
+      </div>
+      <div class="prose">
+        <p>
+          The systems are built on the workspace, document, and accounting
+          tools your business already pays for. That keeps them familiar to
+          your team, and it keeps them working whether or not JMG Systems is
+          still involved.
+        </p>
+      </div>
+    </div>
+
+    <ul class="tools tools--cards">
+        <li class="tool"><span class="tool-mark"><svg aria-hidden="true" focusable="false" viewBox="0 0 228 120" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M204 48C192.817 48 183.42 40.3514 180.756 30H153.248C147.382 30 142.376 34.241 141.412 40.0272L140.425 45.9456C139.489 51.5648 136.646 56.4554 132.626 60C136.646 63.5446 139.489 68.4352 140.425 74.0544L141.412 79.9728C142.376 85.759 147.382 90 153.248 90H156.756C159.42 79.6486 168.817 72 180 72C193.255 72 204 82.7452 204 96C204 109.255 193.255 120 180 120C168.817 120 159.42 112.351 156.756 102H153.248C141.516 102 131.504 93.5181 129.575 81.9456L128.588 76.0272C127.624 70.241 122.618 66 116.752 66H107.244C104.58 76.3514 95.183 84 84 84C72.817 84 63.4204 76.3514 60.7561 66H47.2439C44.5796 76.3514 35.183 84 24 84C10.7452 84 0 73.2548 0 60C0 46.7452 10.7452 36 24 36C35.183 36 44.5796 43.6486 47.2439 54H60.7561C63.4204 43.6486 72.817 36 84 36C95.183 36 104.58 43.6486 107.244 54H116.752C122.618 54 127.624 49.759 128.588 43.9728L129.575 38.0544C131.504 26.4819 141.516 18 153.248 18L180.756 18C183.42 7.64864 192.817 0 204 0C217.255 0 228 10.7452 228 24C228 37.2548 217.255 48 204 48ZM204 36C210.627 36 216 30.6274 216 24C216 17.3726 210.627 12 204 12C197.373 12 192 17.3726 192 24C192 30.6274 197.373 36 204 36ZM24 72C30.6274 72 36 66.6274 36 60C36 53.3726 30.6274 48 24 48C17.3726 48 12 53.3726 12 60C12 66.6274 17.3726 72 24 72ZM96 60C96 66.6274 90.6274 72 84 72C77.3726 72 72 66.6274 72 60C72 53.3726 77.3726 48 84 48C90.6274 48 96 53.3726 96 60ZM192 96C192 102.627 186.627 108 180 108C173.373 108 168 102.627 168 96C168 89.3726 173.373 84 180 84C186.627 84 192 89.3726 192 96Z" fill="#ea4b71"/></svg></span><span class="tool-name lower">n8n</span></li>
+        <li class="tool"><span class="tool-mark"><svg aria-hidden="true" focusable="false" viewBox="0 0 109 113" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M63.7076 110.284C60.8481 113.885 55.0502 111.912 54.9813 107.314L53.9738 40.0627L99.1935 40.0627C107.384 40.0627 111.952 49.5228 106.859 55.9374L63.7076 110.284Z" fill="url(#sb-paint0_linear)"/> <path d="M63.7076 110.284C60.8481 113.885 55.0502 111.912 54.9813 107.314L53.9738 40.0627L99.1935 40.0627C107.384 40.0627 111.952 49.5228 106.859 55.9374L63.7076 110.284Z" fill="url(#sb-paint1_linear)" fill-opacity="0.2"/> <path d="M45.317 2.07103C48.1765 -1.53037 53.9745 0.442937 54.0434 5.041L54.4849 72.2922H9.83113C1.64038 72.2922 -2.92775 62.8321 2.1655 56.4175L45.317 2.07103Z" fill="#3ECF8E"/> <defs> <linearGradient id="sb-paint0_linear" x1="53.9738" y1="54.974" x2="94.1635" y2="71.8295" gradientUnits="userSpaceOnUse"> <stop stop-color="#249361"/> <stop offset="1" stop-color="#3ECF8E"/> </linearGradient> <linearGradient id="sb-paint1_linear" x1="36.1558" y1="30.578" x2="54.4844" y2="65.0806" gradientUnits="userSpaceOnUse"> <stop/> <stop offset="1" stop-opacity="0"/> </linearGradient> </defs> </svg></span><span class="tool-name">Supabase</span></li>
+        <li class="tool"><span class="tool-mark"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" fill="none"><mask id="gd-a" width="168" height="154" x="12" y="18" maskUnits="userSpaceOnUse" style="mask-type:alpha"><path fill="#b43333" d="M63.09 37c14.626-25.333 51.193-25.334 65.819 0l45.033 78c14.626 25.334-3.657 57.001-32.91 57.001H50.967c-29.253 0-47.536-31.667-32.91-57.001z"/></mask><g mask="url(#gd-a)"><path fill="url(#gd-b)" d="M206.905 172.02h-91.888l-19.015-32.934 45.944-79.578z"/><path fill="url(#gd-c)" d="M-14.919 172.006 50.04 59.494v.002L31.032 92.422h38.02L115 172.004l-129.918.001z"/><path fill="url(#gd-d)" d="M96.007-20.085 141.954 59.5l-19.011 32.928H31.048z"/></g><defs><linearGradient id="gd-b" x1="193.6" x2="103.09" y1="165.6" y2="111.21" gradientUnits="userSpaceOnUse"><stop offset=".09" stop-color="#ffe921"/><stop offset="1" stop-color="#fec700"/></linearGradient><linearGradient id="gd-c" x1="114.4" x2="15.53" y1="181.61" y2="121.8" gradientUnits="userSpaceOnUse"><stop offset=".15" stop-color="#a9a8ff"/><stop offset=".33" stop-color="#6d97ff"/><stop offset=".48" stop-color="#3186ff"/></linearGradient><linearGradient id="gd-d" x1="128.88" x2="28.7" y1="37.88" y2="84.64" gradientUnits="userSpaceOnUse"><stop offset=".55" stop-color="#0ebc5f"/><stop offset=".85" stop-color="#78c9ff"/></linearGradient></defs></svg></span><span class="tool-name">Google Drive</span></li>
+        <li class="tool"><span class="tool-mark"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 192 192"><path fill="#009954" d="M8 74.6c0-8.943 0-13.415 1.404-16.962a20 20 0 0 1 11.234-11.233C24.185 45 28.656 45 37.6 45h60.8c8.943 0 13.415 0 16.962 1.404a20 20 0 0 1 11.234 11.234C128 61.185 128 65.656 128 74.6v42.8c0 8.943 0 13.415-1.404 16.962a20 20 0 0 1-11.234 11.234C111.815 147 107.343 147 98.4 147H37.6c-8.943 0-13.415 0-16.963-1.404a20 20 0 0 1-11.233-11.234C8 130.815 8 126.343 8 117.4z"/><mask id="gs-a" width="160" height="128" x="24" y="32" maskUnits="userSpaceOnUse" style="mask-type:alpha"><rect width="160" height="128" x="24" y="32" fill="#0ebc5f" rx="20"/></mask><g mask="url(#gs-a)"><path fill="#0ebc5f" d="M24 32h160v128H24z"/><g filter="url(#gs-b)"><rect width="144" height="102" fill="url(#gs-c)" rx="25.6" transform="matrix(1 0 0 -1 8 147)"/></g></g><path stroke="#fff" stroke-linecap="round" stroke-width="12" d="M80 121h84m-20 19V76"/><defs><linearGradient id="gs-c" x1="122.24" x2="20.76" y1="43.31" y2="43.31" gradientUnits="userSpaceOnUse"><stop stop-color="#0ebc5f"/><stop offset=".95" stop-color="#78c9ff"/></linearGradient><filter id="gs-b" width="168" height="126" x="-4" y="33" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur result="effect1_foregroundBlur_37435_8174" stdDeviation="6"/></filter></defs></svg></span><span class="tool-name">Google Sheets</span></li>
+        <li class="tool"><span class="tool-mark"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 192 192"><path fill="url(#gm-a)" d="M146 44h38v110c0 6.627-5.373 12-12 12h-20a6 6 0 0 1-6-6z"/><path fill="#fc413d" d="M46 44H8v110c0 6.627 5.373 12 12 12h20a6 6 0 0 0 6-6z"/><path fill="url(#gm-b)" d="M39.226 30.456c-8.033-6.752-20.018-5.714-26.77 2.319-6.752 8.032-5.714 20.017 2.319 26.77l76.078 63.949a8 8 0 0 0 10.295 0l76.078-63.95c8.032-6.752 9.07-18.737 2.318-26.77-6.752-8.032-18.737-9.07-26.769-2.318L96 78.18z"/><defs><linearGradient id="gm-a" x1="165" x2="165" y1="44" y2="166" gradientUnits="userSpaceOnUse"><stop stop-color="#60d673"/><stop offset=".17" stop-color="#42c868"/><stop offset=".39" stop-color="#0ebc5f"/><stop offset=".62" stop-color="#00a9bb"/><stop offset=".86" stop-color="#3c90ff"/><stop offset="1" stop-color="#3186ff"/></linearGradient><linearGradient id="gm-b" x1="8" x2="184" y1="46.13" y2="46.13" gradientUnits="userSpaceOnUse"><stop offset=".08" stop-color="#ff63a0"/><stop offset=".3" stop-color="#fc413d"/><stop offset=".5" stop-color="#fc413d"/><stop offset=".65" stop-color="#fc413d"/><stop offset=".72" stop-color="#fc5c30"/><stop offset=".86" stop-color="#feb10c"/><stop offset=".91" stop-color="#fec700"/><stop offset=".96" stop-color="#ffdb0f"/></linearGradient></defs></svg></span><span class="tool-name">Gmail</span></li>
+        <li class="tool"><span class="tool-mark"><svg aria-hidden="true" focusable="false" style="color: #e97a42" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg"> <path fill="currentColor" d="M 178.224 72.09 c -0.296 -1.463 -0.627 -2.919 -0.996 -4.364 -0.293 -1.151 -0.616 -2.293 -0.956 -3.433 -0.301 -1.008 -0.612 -2.014 -0.95 -3.012 -0.531 -1.578 -1.113 -3.142 -1.735 -4.694 -0.216 -0.54 -0.433 -1.082 -0.661 -1.618 -0.195 -0.462 -0.399 -0.917 -0.601 -1.375 -0.262 -0.591 -0.53 -1.177 -0.804 -1.762 -0.074 -0.159 -0.151 -0.315 -0.226 -0.474 -0.209 -0.441 -0.422 -0.881 -0.638 -1.318 -0.076 -0.154 -0.153 -0.306 -0.229 -0.459 -0.236 -0.471 -0.477 -0.939 -0.721 -1.406 -0.053 -0.101 -0.105 -0.201 -0.158 -0.302 -1.143 -2.16 -2.367 -4.269 -3.68 -6.322 -0.116 -0.181 -0.237 -0.359 -0.355 -0.539 -0.094 -0.144 -0.189 -0.288 -0.284 -0.432 -0.284 -0.431 -0.57 -0.861 -0.862 -1.287 -0.112 -0.164 -0.225 -0.326 -0.338 -0.489 -0.193 -0.279 -0.382 -0.56 -0.579 -0.836 -0.089 -0.125 -0.182 -0.249 -0.273 -0.374 -0.13 -0.182 -0.264 -0.362 -0.395 -0.542 -0.277 -0.38 -0.556 -0.76 -0.838 -1.135 -0.15 -0.199 -0.303 -0.395 -0.454 -0.593 -0.21 -0.274 -0.417 -0.552 -0.63 -0.823 -0.055 -0.069 -0.111 -0.136 -0.166 -0.205 -0.482 -0.61 -0.971 -1.216 -1.47 -1.814 -0.129 -0.155 -0.262 -0.306 -0.392 -0.461 -0.402 -0.476 -0.808 -0.95 -1.22 -1.417 -0.186 -0.212 -0.375 -0.422 -0.563 -0.631 -0.384 -0.428 -0.773 -0.854 -1.167 -1.276 -0.176 -0.189 -0.351 -0.379 -0.529 -0.567 -0.564 -0.595 -1.134 -1.186 -1.716 -1.768 -1.091 -1.091 -2.207 -2.15 -3.346 -3.178 -1.016 -0.919 -2.05 -1.815 -3.103 -2.684 -0.772 -0.636 -1.557 -1.255 -2.348 -1.864 -3.465 -2.67 -7.112 -5.075 -10.927 -7.209 -2.869 -1.604 -5.83 -3.06 -8.883 -4.351 -2.443 -1.033 -4.922 -1.948 -7.428 -2.756 -8.879 -2.863 -18.13 -4.318 -27.605 -4.318 -3.19 0 -6.354 0.169 -9.488 0.496 -4.036 0.421 -8.019 1.114 -11.94 2.073 -1.732 0.423 -3.452 0.892 -5.157 1.42 -2.856 0.883 -5.673 1.912 -8.447 3.085 -2.645 1.118 -5.222 2.357 -7.729 3.711 -2.574 1.39 -5.073 2.901 -7.494 4.533 -1.195 0.805 -2.37 1.64 -3.527 2.503 -1.156 0.864 -2.292 1.756 -3.408 2.676 -0.553 0.456 -1.1 0.919 -1.643 1.389 -1.649 1.427 -3.252 2.92 -4.806 4.473 -2.582 2.582 -4.991 5.299 -7.222 8.138 -0.892 1.135 -1.756 2.292 -2.59 3.467 -0.417 0.588 -0.827 1.18 -1.23 1.778 -0.403 0.597 -0.798 1.199 -1.186 1.806 -0.388 0.607 -0.769 1.218 -1.143 1.835 -2.241 3.697 -4.216 7.562 -5.916 11.582 -1.095 2.589 -2.059 5.217 -2.901 7.877 -0.153 0.482 -0.3 0.965 -0.444 1.449 -0.339 1.14 -0.663 2.282 -0.956 3.433 -0.369 1.446 -0.7 2.901 -0.996 4.364 -1.034 5.121 -1.618 10.343 -1.749 15.637 -0.018 0.757 -0.028 1.514 -0.028 2.274 0 1.123 0.02 2.244 0.062 3.361 0.285 7.82 1.568 15.475 3.825 22.879 0.044 0.147 0.088 0.295 0.133 0.441 0.877 2.823 1.894 5.608 3.054 8.35 0.85 2.009 1.769 3.98 2.755 5.912 0.539 1.057 1.105 2.099 1.685 3.132 4.013 7.142 8.98 13.698 14.846 19.564 7.713 7.713 16.611 13.878 26.477 18.352 0.705 0.32 1.415 0.632 2.131 0.935 2.081 0.88 4.185 1.679 6.313 2.396 9.217 3.106 18.85 4.677 28.719 4.677 8.031 0 15.902 -1.047 23.522 -3.107 0.633 -0.172 1.266 -0.35 1.895 -0.535 0.757 -0.222 1.509 -0.456 2.26 -0.698 0.717 -0.232 1.431 -0.474 2.145 -0.723 1.752 -0.616 3.49 -1.281 5.211 -2.009 0.755 -0.319 1.503 -0.651 2.247 -0.989 1.237 -0.563 2.459 -1.15 3.664 -1.766 0.644 -0.328 1.283 -0.665 1.917 -1.009 1.654 -0.896 3.274 -1.848 4.865 -2.844 5.736 -3.591 11.06 -7.827 15.912 -12.679 0.775 -0.775 1.534 -1.562 2.278 -2.36 5.204 -5.59 9.636 -11.754 13.246 -18.417 0.343 -0.634 0.68 -1.274 1.009 -1.917 0.482 -0.944 0.943 -1.9 1.392 -2.863 0.471 -1.007 0.928 -2.021 1.364 -3.049 1.22 -2.886 2.281 -5.82 3.187 -8.793 0.559 -1.833 1.056 -3.68 1.494 -5.542 0.108 -0.458 0.211 -0.916 0.312 -1.376 0.194 -0.883 0.373 -1.77 0.539 -2.659 1.02 -5.455 1.542 -11.02 1.542 -16.663 0 -6.074 -0.595 -12.058 -1.776 -17.911 z m -161.733 19.614 c -1.118 -56.662 44.604 -74.877 60.998 -67.647 2.187 0.965 4.732 2.431 7.042 2.96 5.295 1.213 13.432 -3.113 13.521 6.273 0.078 8.156 -3.389 13.108 -10.797 16.177 -7.539 3.124 -14.777 9.181 -19.95 15.493 -21.487 26.216 -31.231 68.556 -7.565 94.296 -13.679 -5.545 -42.418 -25.467 -43.248 -67.552 z m 91.109 72.619 c -0.053 0.008 -4.171 0.775 -4.171 0.775 0 0 -15.862 -22.957 -23.509 -21.719 11.291 16.04 12.649 22.625 12.649 22.625 -0.053 0.001 -0.107 0.001 -0.161 0.003 -51.831 2.131 -42.785 -64.026 -28.246 -86.502 -1.555 13.073 8.878 39.992 39.034 44.1 9.495 1.293 32.302 -3.275 41.015 -11.38 0.098 1.825 0.163 3.85 0.159 6.013 -0.046 23.538 -13.47 42.743 -36.77 46.085 z m 30.575 -15.708 c 9.647 -9.263 12.869 -27.779 9.103 -44.137 -4.608 -20.011 -28.861 -32.383 -40.744 -35.564 5.766 -8.089 27.908 -14.274 39.567 5.363 -5.172 -10.519 -13.556 -23.023 -1.732 -33.128 12.411 13.329 19.411 29.94 20.161 48.7 0.75 18.753 -6.64 41.768 -26.355 58.765 z"/> <circle fill="currentColor" cx="71.927" cy="32.004" r="2.829"/> </svg></span><span class="tool-name">DocuSeal</span></li>
+        <li class="tool"><span class="tool-mark"><svg aria-hidden="true" focusable="false" fill="#2CA01C" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>QuickBooks</title><path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm.642 4.1335c.9554 0 1.7296.776 1.7296 1.7332v9.0667h1.6c1.614 0 2.9275-1.3156 2.9275-2.933 0-1.6173-1.3136-2.9333-2.9276-2.9333h-.6654V7.3334h.6654c2.5722 0 4.6577 2.0897 4.6577 4.667 0 2.5774-2.0855 4.6666-4.6577 4.6666H12.642zM7.9837 7.333h3.3291v12.533c-.9555 0-1.73-.7759-1.73-1.7332V9.0662H7.9837c-1.6146 0-2.9277 1.316-2.9277 2.9334 0 1.6175 1.3131 2.9333 2.9277 2.9333h.6654v1.7332h-.6654c-2.5725 0-4.6577-2.0892-4.6577-4.6665 0-2.5771 2.0852-4.6666 4.6577-4.6666Z"/></svg></span><span class="tool-name">QuickBooks</span></li>
+        <li class="tool"><span class="tool-mark"><svg aria-hidden="true" focusable="false" viewBox="0 0 256 226" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid"><path fill="#05BDBA" d="M69.181 188.087h-2.417l-12.065-12.065v-2.417l18.444-18.444h12.778l1.704 1.704v12.778zM54.699 51.628v-2.417l12.065-12.065h2.417L87.625 55.59v12.778l-1.704 1.704H73.143z"/><path fill="#014847" d="M160.906 149.198h-17.552l-1.466-1.466v-41.089c0-7.31-2.873-12.976-11.689-13.174-4.537-.119-9.727 0-15.274.218l-.833.852v53.173l-1.466 1.466H95.074l-1.466-1.466v-70.19l1.466-1.467h39.503c15.354 0 27.795 12.441 27.795 27.795v43.882l-1.466 1.466Z"/><path fill="#05BDBA" d="M71.677 122.889H1.466L0 121.423V103.83l1.466-1.466h70.211l1.466 1.466v17.593zM254.534 122.889h-70.211l-1.466-1.466V103.83l1.466-1.466h70.211L256 103.83v17.593zM117.876 54.124V1.466L119.342 0h17.593l1.466 1.466v52.658l-1.466 1.466h-17.593zM117.876 223.787v-52.658l1.466-1.466h17.593l1.466 1.466v52.658l-1.466 1.465h-17.593z"/></svg></span><span class="tool-name">Netlify</span></li>
+    </ul>
+
+    <p class="tools-note">If a tool can share its data, it can be part of the system.</p>
+  </div>
+</section>
+
+<!-- ── About ────────────────────────────────────────────────────── -->
+<section class="band band-surface" id="about">
+  <div class="wrap">
+    <p class="eyebrow">About</p>
+    <h2 class="h2">An operations practice based in Austin</h2>
+
+    <div class="about-in">
+      <figure class="portrait">
+        <img src="assets/portrait.jpeg" alt="Portrait of Juan M. González" width="1000" height="750" loading="lazy" decoding="async" />
+        <figcaption>
+          <b>Juan M. González</b>
+          AI Operations Consultant, Austin&nbsp;TX
+        </figcaption>
+      </figure>
+
+      <div>
+        <div class="prose">
+          <p>
+            JMG Systems works with <strong>owners and operators</strong> who are
+            still carrying the operations of the business themselves, and who are
+            feeling the weight of it.
           </p>
-
-          <div class="workflow" role="list" aria-label="Engagement workflow">
-            <div class="step" role="listitem">
-              <span class="step-label">01 &nbsp;/&nbsp; Call</span>
-              <p class="step-body">A short conversation. Free.</p>
-              <span class="step-duration">~45 minutes</span>
-            </div>
-            <span class="arrow" aria-hidden="true">&rarr;</span>
-            <div class="step" role="listitem">
-              <span class="step-label">02 &nbsp;/&nbsp; Scope</span>
-              <p class="step-body">Observe the work. Decide what is worth automating.</p>
-              <span class="step-duration">~1 week</span>
-            </div>
-            <span class="arrow" aria-hidden="true">&rarr;</span>
-            <div class="step" role="listitem">
-              <span class="step-label">03 &nbsp;/&nbsp; Build</span>
-              <p class="step-body">Wire the systems. Test the edge cases.</p>
-              <span class="step-duration">~1&ndash;3 weeks</span>
-            </div>
-            <span class="arrow" aria-hidden="true">&rarr;</span>
-            <div class="step" role="listitem">
-              <span class="step-label">04 &nbsp;/&nbsp; Ship</span>
-              <p class="step-body">Live, maintained, quietly running.</p>
-              <span class="step-duration">Ongoing</span>
-            </div>
-          </div>
-
-          <p class="services-closer">
-            If it happens more than once and follows a pattern, it can
-            probably be automated. That is where I start.
+          <p>
+            The practice was founded by Juan M. González, whose background is in
+            project coordination and operations. Over four years at a B2B agency
+            he managed more than 3,000 projects and 2,400 client meetings, led an
+            account team, and built multi-stage automation programs inside
+            Salesforce. Most of that work came down to turning complicated
+            requirements into systems that people could actually run day to day,
+            and the same thinking goes into every build here.
           </p>
-
-          <a href="#contact" class="btn btn-ghost">
-            Start a conversation <span class="arr">&rarr;</span>
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ───────────────────── WORK ───────────────────── -->
-  <section class="section work" id="work">
-    <!-- Persimmon blob, mid-right -->
-    <svg class="section-wash section-wash--persimmon-mr" viewBox="0 0 700 540" aria-hidden="true" preserveAspectRatio="none">
-      <defs>
-        <filter id="work-wash-p" x="-20%" y="-20%" width="140%" height="140%">
-          <feGaussianBlur stdDeviation="26" />
-        </filter>
-      </defs>
-      <path d="M520,80 C600,110 660,210 612,308 C570,396 612,470 522,490 C418,514 308,476 222,428 C140,382 78,310 116,228 C152,150 248,118 348,108 C420,100 472,62 520,80 Z"
-            fill="#D96833" opacity="0.16" filter="url(#work-wash-p)" />
-    </svg>
-    <div class="container">
-      <div class="rail section-head">
-        <span class="mono">02 &nbsp;/&nbsp; Work</span>
-        <h2 class="h2">
-          Case study<span class="dot" aria-hidden="true"></span>
-        </h2>
-      </div>
-
-      <div class="rail">
-        <div class="studies">
-          <a class="studyCard" href="/case/puresteel">
-            <div class="label">
-              <span class="mono">Case &middot; PureSteel Construction Inc.</span>
-              <span class="mono liveTag"><span class="liveDot"></span>Live</span>
-            </div>
-
-            <div class="cardBody">
-              <div class="cardCopy">
-                <div class="cardHead">Contract work that ran by hand, now runs on its own.</div>
-                <p class="cardNarrative">Onboarding, contracts, change orders, and filing were each done by hand. One contact list and one project list now feed them all, and the documents route, sign, and file themselves.</p>
-              </div>
-
-              <div class="studyMark" aria-hidden="true">
-                <svg class="markA" viewBox="0 0 96 96">
-                  <path class="ln" d="M2,14 C40,14 50,48 80,48"/>
-                  <path class="ln" d="M2,32 C40,32 56,48 80,48"/>
-                  <path class="ln" d="M2,48 L80,48"/>
-                  <path class="ln" d="M2,64 C40,64 56,48 80,48"/>
-                  <path class="ln" d="M2,82 C40,82 50,48 80,48"/>
-                  <path class="out" d="M80,48 L94,48"/>
-                  <circle class="trav" r="2.8"><animateMotion dur="2.6s" repeatCount="indefinite" keyPoints="0;1;1;0;0" keyTimes="0;0.62;0.74;0.86;1" calcMode="linear" path="M2,14 C40,14 50,48 80,48"/></circle>
-                  <circle class="trav" r="2.8"><animateMotion dur="2.6s" repeatCount="indefinite" keyPoints="0;1;1;0;0" keyTimes="0;0.62;0.74;0.86;1" calcMode="linear" path="M2,32 C40,32 56,48 80,48"/></circle>
-                  <circle class="trav" r="2.8"><animateMotion dur="2.6s" repeatCount="indefinite" keyPoints="0;1;1;0;0" keyTimes="0;0.62;0.74;0.86;1" calcMode="linear" path="M2,48 L80,48"/></circle>
-                  <circle class="trav" r="2.8"><animateMotion dur="2.6s" repeatCount="indefinite" keyPoints="0;1;1;0;0" keyTimes="0;0.62;0.74;0.86;1" calcMode="linear" path="M2,64 C40,64 56,48 80,48"/></circle>
-                  <circle class="trav" r="2.8"><animateMotion dur="2.6s" repeatCount="indefinite" keyPoints="0;1;1;0;0" keyTimes="0;0.62;0.74;0.86;1" calcMode="linear" path="M2,82 C40,82 50,48 80,48"/></circle>
-                  <circle class="pt" cx="80" cy="48" r="4"/>
-                </svg>
-              </div>
-            </div>
-
-            <div class="cardOutcome">
-              <div class="outcomeStat">
-                <div class="mono outcomeLabel">Outcome</div>
-                <div class="outcomeStat-num">~15&ndash;17 hrs</div>
-                <div class="outcomeUnit">saved / month</div>
-              </div>
-              <span class="readCase">Read the case <span class="arrow">&rarr;</span></span>
-            </div>
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ───────────────────── ABOUT ───────────────────── -->
-  <section class="section about" id="about">
-    <!-- Ink blob, top-left -->
-    <svg class="section-wash section-wash--ink-tl" viewBox="0 0 560 420" aria-hidden="true" preserveAspectRatio="none">
-      <defs>
-        <filter id="about-wash-i" x="-20%" y="-20%" width="140%" height="140%">
-          <feGaussianBlur stdDeviation="22" />
-        </filter>
-      </defs>
-      <path d="M100,220 C50,150 140,50 240,64 C340,80 420,52 488,128 C544,188 492,288 400,318 C320,344 222,344 162,308 C108,272 96,250 100,220 Z"
-            fill="#1F1A14" opacity="0.09" filter="url(#about-wash-i)" />
-    </svg>
-    <div class="container">
-      <div class="rail section-head">
-        <span class="mono">03 &nbsp;/&nbsp; About</span>
-        <h2 class="h2">
-          An independent practice in Austin<span class="dot" aria-hidden="true"></span>
-        </h2>
-      </div>
-
-      <div class="rail">
-        <div class="cols">
-          <div>
-            <div class="portrait">
-              <img src="assets/portrait.jpeg" alt="Juan M. González" />
-            </div>
-            <div class="portrait-caption">Juan M. Gonz&aacute;lez &middot; Austin, TX</div>
-          </div>
-          <div class="text-card">
-            <span class="card-eyebrow">AI Operations Consultant &middot; Austin, TX</span>
-            <p class="card-primary">
-              I&rsquo;m Juan Gonz&aacute;lez. I work with small business owners in services
-              and professional firms who are running the company themselves and feeling the friction.
-            </p>
-            <hr class="card-rule" />
-            <p class="card-secondary">
-              My background is in project coordination and operations. I spent four years
-              managing 3,000+ projects and 2,400+ client meetings at a B2B agency,
-              translating complex requirements into systems that actually moved. I&rsquo;ve
-              worked inside Salesforce, built multi-stage automation programs, led account
-              teams, and now apply that same operational thinking to small business
-              infrastructure using AI and modern automation tools.
-            </p>
-            <p class="card-secondary">
-              The goal is always the same: less administrative weight, more room to work.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ───────────────────── CONTACT ───────────────────── -->
-  <section class="section contact" id="contact">
-    <!-- Persimmon blob, top-right -->
-    <svg class="section-wash section-wash--persimmon-tr" viewBox="0 0 620 480" aria-hidden="true" preserveAspectRatio="none">
-      <defs>
-        <filter id="contact-wash-p" x="-20%" y="-20%" width="140%" height="140%">
-          <feGaussianBlur stdDeviation="26" />
-        </filter>
-      </defs>
-      <path d="M160,90 C240,60 340,52 432,92 C520,128 580,210 552,290 C522,378 412,420 312,418 C220,416 116,388 76,308 C40,238 64,148 110,108 C130,90 144,96 160,90 Z"
-            fill="#D96833" opacity="0.18" filter="url(#contact-wash-p)" />
-    </svg>
-    <div class="container">
-      <div class="rail section-head">
-        <span class="mono">04 &nbsp;/&nbsp; Contact</span>
-        <h2 class="h2">
-          Start here<span class="dot" aria-hidden="true"></span>
-        </h2>
-      </div>
-
-      <div class="rail">
-        <div>
-          <p class="body intro">
-            If you are running the operations yourself and feeling the
-            weight of it, let&rsquo;s talk. Tell me what is taking the
-            most time and I will tell you whether it is worth automating.
+          <p>
+            The goal is always the same: less administrative weight, and more room to
+            do the work that actually matters.
           </p>
-
-          <form class="form" id="contact-form" name="contact" data-netlify="true">
-            <div class="field">
-              <label for="f-name">Name</label>
-              <input id="f-name" type="text" placeholder="Your name" autocomplete="name" />
-            </div>
-            <div class="field">
-              <label for="f-company">Company</label>
-              <input id="f-company" type="text" placeholder="Your company" autocomplete="organization" />
-            </div>
-            <div class="field full">
-              <label for="f-email">Email</label>
-              <input id="f-email" type="email" placeholder="name@domain.com" autocomplete="email" />
-            </div>
-            <div class="field full">
-              <label for="f-msg">What&rsquo;s taking the most time?</label>
-              <textarea id="f-msg" placeholder="A sentence or two is plenty."></textarea>
-            </div>
-            <div class="submit-row">
-              <button type="submit" class="btn btn-ghost">
-                Send <span class="arr">&rarr;</span>
-              </button>
-              <span class="note">I read every note personally.</span>
-            </div>
-          </form>
         </div>
+
+        <dl class="record">
+          <div><dt>3,000+</dt><dd>Projects managed</dd></div>
+          <div><dt>2,400+</dt><dd>Client meetings</dd></div>
+          <div><dt>5+ yrs</dt><dd>Operations and automation</dd></div>
+        </dl>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ───────────────────── FOOTER ───────────────────── -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-wordmark">
-          <a href="#" class="mark" aria-label="JMG home">
-            <img src="assets/logo-inverted.svg" alt="JMG" />
-          </a>
-          <div class="footer-wordmark-rule" aria-hidden="true"></div>
-          <div class="footer-wordmark-text">
-            <p class="footer-tagline">Operations are never finished.<br />They just get better.</p>
-            <p class="footer-mono">AI Operations &middot; Austin, TX</p>
-          </div>
-        </div>
-        <div class="footer-cols">
-          <div class="footer-col">
-            <h4>Practice</h4>
-            <p>Juan M. Gonz&aacute;lez</p>
-            <p>AI Operations Consultant</p>
-            <p>Austin, Texas</p>
-          </div>
-          <div class="footer-col">
-            <h4>Reach</h4>
-            <p><a href="mailto:juanglz197@gmail.com">juanglz197@gmail.com</a></p>
-            <p><a href="#">gonzalezjuanm.com</a></p>
-            <p><a href="#contact">Start a conversation</a></p>
-            <p><a href="assets/juan-gonzalez-resume.pdf" download>Resume / CV</a></p>
-          </div>
+<!-- ── Contact ──────────────────────────────────────────────────── -->
+<section class="band" id="contact">
+  <div class="wrap">
+    <div class="contact-in">
+      <div>
+        <p class="eyebrow">Contact</p>
+        <h2 class="h2">Start here</h2>
+        <div class="prose" style="margin-top:24px">
+          <p>
+            If you are running the operations yourself and feeling the weight of it,
+            let&rsquo;s talk. Send a note about what is taking the most time, and you will
+            get an honest answer on whether it is worth automating.
+          </p>
         </div>
       </div>
-      <div class="baseline">
-        <span>&copy; 2026 &middot; Juan M. Gonz&aacute;lez</span>
-        <span>GONZALEZJUANM.COM</span>
+
+      <!-- Netlify Forms: `name` + hidden `form-name` + named fields are all
+           required for submissions to be captured. Honeypot catches bots. -->
+      <form class="form" id="contact-form" name="contact" method="POST"
+            data-netlify="true" netlify-honeypot="bot-field">
+        <input type="hidden" name="form-name" value="contact" />
+        <p hidden aria-hidden="true">
+          <label>Leave this empty: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+        </p>
+
+        <div class="form-row">
+          <div class="field">
+            <label for="f-name">Name <span class="req" aria-hidden="true">*</span></label>
+            <input id="f-name" name="name" type="text" required placeholder="Your name" autocomplete="name" />
+          </div>
+          <div class="field">
+            <label for="f-company">Company</label>
+            <input id="f-company" name="company" type="text" placeholder="Your company" autocomplete="organization" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="f-email">Email <span class="req" aria-hidden="true">*</span></label>
+          <input id="f-email" name="email" type="email" required placeholder="name@domain.com" autocomplete="email" />
+        </div>
+
+        <div class="field">
+          <label for="f-msg">What&rsquo;s taking the most time? <span class="req" aria-hidden="true">*</span></label>
+          <textarea id="f-msg" name="message" required placeholder="A sentence or two is plenty."></textarea>
+        </div>
+
+        <div class="submit-row">
+          <button type="submit" class="btn btn-ink">
+            Send
+            <span class="ar" aria-hidden="true"><svg width="13" height="9" viewBox="0 0 22 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M0 6h19M14.5 1.5 19 6l-4.5 4.5"/></svg></span>
+          </button>
+          <span class="form-note">Or email <a href="mailto:juanglz197@gmail.com">juanglz197@gmail.com</a></span>
+        </div>
+        <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <img class="foot-lockup" src="assets/lockup-inverted.svg"
+             alt="JMG systems — AI operations consulting, established 2025, Austin, Texas"
+             width="661" height="165" />
+      </div>
+      <div>
+        <h3>Practice</h3>
+        <ul>
+          <li>Juan M. González</li>
+          <li>AI Operations Consultant</li>
+          <li>Austin, Texas</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Reach</h3>
+        <ul>
+          <li><a href="mailto:juanglz197@gmail.com">juanglz197@gmail.com</a></li>
+          <li><a href="tel:+15128080488">512-808-0488</a></li>
+          <li><a href="#contact">Start a conversation</a></li>
+          <li><a href="assets/juan-gonzalez-resume.pdf">Resume / CV</a></li>
+        </ul>
       </div>
     </div>
-  </footer>
+    <div class="baseline">
+      <span>&copy; 2026 JMG Systems LLC</span>
+      <span>gonzalezjuanm.com</span>
+    </div>
+  </div>
+</footer>
 
-  <!-- Trigger workflow breath animation when it enters the viewport -->
-  <script>
-    (function () {
-      var workflow = document.querySelector('.workflow');
-      if (!workflow) return;
-      var io = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            workflow.classList.add('workflow--animate');
-            io.disconnect();
-          }
-        });
-      }, { threshold: 0.25 });
-      io.observe(workflow);
-    })();
-  </script>
+<script>
+/* ══════════════════════════════════════════════════════════════════
+   Slab fields — the drifting canvas, ported from the Hyer study and
+   re-massed for hero-19's arrangement.
 
-  <!-- Trigger stamp animation on first scroll -->
-  <script>
-    (function () {
-      var stamps = document.querySelector('.stamps');
-      if (!stamps) return;
-      function onFirstScroll() {
-        stamps.classList.add('stamps--animate');
-        window.removeEventListener('scroll', onFirstScroll, { passive: true });
+   Two fields share one rAF loop. The hero carries the full cluster,
+   right of center because every word sits in a left column; the work
+   band carries a quieter one, because a paper card sits on top of it
+   and the slabs only need to say the ground is alive.
+
+   Ratio is the trick — each slab is near 2.6:1 so its rounded ends
+   read. Widen them and they collapse into flat wedges.
+   ══════════════════════════════════════════════════════════════════ */
+(function(){
+  var ROT=-0.52;
+  var CONF={
+    hero:{
+      pl:[
+        {cx:0.74,cy:0.19,w:0.40,h:0.155,c0:'#5F74DC',c1:'#12237E',al:0.88,ph:0.7},
+        {cx:0.58,cy:0.45,w:0.44,h:0.170,c0:'#7C8FE8',c1:'#1B2E9E',al:0.90,ph:1.4},
+        {cx:0.97,cy:0.35,w:0.36,h:0.140,c0:'#A8B6F0',c1:'#2A3FB0',al:0.86,ph:5.1},
+        {cx:0.90,cy:0.67,w:0.42,h:0.162,c0:'#2F49C8',c1:'#0A1C68',al:0.94,ph:0.0},
+        {cx:0.70,cy:0.87,w:0.37,h:0.142,c0:'#D3A50D',c1:'#9B6703',al:0.92,ph:2.6},
+        {cx:0.46,cy:0.76,w:0.33,h:0.128,c0:'#4A63D8',c1:'#08154F',al:0.90,ph:3.9}
+      ],
+      warm:[0.72,0.86,0.50,0.20],
+      mask:function(mc,W,H,stacked,pool){
+        var tg=mc.createLinearGradient(0,0,0,H*0.30);
+        tg.addColorStop(0.00,'rgba(0,0,0,0.58)');
+        tg.addColorStop(0.45,'rgba(0,0,0,0.26)');
+        tg.addColorStop(1.00,'rgba(0,0,0,0)');
+        mc.fillStyle=tg; mc.fillRect(0,0,W,H*0.30);
+        /* Measured, not guessed: at a lighter ramp the facts label came
+           in at 3.98:1 and the scroll tag at 3.40:1 over the amber slab. */
+        var bg=mc.createLinearGradient(0,H,0,H*0.62);
+        bg.addColorStop(0.00,'rgba(0,0,0,0.84)');
+        bg.addColorStop(0.38,'rgba(0,0,0,0.52)');
+        bg.addColorStop(0.72,'rgba(0,0,0,0.20)');
+        bg.addColorStop(1.00,'rgba(0,0,0,0)');
+        mc.fillStyle=bg; mc.fillRect(0,H*0.62,W,H*0.38);
+        if(stacked){ pool(W*0.46,H*0.50,W*0.94,0.76,0.95,0.89); }
+        else{
+          pool(W*0.33,H*0.48,W*0.67,0.84,0.97,0.91);
+          pool(W*0.86,H*0.80,W*0.26,0.60,0.74,0.62);
+        }
       }
-      window.addEventListener('scroll', onFirstScroll, { passive: true });
-    })();
-  </script>
+    },
+    work:{
+      pl:[
+        {cx:0.16,cy:0.22,w:0.30,h:0.116,c0:'#5F74DC',c1:'#12237E',al:0.62,ph:1.1},
+        {cx:0.88,cy:0.30,w:0.26,h:0.100,c0:'#7C8FE8',c1:'#1B2E9E',al:0.55,ph:3.2},
+        {cx:0.30,cy:0.82,w:0.28,h:0.108,c0:'#D3A50D',c1:'#9B6703',al:0.46,ph:4.4},
+        {cx:0.80,cy:0.86,w:0.32,h:0.124,c0:'#2F49C8',c1:'#0A1C68',al:0.60,ph:0.4}
+      ],
+      warm:[0.30,0.80,0.42,0.10],
+      mask:function(mc,W,H,stacked,pool){
+        /* a paper card sits over the middle of this band, so the field
+           only has to live around its edges */
+        if(stacked){
+          /* stacked, the heading block runs full width above the card and
+             sits off the center pool — measured at 3.20:1 without this */
+          var tg=mc.createLinearGradient(0,0,0,H*0.52);
+          tg.addColorStop(0.00,'rgba(0,0,0,0.92)');
+          tg.addColorStop(0.55,'rgba(0,0,0,0.62)');
+          tg.addColorStop(1.00,'rgba(0,0,0,0)');
+          mc.fillStyle=tg; mc.fillRect(0,0,W,H*0.52);
+          pool(W*0.50,H*0.52,W*0.95,0.86,0.88,0.76);
+        }else{
+          pool(W*0.50,H*0.52,W*0.62,0.78,0.86,0.72);
+        }
+      }
+    }
+  };
 
-  <!-- Hamburger menu toggle -->
-  <script>
-    (function () {
-      var btn  = document.querySelector('.nav-hamburger');
-      var menu = document.querySelector('.nav-dropdown');
-      if (!btn || !menu) return;
-      btn.addEventListener('click', function () {
-        var open = menu.classList.toggle('open');
-        btn.setAttribute('aria-expanded', open);
-      });
-      menu.querySelectorAll('a').forEach(function (a) {
-        a.addEventListener('click', function () {
-          menu.classList.remove('open');
-          btn.setAttribute('aria-expanded', 'false');
-        });
-      });
-    })();
-  </script>
+  var fields=[];
+  document.querySelectorAll('.slab-field').forEach(function(cv){
+    var conf=CONF[cv.getAttribute('data-field')];
+    if(!conf) return;
+    var c=cv.getContext('2d'); if(!c) return;
+    var off=document.createElement('canvas'), oc=off.getContext('2d');
+    var msk=document.createElement('canvas'), mc=msk.getContext('2d');
+    if(!oc||!mc) return;
+    fields.push({cv:cv,c:c,off:off,oc:oc,msk:msk,mc:mc,conf:conf,vis:true});
+  });
+  if(!fields.length) return;
 
-  <!-- Simple form submit handler -->
-  <script>
-    document.getElementById('contact-form').addEventListener('submit', function (e) {
-      e.preventDefault();
-      var btn = this.querySelector('[type="submit"]');
-      btn.textContent = 'Sent';
-      btn.disabled = true;
+  function rr(oc,x,y,w,hh,r){
+    r=Math.min(r,w*0.5,hh*0.5);
+    oc.beginPath();
+    oc.moveTo(x+r,y); oc.lineTo(x+w-r,y); oc.quadraticCurveTo(x+w,y,x+w,y+r);
+    oc.lineTo(x+w,y+hh-r); oc.quadraticCurveTo(x+w,y+hh,x+w-r,y+hh);
+    oc.lineTo(x+r,y+hh); oc.quadraticCurveTo(x,y+hh,x,y+hh-r);
+    oc.lineTo(x,y+r); oc.quadraticCurveTo(x,y,x+r,y); oc.closePath();
+  }
+
+  function drawField(f,ms){
+    var cv=f.cv,c=f.c,oc=f.oc,mc=f.mc,conf=f.conf;
+    var dpr=Math.min(window.devicePixelRatio||1,1.6);
+    var W=Math.max(1,Math.round(cv.clientWidth*dpr));
+    var H=Math.max(1,Math.round(cv.clientHeight*dpr));
+    if(cv.width!==W||cv.height!==H){
+      cv.width=W;cv.height=H;f.off.width=W;f.off.height=H;f.msk.width=W;f.msk.height=H;
+    }
+
+    var g=c.createLinearGradient(0,0,W*0.34,H);
+    g.addColorStop(0,'#06195F'); g.addColorStop(0.52,'#04124F'); g.addColorStop(1,'#020B33');
+    c.fillStyle=g; c.fillRect(0,0,W,H);
+
+    oc.clearRect(0,0,W,H);
+    oc.globalCompositeOperation='source-over';
+
+    var wm=conf.warm;
+    var warm=oc.createRadialGradient(W*wm[0],H*wm[1],0,W*wm[0],H*wm[1],W*wm[2]);
+    warm.addColorStop(0,'rgba(220,158,68,'+wm[3]+')');
+    warm.addColorStop(1,'rgba(220,158,68,0)');
+    oc.fillStyle=warm; oc.fillRect(0,0,W,H);
+
+    for(var i=0;i<conf.pl.length;i++){
+      var p=conf.pl[i];
+      var dx=Math.sin(ms*0.00021+p.ph)*W*0.015;
+      var dy=Math.cos(ms*0.00018+p.ph)*W*0.011;
+      oc.save();
+      oc.translate(W*p.cx+dx, H*p.cy+dy);
+      oc.rotate(ROT+Math.sin(ms*0.00010+p.ph)*0.015);
+      var w=W*p.w, hh=W*p.h;
+      var lg=oc.createLinearGradient(-w*0.5,-hh*0.5,w*0.5,hh*0.5);
+      lg.addColorStop(0,p.c0); lg.addColorStop(1,p.c1);
+      oc.globalAlpha=p.al; oc.fillStyle=lg;
+      rr(oc,-w*0.5,-hh*0.5,w,hh,hh*0.44); oc.fill();
+      oc.globalAlpha=p.al*0.46; oc.lineWidth=1.3*dpr;
+      oc.strokeStyle='rgba(228,238,255,0.34)'; oc.stroke();
+      oc.restore();
+    }
+    oc.globalAlpha=1;
+
+    /* Quiet is a soft mask, never a clip — the slabs carry on behind
+       the type at low strength so no cut edge is ever visible. */
+    mc.clearRect(0,0,W,H);
+    mc.globalCompositeOperation='source-over';
+    function pool(px,py,r,sy,a0,a1){
+      mc.save(); mc.translate(px,py); mc.scale(1,sy);
+      var q=mc.createRadialGradient(0,0,0,0,0,r);
+      q.addColorStop(0.00,'rgba(0,0,0,'+a0+')');
+      q.addColorStop(0.46,'rgba(0,0,0,'+a1+')');
+      q.addColorStop(0.78,'rgba(0,0,0,'+(a1*0.34)+')');
+      q.addColorStop(1.00,'rgba(0,0,0,0)');
+      mc.fillStyle=q; mc.beginPath(); mc.arc(0,0,r,0,6.2832); mc.fill();
+      mc.restore();
+    }
+    conf.mask(mc,W,H,(W/H)<1.05,pool);
+
+    oc.globalCompositeOperation='destination-out';
+    oc.drawImage(f.msk,0,0);
+    oc.globalCompositeOperation='source-over';
+    c.drawImage(f.off,0,0);
+  }
+
+  var still=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* don't burn frames on a field nobody is looking at */
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        for(var i=0;i<fields.length;i++){
+          if(fields[i].cv===e.target) fields[i].vis=e.isIntersecting;
+        }
+      });
+    },{rootMargin:'120px'});
+    fields.forEach(function(f){io.observe(f.cv);});
+  }
+
+  function frame(ms){
+    for(var i=0;i<fields.length;i++){ if(fields[i].vis) drawField(fields[i],ms); }
+    if(!still) requestAnimationFrame(frame);
+  }
+  if(still){
+    fields.forEach(function(f){drawField(f,6200);});
+    addEventListener('resize',function(){fields.forEach(function(f){drawField(f,6200);});});
+  }else{
+    requestAnimationFrame(frame);
+  }
+})();
+
+/* Nav solidifies once the hero starts leaving */
+(function(){
+  var nav=document.getElementById('nav'); if(!nav) return;
+  function onScroll(){ nav.classList.toggle('stuck', window.scrollY>40); }
+  addEventListener('scroll',onScroll,{passive:true});
+  onScroll();
+})();
+
+/* Mobile drawer — carried over from the shipping nav */
+(function(){
+  var btn=document.querySelector('.burger');
+  var drawer=document.getElementById('drawer');
+  if(!btn||!drawer) return;
+  btn.addEventListener('click',function(){
+    var open=drawer.classList.toggle('open');
+    btn.setAttribute('aria-expanded',String(open));
+  });
+  drawer.addEventListener('click',function(e){
+    if(e.target.tagName==='A'){
+      drawer.classList.remove('open');
+      btn.setAttribute('aria-expanded','false');
+    }
+  });
+})();
+
+/* The one below-the-fold moment */
+(function(){
+  var els=document.querySelectorAll('.reveal');
+  if(!els.length) return;
+  if(!('IntersectionObserver' in window)){
+    els.forEach(function(e){e.classList.add('seen');}); return;
+  }
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('seen'); io.unobserve(e.target); }
     });
-  </script>
+  },{threshold:0.2});
+  els.forEach(function(e){io.observe(e);});
+})();
 
+/* Process flow — same reveal pattern, own trigger so the path only
+   starts marching once the section is actually in view. */
+(function(){
+  var flow=document.getElementById('flow');
+  if(!flow) return;
+  if(!('IntersectionObserver' in window)){ flow.classList.add('seen'); return; }
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting){ flow.classList.add('seen'); io.unobserve(flow); }
+    });
+  },{threshold:0.35});
+  io.observe(flow);
+})();
+
+/* Contact form posts over fetch so the visitor stays on the page */
+(function(){
+  var form=document.getElementById('contact-form');
+  var status=document.getElementById('form-status');
+  if(!form||!status) return;
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    status.textContent='Sending…';
+    var data=new URLSearchParams(new FormData(form)).toString();
+    fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:data})
+      .then(function(r){
+        if(!r.ok) throw new Error('bad status');
+        form.reset();
+        status.textContent='Thanks, that came through. You will get a reply within a day.';
+      })
+      .catch(function(){
+        status.textContent='That did not send. Email juanglz197@gmail.com and it will get through.';
+      });
+  });
+})();
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://gonzalezjuanm.com/#juan",
+      "name": "Juan M. González",
+      "givenName": "Juan",
+      "familyName": "González",
+      "jobTitle": "AI Operations Consultant",
+      "url": "https://gonzalezjuanm.com/",
+      "image": "https://gonzalezjuanm.com/assets/portrait.jpeg",
+      "email": "mailto:juanglz197@gmail.com",
+      "telephone": "+1-512-808-0488",
+      "worksFor": { "@id": "https://gonzalezjuanm.com/#practice" },
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Austin",
+        "addressRegion": "TX",
+        "addressCountry": "US"
+      },
+      "knowsAbout": [
+        "Business process automation",
+        "AI operations",
+        "Workflow automation",
+        "Systems integration",
+        "Operations consulting"
+      ]
+    },
+    {
+      "@type": "ProfessionalService",
+      "@id": "https://gonzalezjuanm.com/#practice",
+      "name": "JMG Systems",
+      "legalName": "JMG Systems LLC",
+      "url": "https://gonzalezjuanm.com/",
+      "description": "AI operations consulting for operations-heavy businesses: automating manual, repeatable operations work end to end.",
+      "founder": { "@id": "https://gonzalezjuanm.com/#juan" },
+      "employee": { "@id": "https://gonzalezjuanm.com/#juan" },
+      "email": "mailto:juanglz197@gmail.com",
+      "telephone": "+1-512-808-0488",
+      "priceRange": "$$",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Austin",
+        "addressRegion": "TX",
+        "addressCountry": "US"
+      },
+      "areaServed": [
+        { "@type": "City", "name": "Austin" },
+        { "@type": "State", "name": "Texas" },
+        { "@type": "Country", "name": "United States" }
+      ],
+      "serviceType": [
+        "Business process automation",
+        "AI operations consulting",
+        "Workflow design and implementation"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://gonzalezjuanm.com/#website",
+      "url": "https://gonzalezjuanm.com/",
+      "name": "JMG Systems",
+      "publisher": { "@id": "https://gonzalezjuanm.com/#practice" },
+      "inLanguage": "en-US"
+    }
+  ]
+}
+</script>
 </body>
 </html>

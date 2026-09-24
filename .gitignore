@@ -1,1 +1,21 @@
 .DS_Store
+
+__old/
+
+# Local Netlify folder
+.netlify
+
+# Working files and internal notes. These sit in the site root but are not
+# part of the site, and Netlify would serve them at a public URL if shipped.
+case/puresteel/_opt*.html
+case/puresteel/_opt-base.css
+case/puresteel/_options.html
+index-system-b.html
+*.bak
+.impeccable/
+tool logos/
+assets/og-home.src.html
+PRODUCT.md
+DESIGN.md
+HANDOFF.md
+CASE_STUDY_BRIEF.md
