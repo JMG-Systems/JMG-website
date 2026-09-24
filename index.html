@@ -328,60 +328,44 @@ a.eyebrow:hover .ar{transform:translateX(3px);}
    timeline's own 2px rule, doubling the "new group" signal in one
    section. The 01-04 numerals already carry enough scale to separate
    the steps without a second hairline. */
-/* Steps flow — replaced the flat 4-up grid 2026-08-27 after Juan
-   picked this over two ruled alternatives in a rendered comparison.
-   Three confirmed departures from DESIGN.md, all his call, all shown
-   to him rendered before landing here:
-     · a third lifted element (Two Lifts Rule already spends its two
-       on the hero panel and the case card) — the step cards lift too
-     · a static rotation on each card (the system is otherwise
-       rotation-free)
-     · the gold step-badge carries no Hull border on paper, where the
-       Fill Rule calls for one — dropped on request
-   The connecting path is the one authored motion moment for this
-   section, drawn continuously while in view via the same
-   IntersectionObserver pattern as .reveal, and gated the same way the
-   hero canvas gates its own frame loop (nothing animates off-screen). */
-.flow{
-  position:relative;margin:clamp(70px,9vw,94px) 0 0;
-  max-width:920px;height:900px;
-}
-.flow-list{position:relative;z-index:1;list-style:none;margin:0;padding:0;}
-.flow svg{position:absolute;inset:0;width:100%;height:100%;z-index:0;overflow:visible;}
-.flow-path{
-  stroke:var(--gold);stroke-width:2.5;fill:none;stroke-linecap:round;
-  stroke-dasharray:10 9;opacity:0;transition:opacity .5s var(--ease);
-}
-.flow.seen .flow-path{opacity:.9;animation:dashmove 2.6s linear infinite;}
-@keyframes dashmove{ to{ stroke-dashoffset:-114; } }
+/* ── The run ─────────────────────────────────────────────────────────
+   One continuous curve, drawn in three colored passes so each stretch of
+   the engagement reads as its own. Every point on it is measured from the
+   container, so the numbers and the labels cannot drift off the line.
+   Steps sit where the curve puts them rather than in a grid, which is what
+   lets the run breathe. */
+.tl{position:relative;margin-top:clamp(40px,5vw,66px);
+  height:clamp(620px,54vw,760px);}
+.tl-svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;z-index:0;}
+.tl-svg path{fill:none;stroke-width:6;stroke-linecap:round;}
 
-.flow-card{position:absolute;width:min(268px,72vw);z-index:1;
-  transition:transform .3s var(--ease);}
-.flow-card:hover{transform:scale(1.045) rotate(0deg) !important;z-index:5;}
-.fc-1{top:0;      left:10%;  transform:rotate(-2.5deg);}
-.fc-2{top:150px;  right:8%;  transform:rotate(2.5deg);}
-.fc-3{top:330px;  left:12%;  transform:rotate(-2.5deg);}
-.fc-4{top:500px;  right:6%;  transform:rotate(2deg);}
-.fc-5{top:680px;  left:11%;  transform:rotate(-2deg);}
+.tl-step{position:absolute;z-index:1;width:min(272px,25vw);}
+.tl-num{
+  position:absolute;z-index:2;
+  width:42px;height:42px;border-radius:999px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--display);font-weight:700;font-size:.875rem;
+  letter-spacing:.02em;
+  transform:translate(-50%,-50%);
+}
+.tl-num-hull{background:var(--hull);color:var(--paper);}
 
-.step-badge{
+.tl-name{font-family:var(--display);font-weight:600;
+  font-size:clamp(1.1rem,1.5vw,1.35rem);letter-spacing:-.018em;line-height:1.16;}
+.tl-desc{margin-top:8px;color:var(--ink-soft);font-size:.9375rem;line-height:1.5;}
+.tl-dur{display:block;margin-top:11px;font-family:var(--display);font-weight:600;
+  font-size:.6875rem;letter-spacing:.11em;text-transform:uppercase;color:var(--muted);}
+
+.tl-cap{
+  position:absolute;z-index:2;transform:translate(0,-50%);
   display:inline-flex;align-items:center;justify-content:center;
-  min-width:46px;height:34px;padding:0 18px;border-radius:999px;margin:0 auto 14px;
-  background:var(--gold);color:var(--hull);
-  font-family:var(--display);font-weight:700;font-size:1rem;
+  height:28px;padding:0 15px;border-radius:999px;
+  font-family:var(--display);font-weight:700;font-size:.75rem;
+  letter-spacing:.09em;text-transform:uppercase;white-space:nowrap;
 }
-/* Shadow only, no border — a hairline edge plus a soft wide shadow is
-   a known generated-UI tell, so this commits to elevation alone. */
-.step-card{
-  background:var(--paper);border-radius:18px;
-  padding:22px 22px 20px;text-align:center;
-  box-shadow:0 14px 28px -16px rgba(4,18,79,.28);
-}
-.step-name{font-family:var(--display);font-weight:600;font-size:1.25rem;
-  line-height:1.2;letter-spacing:-.02em;margin:0 0 8px;}
-.step-desc{color:var(--ink-soft);font-size:1rem;line-height:1.5;margin:0;}
-.step-dur{display:block;margin-top:13px;font-family:var(--display);font-weight:600;
-  font-size:.75rem;letter-spacing:.11em;text-transform:uppercase;color:var(--muted);}
+.tl-cap-start{background:var(--hull);color:var(--paper);}
+.tl-cap-live{background:var(--gold);color:var(--hull);}
+
 
 .closer-row{
   margin-top:clamp(44px,6vw,72px);display:flex;flex-wrap:wrap;
@@ -597,17 +581,15 @@ a.eyebrow:hover .ar{transform:translateX(3px);}
 @media (min-width:900px){.scroll-tag{display:inline-flex;}}
 @media (max-width:1000px){
   .band-head,.timeline{grid-template-columns:minmax(0,1fr);align-items:start;}
-  /* The curved path only reads at width — below 1000px the flow
-     collapses to a single stacked column with a straight rule standing
-     in for the path, the same "rule turns with the stack" idea the rest
-     of the system uses when a horizontal row goes vertical. */
-  .flow{height:auto;max-width:520px;border-left:1px solid var(--line);padding-left:28px;}
-  .flow svg{display:none;}
-  .flow-card{position:relative;top:auto;left:auto;right:auto;
-    width:100%;transform:none !important;margin-bottom:36px;}
-  .flow-card:last-child{margin-bottom:0;}
-  .step-card{text-align:left;}
-  .step-badge{margin:0 0 14px;}
+  /* Stacked there is nothing to curve through, so the run becomes one
+     vertical rail and the drawing stands down. */
+  .tl-svg{display:none;}
+  .tl{height:auto;display:flex;flex-direction:column;align-items:flex-start;
+      gap:32px;border-left:3px solid var(--line-strong);
+      padding-left:30px;margin-left:21px;}
+  .tl-step{position:relative;left:auto;top:auto;width:100%;padding-left:26px;}
+  .tl-num{position:absolute;left:-49px;top:14px;width:38px;height:38px;transform:none;}
+  .tl-cap{position:static;transform:none;align-self:flex-start;}
   .about-in,.contact-in{grid-template-columns:minmax(0,1fr);}
   .portrait{max-width:420px;}
   .footer-grid{grid-template-columns:1fr 1fr;}
@@ -629,11 +611,7 @@ a.eyebrow:hover .ar{transform:translateX(3px);}
   .anim,.anim-y{opacity:1;animation:none;}
   .reveal{opacity:1;transform:none;transition:none;}
   .scroll-tag .ar{animation:none;}
-  /* Finished-state, not hidden-state: a still, solid gold line stands
-     in for the completed marquee rather than vanishing, and the cards
-     hold their rest position instead of animating in. */
-  .flow.seen .flow-path{animation:none;opacity:.9;stroke-dasharray:none;}
-  .flow-card,.fc-1,.fc-2,.fc-3,.fc-4,.fc-5{transform:none !important;}
+  .tl-svg path{stroke-dasharray:none !important;stroke-dashoffset:0 !important;}
   *,*::before,*::after{transition-duration:.01ms !important;}
 }
 </style>
@@ -728,57 +706,47 @@ a.eyebrow:hover .ar{transform:translateX(3px);}
       </div>
     </div>
 
-    <div class="flow" id="flow">
-      <svg viewBox="0 0 920 880" preserveAspectRatio="none" aria-hidden="true">
-        <path d="M 220 80 C 460 80, 520 175, 690 190
-                 C 850 202, 480 270, 260 355
-                 C 140 398, 480 445, 700 525
-                 C 800 558, 560 630, 300 705
-                 C 200 735, 420 782, 620 800"
-              class="flow-path" />
-      </svg>
-      <ol class="flow-list" aria-label="Engagement process">
-      <li class="flow-card fc-1">
-        <div class="step-card">
-          <span class="step-badge" aria-hidden="true">01</span>
-          <p class="step-name">Call</p>
-          <p class="step-desc">A short conversation about the work, at no cost.</p>
-          <span class="step-dur">~45 min</span>
-        </div>
-      </li>
-      <li class="flow-card fc-2">
-        <div class="step-card">
-          <span class="step-badge" aria-hidden="true">02</span>
-          <p class="step-name">Scope</p>
-          <p class="step-desc">A close look at how the work is done today, and an agreement on what is worth automating.</p>
-          <span class="step-dur">~1 week</span>
-        </div>
-      </li>
-      <li class="flow-card fc-3">
-        <div class="step-card">
-          <span class="step-badge" aria-hidden="true">03</span>
-          <p class="step-name">Build</p>
-          <p class="step-desc">Proven components where they fit, purpose-built ones where they do not.</p>
-          <span class="step-dur">1 to 3 weeks</span>
-        </div>
-      </li>
-      <li class="flow-card fc-4">
-        <div class="step-card">
-          <span class="step-badge" aria-hidden="true">04</span>
-          <p class="step-name">Test</p>
-          <p class="step-desc">A run on real data, with the people who will use it, against the cases that actually break things.</p>
-          <span class="step-dur">~1 week</span>
-        </div>
-      </li>
-      <li class="flow-card fc-5">
-        <div class="step-card">
-          <span class="step-badge" aria-hidden="true">05</span>
-          <p class="step-name">Ship</p>
-          <p class="step-desc">The system goes live, and stays maintained and running.</p>
-          <span class="step-dur">Ongoing</span>
-        </div>
-      </li>
-      </ol>
+    <div class="tl" id="tl">
+      <svg class="tl-svg" id="tl-svg" aria-hidden="true"></svg>
+
+      <span class="tl-cap tl-cap-start" id="cap-start">Start</span>
+
+      <div class="tl-step" data-lane="0" data-x="0.06">
+        <span class="tl-num tl-num-hull">01</span>
+        <p class="tl-name">Call</p>
+        <p class="tl-desc">A short conversation about the work, at no cost.</p>
+        <span class="tl-dur">~45 min</span>
+      </div>
+
+      <div class="tl-step" data-lane="0" data-x="0.46">
+        <span class="tl-num tl-num-hull">02</span>
+        <p class="tl-name">Scope</p>
+        <p class="tl-desc">A close look at how the work is done today, and an agreement on what is worth automating.</p>
+        <span class="tl-dur">~1 week</span>
+      </div>
+
+      <div class="tl-step" data-lane="1" data-x="0.18">
+        <span class="tl-num tl-num-hull">03</span>
+        <p class="tl-name">Build</p>
+        <p class="tl-desc">Proven components where they fit, purpose-built ones where they do not.</p>
+        <span class="tl-dur">1 to 3 weeks</span>
+      </div>
+
+      <div class="tl-step" data-lane="1" data-x="0.58">
+        <span class="tl-num tl-num-hull">04</span>
+        <p class="tl-name">Test</p>
+        <p class="tl-desc">A run on real data, with the people who will use it, against the cases that actually break things.</p>
+        <span class="tl-dur">~1 week</span>
+      </div>
+
+      <div class="tl-step" data-lane="2" data-x="0.42">
+        <span class="tl-num tl-num-hull">05</span>
+        <p class="tl-name">Ship</p>
+        <p class="tl-desc">The system goes live, and stays maintained and running.</p>
+        <span class="tl-dur">Ongoing</span>
+      </div>
+
+      <span class="tl-cap tl-cap-live" id="cap-live">Live</span>
     </div>
 
     <div class="closer-row">
@@ -824,7 +792,7 @@ a.eyebrow:hover .ar{transform:translateX(3px);}
       <dl class="spec">
         <div><dt>Sector</dt><dd>Commercial construction</dd></div>
         <div><dt>Scope</dt><dd>Onboarding &rarr; contract &rarr; filing</dd></div>
-        <div><dt>Time recovered</dt><dd class="em">~15 to 17 hrs / month</dd></div>
+        <div><dt>Time recovered</dt><dd class="em">~45 min / contract</dd></div>
       </dl>
       <span class="case-cta">
         Read the case study
@@ -840,14 +808,12 @@ a.eyebrow:hover .ar{transform:translateX(3px);}
     <div class="band-head">
       <div>
         <p class="eyebrow">The stack</p>
-        <h2 class="h2">Built on tools you already own</h2>
+        <h2 class="h2">Made to connect what you already use</h2>
       </div>
       <div class="prose">
         <p>
-          The systems are built on the workspace, document, and accounting
-          tools your business already pays for. That keeps them familiar to
-          your team, and it keeps them working whether or not JMG Systems is
-          still involved.
+          The tools are rarely the problem. The gaps between them are, and that
+          is where the work goes.
         </p>
       </div>
     </div>
@@ -1231,18 +1197,91 @@ a.eyebrow:hover .ar{transform:translateX(3px);}
   els.forEach(function(e){io.observe(e);});
 })();
 
-/* Process flow — same reveal pattern, own trigger so the path only
-   starts marching once the section is actually in view. */
 (function(){
-  var flow=document.getElementById('flow');
-  if(!flow) return;
-  if(!('IntersectionObserver' in window)){ flow.classList.add('seen'); return; }
-  var io=new IntersectionObserver(function(es){
-    es.forEach(function(e){
-      if(e.isIntersecting){ flow.classList.add('seen'); io.unobserve(flow); }
+  var tl = document.getElementById('tl');
+  var svg = document.getElementById('tl-svg');
+  var capStart = document.getElementById('cap-start');
+  var capLive = document.getElementById('cap-live');
+  if(!tl || !svg) return;
+
+  var NS = 'http://www.w3.org/2000/svg';
+  var COLORS = ['#04124F','#D3A50D','#04124F'];   /* hull, gold, hull */
+  var LANE_Y = [0.10, 0.44, 0.76];
+
+  function draw(){
+    var wide = matchMedia('(min-width:1001px)').matches;
+    svg.innerHTML = '';
+    if(!wide){
+      [].forEach.call(tl.querySelectorAll('.tl-step'), function(el){
+        el.style.left = el.style.top = '';
+      });
+      capStart.style.cssText = ''; capLive.style.cssText = '';
+      return;
+    }
+
+    var W = tl.clientWidth, H = tl.clientHeight;
+    var xL = 26, xR = W - 26;
+    var b  = Math.max(74, W * 0.085);          /* how far each turn swings out */
+    var y  = LANE_Y.map(function(f){ return Math.round(H * f); });
+
+    /* Each pass is a straight run into a lobe. The lobe's control points sit
+       level with its two ends, so the tangent is horizontal where it meets
+       the run and the join reads as one continuous curve rather than a
+       corner. */
+    function lobeRight(y1, y2){
+      return 'L ' + (xR - b) + ' ' + y1 +
+             ' C ' + (xR + b*0.62) + ' ' + y1 +
+             ' '   + (xR + b*0.62) + ' ' + y2 +
+             ' '   + (xR - b) + ' ' + y2;
+    }
+    function lobeLeft(y1, y2){
+      return 'L ' + (xL + b) + ' ' + y1 +
+             ' C ' + (xL - b*0.62) + ' ' + y1 +
+             ' '   + (xL - b*0.62) + ' ' + y2 +
+             ' '   + (xL + b) + ' ' + y2;
+    }
+
+    var segs = [
+      'M ' + xL + ' ' + y[0] + ' ' + lobeRight(y[0], y[1]),
+      'M ' + (xR - b) + ' ' + y[1] + ' ' + lobeLeft(y[1], y[2]),
+      'M ' + (xL + b) + ' ' + y[2] + ' L ' + (xR - b*1.25) + ' ' + y[2]
+    ];
+
+    segs.forEach(function(d, i){
+      var p = document.createElementNS(NS, 'path');
+      p.setAttribute('d', d);
+      p.setAttribute('stroke', COLORS[i]);
+      svg.appendChild(p);
     });
-  },{threshold:0.35});
-  io.observe(flow);
+
+    /* Steps hang from the line at the fraction each one names, so they sit
+       where the curve runs rather than on a column grid. */
+    [].forEach.call(tl.querySelectorAll('.tl-step'), function(el){
+      var lane = +el.dataset.lane;
+      var fx   = +el.dataset.x;
+      var laneL = (lane === 1) ? xL + b : xL;
+      var laneR = (lane === 1) ? xR - b : xR - b;
+      var x = laneL + (laneR - laneL) * fx;
+      el.style.left = x + 'px';
+      el.style.top  = (y[lane] + 34) + 'px';
+      var num = el.querySelector('.tl-num');
+      if(num){ num.style.left = '0px'; num.style.top = '-34px'; }
+    });
+
+    capStart.style.left = (xL - 4) + 'px';
+    capStart.style.top  = y[0] + 'px';
+    capStart.style.transform = 'translate(-100%,-50%)';
+    capStart.style.marginLeft = '-12px';
+
+    capLive.style.left = (xR - b*1.25 + 12) + 'px';
+    capLive.style.top  = y[2] + 'px';
+    capLive.style.transform = 'translate(0,-50%)';
+  }
+
+  draw();
+  addEventListener('resize', draw, {passive:true});
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(draw);
+  setTimeout(draw, 300);
 })();
 
 /* Contact form posts over fetch so the visitor stays on the page */
